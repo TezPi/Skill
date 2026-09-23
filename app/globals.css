@@ -1,0 +1,935 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Palette is locked to three colors. Every other shade is a color-mix of them.
+   Shape rule: structure is sharp (radius 0). Only "voices" are round:
+   speech bubbles, comment pins, cursor labels.
+   Z-index scale: nav 40, drawer 50, intro 60, grain 70.
+   ========================================================================== */
+
+@theme {
+  --color-*: initial;
+  --color-ink: #161616;
+  --color-paper: #dcdcdc;
+  --color-signal: #2d5fff;
+
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-on-fg: var(--on-fg);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-light: var(--signal-light);
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --paper: #dcdcdc;
+  --ink: #161616;
+  --signal: #2d5fff;
+
+  --bg: var(--paper);
+  --bg-alt: color-mix(in oklab, var(--paper) 90%, var(--ink));
+  --fg: var(--ink);
+  --muted: color-mix(in oklab, var(--ink) 76%, var(--paper));
+  --on-fg: var(--paper);
+  --signal-soft: color-mix(in oklab, var(--signal) 16%, var(--paper));
+  /* Signal lifted toward paper: only for small text on ink surfaces. */
+  --signal-light: color-mix(in oklab, var(--signal) 55%, var(--paper));
+  --dot: color-mix(in oklab, var(--ink) 26%, transparent);
+
+  --nav-h: 64px;
+  --z-nav: 40;
+  --z-drawer: 50;
+  --z-intro: 60;
+  --z-grain: 70;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--ink);
+  --bg-alt: color-mix(in oklab, var(--ink) 92%, var(--paper));
+  --fg: var(--paper);
+  --muted: color-mix(in oklab, var(--paper) 74%, var(--ink));
+  --on-fg: var(--ink);
+  --signal-soft: color-mix(in oklab, var(--signal) 28%, var(--ink));
+  --dot: color-mix(in oklab, var(--paper) 20%, transparent);
+  color-scheme: dark;
+}
+
+/* No-JS fallback: follow the OS until the theme script sets data-theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: var(--ink);
+    --bg-alt: color-mix(in oklab, var(--ink) 92%, var(--paper));
+    --fg: var(--paper);
+    --muted: color-mix(in oklab, var(--paper) 74%, var(--ink));
+    --on-fg: var(--ink);
+    --signal-soft: color-mix(in oklab, var(--signal) 28%, var(--ink));
+    --dot: color-mix(in oklab, var(--paper) 20%, transparent);
+    color-scheme: dark;
+  }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 24px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html[data-intro="play"] {
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--paper);
+  }
+
+  :focus-visible {
+    outline: 2.5px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   LAYOUT PRIMITIVES
+   ========================================================================== */
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .section {
+    padding-block: 8rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 12rem;
+    }
+  }
+
+  .display-1 {
+    font-size: clamp(3rem, 7.2vw, 6.5rem);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  .display-2 {
+    font-size: clamp(2.25rem, 4.6vw, 4.25rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .lede {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--fg);
+    color: var(--on-fg);
+    font-weight: 700;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+/* ==========================================================================
+   COMIC SYSTEM
+   Halftone = texture. Ink outline = structure. Blue offset = interaction.
+   ========================================================================== */
+
+@layer components {
+  /* Buttons: fill and shadow are pseudo layers so hover/press only moves transforms. */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 3rem;
+    padding-inline: 1.375rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--on-fg);
+    transition: transform 240ms var(--ease-snap);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn::before,
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--fg);
+    pointer-events: none;
+  }
+  .btn::before {
+    z-index: -1;
+    background: var(--fg);
+  }
+  .btn::after {
+    z-index: -2;
+    background: var(--signal);
+    transform: translate(5px, 5px);
+    transition: transform 240ms var(--ease-snap);
+  }
+  .btn:hover {
+    transform: translate(-2px, -2px);
+  }
+  .btn:hover::after {
+    transform: translate(7px, 7px);
+  }
+  .btn:active {
+    transform: translate(3px, 3px);
+    transition-duration: 80ms;
+  }
+  .btn:active::after {
+    transform: translate(2px, 2px);
+    transition-duration: 80ms;
+  }
+  .btn[disabled],
+  .btn[aria-disabled="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .btn-secondary {
+    color: var(--fg);
+  }
+  .btn-secondary::before {
+    background: var(--bg);
+  }
+  .btn-sm {
+    height: 2.5rem;
+    padding-inline: 1rem;
+    font-size: 0.875rem;
+  }
+  .btn-sm::after {
+    transform: translate(4px, 4px);
+  }
+
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--fg);
+    background: var(--bg);
+    color: var(--fg);
+    transition:
+      transform 200ms var(--ease-snap),
+      background-color 200ms var(--ease-snap);
+  }
+  .icon-btn:hover {
+    background: var(--bg-alt);
+  }
+  .icon-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* Underline that grows from the left. Used for text links and nav. */
+  .link-line {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 3px;
+    background: var(--signal);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 320ms var(--ease-snap);
+  }
+  .link-line:hover::after,
+  .link-line[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Comic panel: ink border + hard offset shadow drawn by a sibling so it can move. */
+  .panel {
+    position: relative;
+    border: 2.5px solid var(--fg);
+    background: var(--bg);
+  }
+  .lift {
+    position: relative;
+    isolation: isolate;
+  }
+  .lift-shadow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 2.5px solid var(--fg);
+    background: var(--signal);
+    transform: translate(6px, 6px);
+    transition: transform 420ms var(--ease-snap);
+  }
+  .lift-body {
+    transition: transform 420ms var(--ease-snap);
+  }
+  .lift:hover .lift-body,
+  .lift:focus-within .lift-body {
+    transform: translate(-3px, -3px);
+  }
+  .lift:hover .lift-shadow,
+  .lift:focus-within .lift-shadow {
+    transform: translate(9px, 9px);
+  }
+
+  .halftone {
+    background-image: radial-gradient(
+      circle,
+      var(--ht-color, var(--fg)) var(--ht-dot, 1.2px),
+      transparent calc(var(--ht-dot, 1.2px) + 0.6px)
+    );
+    background-size: var(--ht-size, 7px) var(--ht-size, 7px);
+  }
+  .fade-tl {
+    mask-image: linear-gradient(135deg, #000 0%, transparent 72%);
+  }
+  .fade-br {
+    mask-image: linear-gradient(315deg, #000 0%, transparent 72%);
+  }
+  .canvas-dots {
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.6px);
+    background-size: 22px 22px;
+    background-position: 11px 11px;
+  }
+  .speed-lines {
+    background: repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      color-mix(in oklab, var(--fg) 10%, transparent) 0deg 1.1deg,
+      transparent 1.1deg 6deg
+    );
+    mask-image: radial-gradient(closest-side, transparent 42%, #000 78%, transparent 100%);
+  }
+
+  /* Maps any photo to ink, signal, paper. Filter lives in the root layout. */
+  .tritone {
+    filter: url(#tritone);
+  }
+
+  /* Comic speech bubble. Voices are round. */
+  .bubble {
+    position: relative;
+    border: 2px solid var(--fg);
+    background: var(--bg);
+    color: var(--fg);
+    border-radius: 1.25rem;
+    box-shadow: 5px 5px 0 var(--signal);
+  }
+
+  /* Unfilled content from content/*.ts renders like an empty Figma property. */
+  .slot {
+    background: var(--signal-soft);
+    outline: 1.5px dashed var(--signal);
+    outline-offset: 1px;
+    color: var(--fg);
+    padding-inline: 0.25em;
+    font-style: normal;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 1.75rem;
+    padding-inline: 0.625rem;
+    border: 1.5px solid var(--fg);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+/* Paper grain: fixed and pointer-transparent so it never repaints on scroll. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] .grain {
+  mix-blend-mode: screen;
+  opacity: 0.05;
+}
+
+/* ==========================================================================
+   INTRO LOADER
+   ========================================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-intro);
+  color: var(--paper);
+  /* Failsafe: if JS never runs, get out of the way. JS cancels this. */
+  animation: intro-failsafe 0s linear 4.5s forwards;
+}
+html[data-intro="skip"] .intro,
+html:not([data-intro]) .intro {
+  display: none;
+}
+@keyframes intro-failsafe {
+  to {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+.intro-count {
+  font-size: clamp(6rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--paper);
+}
+
+/* ==========================================================================
+   FIGMA HERO
+   ========================================================================== */
+
+.stage {
+  container: stage / size;
+}
+
+.frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(88cqw, 1040px, calc((100cqh - 80px) * 2.4));
+  aspect-ratio: 2.4 / 1;
+  container: frame / size;
+  touch-action: manipulation;
+}
+@media (max-width: 767px) {
+  .frame {
+    width: min(92cqw, calc((100cqh - 80px) * 1.5));
+    aspect-ratio: 1.5 / 1;
+  }
+}
+.frame[data-custom="true"] {
+  aspect-ratio: auto;
+}
+.frame-box {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 2.5px solid var(--fg);
+  background: var(--bg);
+  box-shadow: 8px 8px 0 var(--fg);
+  overflow: hidden;
+}
+
+.frame-word {
+  position: relative;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  font-size: min(20.5cqi, 60cqb);
+  white-space: nowrap;
+  padding: 0.04em 0.12em 0.08em 0.04em;
+  text-align: center;
+  color: var(--fg);
+}
+.frame-letter {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+/* Misregistered halftone plate behind each letter: the comic print tell. */
+.frame-letter::after {
+  content: attr(data-l);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translate(0.05em, 0.055em);
+  color: transparent;
+  background-image: radial-gradient(circle, var(--signal) 40%, transparent 45%);
+  background-size: 0.075em 0.075em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+}
+/* Same plate for any display word: <p class="misprint" data-text="404">404</p> */
+.misprint {
+  position: relative;
+  isolation: isolate;
+}
+.misprint::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translate(0.04em, 0.045em);
+  color: transparent;
+  background-image: radial-gradient(circle, var(--signal) 40%, transparent 45%);
+  background-size: 0.06em 0.06em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+}
+.frame-edit {
+  outline: none;
+  caret-color: var(--signal);
+  text-decoration: underline 0.04em var(--signal);
+  text-underline-offset: 0.08em;
+}
+@container frame (aspect-ratio < 1) {
+  .frame-word {
+    white-space: normal;
+    word-break: break-all;
+    font-size: min(36cqi, 30cqb);
+    line-height: 0.86;
+  }
+}
+
+.frame-label {
+  position: absolute;
+  left: -2px;
+  bottom: calc(100% + 8px);
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--fg);
+}
+.frame-badge {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 16px);
+  translate: -50% 0;
+  padding: 0.125rem 0.4rem;
+  background: var(--signal);
+  color: var(--paper);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: 2px;
+}
+.frame-select {
+  position: absolute;
+  inset: -1px;
+  outline: 1.5px solid var(--signal);
+  pointer-events: none;
+}
+.frame[data-handles="false"] .frame-select,
+.frame[data-handles="false"] .handle {
+  display: none;
+}
+
+.handle {
+  position: absolute;
+  z-index: 2;
+  touch-action: none;
+}
+.handle-corner {
+  width: 11px;
+  height: 11px;
+  background: var(--paper);
+  border: 1.5px solid var(--signal);
+  translate: -50% -50%;
+  transition: scale 180ms var(--ease-pop);
+}
+.handle-corner::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+@media (pointer: coarse) {
+  .handle-corner {
+    width: 16px;
+    height: 16px;
+  }
+  .handle-corner::before {
+    inset: -16px;
+  }
+}
+.handle-corner:hover,
+.frame[data-resizing="true"] .handle-corner[data-active="true"] {
+  scale: 1.35;
+}
+.handle[data-dir="nw"] { left: 0; top: 0; cursor: nwse-resize; }
+.handle[data-dir="ne"] { left: 100%; top: 0; cursor: nesw-resize; }
+.handle[data-dir="se"] { left: 100%; top: 100%; cursor: nwse-resize; }
+.handle[data-dir="sw"] { left: 0; top: 100%; cursor: nesw-resize; }
+.handle-edge[data-dir="n"],
+.handle-edge[data-dir="s"] {
+  left: 12px;
+  right: 12px;
+  height: 12px;
+  cursor: ns-resize;
+}
+.handle-edge[data-dir="n"] { top: -6px; }
+.handle-edge[data-dir="s"] { bottom: -6px; }
+.handle-edge[data-dir="e"],
+.handle-edge[data-dir="w"] {
+  top: 12px;
+  bottom: 12px;
+  width: 12px;
+  cursor: ew-resize;
+}
+.handle-edge[data-dir="e"] { right: -6px; }
+.handle-edge[data-dir="w"] { left: -6px; }
+
+.stage[data-tool="pen"] { cursor: crosshair; touch-action: none; }
+.stage[data-tool="hand"] { cursor: grab; touch-action: none; }
+.stage[data-tool="hand"][data-panning="true"] { cursor: grabbing; }
+
+/* Comment pins and bubbles */
+.pin {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px 999px 999px 0;
+  border: 2px solid var(--fg);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  box-shadow: 3px 3px 0 var(--signal);
+  transition: transform 260ms var(--ease-pop);
+}
+.pin:hover,
+.pin[aria-expanded="true"] {
+  transform: scale(1.12) rotate(-6deg);
+}
+.pin-bubble {
+  position: absolute;
+  z-index: 4;
+  width: min(270px, 72vw);
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  border: 2px solid var(--fg);
+  background: var(--bg);
+  box-shadow: 5px 5px 0 var(--fg);
+}
+.tool {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  color: var(--fg);
+  transition:
+    background-color 160ms var(--ease-snap),
+    transform 160ms var(--ease-snap);
+}
+.tool:hover {
+  background: var(--bg-alt);
+}
+.tool:active {
+  transform: scale(0.92);
+}
+.tool[aria-pressed="true"] {
+  background: var(--signal);
+  color: var(--paper);
+}
+.tool-tip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  translate: -50% 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  background: var(--fg);
+  color: var(--on-fg);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms var(--ease-snap),
+    translate 160ms var(--ease-snap);
+}
+.tool-tip kbd {
+  font-family: inherit;
+  font-size: 0.6875rem;
+  padding: 0 0.3rem;
+  border: 1px solid color-mix(in oklab, var(--on-fg) 45%, transparent);
+}
+.tool:hover .tool-tip,
+.tool:focus-visible .tool-tip {
+  opacity: 1;
+  translate: -50% 0;
+  transition-delay: 250ms;
+}
+@media (hover: none) {
+  .tool-tip {
+    display: none;
+  }
+}
+
+.ruler {
+  position: absolute;
+  background-color: var(--bg);
+  color: var(--muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+.ruler-x {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 18px;
+  border-bottom: 1.5px solid var(--fg);
+  background-image: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--fg) 45%, transparent) 0 1px,
+    transparent 1px 10px
+  );
+  background-size: 100% 5px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+}
+.ruler-y {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 18px;
+  border-right: 1.5px solid var(--fg);
+  background-image: repeating-linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--fg) 45%, transparent) 0 1px,
+    transparent 1px 10px
+  );
+  background-size: 5px 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+}
+.ruler-band {
+  position: absolute;
+  background: color-mix(in oklab, var(--signal) 30%, transparent);
+  transform-origin: 0 0;
+}
+
+.snap-burst {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  background: var(--fg);
+  color: var(--on-fg);
+  font-size: 0.9375rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  clip-path: polygon(
+    50% 0%, 61% 30%, 95% 18%, 72% 45%, 100% 62%, 66% 64%,
+    75% 98%, 50% 74%, 25% 98%, 34% 64%, 0% 62%, 28% 45%, 5% 18%, 39% 30%
+  );
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Easing demo in "How I work": the dot travels the curve it describes. */
+.ease-dot {
+  offset-path: path("M0,120 C32,0 60,0 200,0");
+  offset-rotate: 0deg;
+  animation: ease-run 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes ease-run {
+  0% {
+    offset-distance: 0%;
+  }
+  60%,
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+/* ==========================================================================
+   MARQUEE
+   ========================================================================== */
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .marquee-dupe {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   PRINT (Resume)
+   ========================================================================== */
+
+@media print {
+  .no-print,
+  .grain,
+  header[data-site-nav],
+  footer[data-site-footer] {
+    display: none !important;
+  }
+  html,
+  body {
+    background: none !important;
+    color: #161616 !important;
+  }
+  .print-plain {
+    box-shadow: none !important;
+    border-color: #161616 !important;
+  }
+}
+
+/* ==========================================================================
+   FORMS
+   Label above, helper below, error below that. Errors use icon + text + a
+   heavier signal border, never color alone.
+   ========================================================================== */
+
+@layer components {
+  .field-input {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--fg);
+    background: var(--bg);
+    color: var(--fg);
+    font: inherit;
+    font-size: 1rem;
+    transition: box-shadow 200ms var(--ease-snap);
+  }
+  .field-input::placeholder {
+    color: var(--muted);
+  }
+  .field-input:focus-visible {
+    outline: none;
+    box-shadow: 4px 4px 0 var(--signal);
+  }
+  .field-input[aria-invalid="true"] {
+    border-color: var(--signal);
+    border-width: 3px;
+    border-style: dashed;
+  }
+  textarea.field-input {
+    resize: vertical;
+    min-height: 10rem;
+  }
+}
