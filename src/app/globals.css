@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Three primitives only. Every other value is a role derived from them.
+   ------------------------------------------------------------------ */
+
+@theme {
+  /* Primitives */
+  --color-ink: #161616;
+  --color-paper: #dcdcdc;
+  --color-signal: #2d5fff;
+  /* The only derivative outside the trio: text on a signal fill needs 5:1 for AA. */
+  --color-on-signal: #ffffff;
+
+  --font-sans: var(--font-be-vietnam-pro), ui-sans-serif, system-ui, sans-serif;
+
+  /* Motion grammar: expo-out for every entry, quart for state swaps. */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Radius grammar: chip 6 · control 10 · panel 14 · sheet 28 */
+  --radius-chip: 6px;
+  --radius-control: 10px;
+  --radius-panel: 14px;
+  --radius-sheet: 28px;
+
+  --breakpoint-xs: 30rem;
+}
+
+/* Semantic roles resolve per surface, so one component works on ink or paper. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-fg: var(--fg);
+  --color-fg-mid: var(--fg-mid);
+  --color-fg-lo: var(--fg-lo);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+}
+
+:root,
+.surface-ink {
+  --bg: #161616;
+  --bg-raised: color-mix(in srgb, #dcdcdc 5%, #161616);
+  --fg: #dcdcdc;
+  --fg-mid: color-mix(in srgb, #dcdcdc 74%, #161616); /* 7.0:1 */
+  --fg-lo: color-mix(in srgb, #dcdcdc 60%, #161616); /* 5.4:1 — floor for body text */
+  --line: color-mix(in srgb, #dcdcdc 13%, #161616);
+  --line-strong: color-mix(in srgb, #dcdcdc 26%, #161616);
+  color-scheme: dark;
+}
+
+.surface-paper {
+  --bg: #dcdcdc;
+  --bg-raised: color-mix(in srgb, #ffffff 34%, #dcdcdc);
+  --fg: #161616;
+  --fg-mid: color-mix(in srgb, #161616 82%, #dcdcdc); /* 7.9:1 */
+  --fg-lo: color-mix(in srgb, #161616 72%, #dcdcdc); /* 5.9:1 */
+  --line: color-mix(in srgb, #161616 14%, #dcdcdc);
+  --line-strong: color-mix(in srgb, #161616 28%, #dcdcdc);
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  .italic {
+    font-family: var(--font-be-vietnam-pro-italic), var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-on-signal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:focus-within {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Type scale — fluid, tight tracking at display sizes
+   ------------------------------------------------------------------ */
+
+@utility text-mega {
+  font-size: clamp(3.9rem, 13.2vw, 13.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.058em;
+  font-weight: 600;
+}
+
+@utility text-display {
+  font-size: clamp(2.6rem, 6.4vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+@utility text-headline {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+
+@utility text-title {
+  font-size: clamp(1.375rem, 2.1vw, 1.875rem);
+  line-height: 1.18;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+}
+
+@utility text-lead {
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  font-weight: 300;
+}
+
+@utility text-body {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+@utility text-overline {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 90rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 3.5rem;
+  }
+}
+
+@utility measure {
+  max-width: 64ch;
+}
+
+/* Static film grain. Overlay blend keeps the mean colour exactly #161616 / #DCDCDC. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Underline that draws itself — the "draw" verb for links. */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 500ms var(--ease-expo);
+}
+.link-draw:hover,
+.link-draw:focus-visible,
+.group:hover .link-draw {
+  background-size: 100% 1px;
+}
+
+@keyframes signal-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.animate-breathe {
+  animation: signal-ping 2.4s var(--ease-expo) infinite;
+}
+
+@keyframes runner-lap {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.runner-lap {
+  animation: runner-lap 5s linear infinite;
+}
+
+[data-motion="paused"] .animate-breathe,
+[data-motion="paused"] .runner-lap {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Print — the résumé page prints as ink on white.
+   ------------------------------------------------------------------ */
+
+@media print {
+  :root,
+  .surface-ink,
+  .surface-paper {
+    --bg: #ffffff;
+    --bg-raised: #ffffff;
+    --fg: #161616;
+    --fg-mid: #333333;
+    --fg-lo: #555555;
+    --line: #d0d0d0;
+    --line-strong: #999999;
+  }
+  .grain::after,
+  [data-print="hide"] {
+    display: none !important;
+  }
+  @page {
+    margin: 14mm;
+  }
+}
