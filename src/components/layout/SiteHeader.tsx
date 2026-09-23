@@ -1,0 +1,149 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { ArrowUpRightIcon, ListIcon, PlayIcon, XIcon } from "@phosphor-icons/react";
+import { nav, resumeLink } from "@/content/site";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
+import { cn } from "@/lib/cn";
+import { ButtonLink } from "@/components/ui/Button";
+import { ThemeToggle } from "./ThemeToggle";
+import { MobileMenu } from "./MobileMenu";
+
+const SPY_IDS = [...nav.map((n) => n.id), "contact"];
+
+export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  const items = nav.filter((item) => item.id !== "playground" || showPlayground);
+
+  const spied = useScrollSpy(onHome ? SPY_IDS : []);
+  const active = onHome ? spied : pathname.startsWith("/work") ? "work" : null;
+
+  // Hide on scroll down, reveal on scroll up: more room for work, nav one flick away.
+  const [hidden, setHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const next = y > (scrollY.getPrevious() ?? 0) && y > 240;
+    if (next !== hidden) setHidden(next);
+  });
+
+  return (
+    <motion.header
+      className="on-cobalt sticky top-0 z-40 bg-cobalt text-snow"
+      animate={{ y: hidden && !menuOpen ? "-100%" : "0%" }}
+      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+      onFocusCapture={() => setHidden(false)}
+    >
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-control focus:bg-sun focus:px-3 focus:py-2 focus:font-mono focus:text-sm focus:font-bold focus:text-cobalt-deep"
+      >
+        Skip to content
+      </a>
+
+      <div className="container-page flex h-16 items-center justify-between gap-6">
+        <Link
+          href="/"
+          aria-label="TezPi Studio, home"
+          className="rounded-control bg-snow px-2.5 pt-1 pb-0.5 font-display text-[1.75rem] leading-none text-cobalt transition-transform duration-200 ease-out-expo hover:-rotate-2"
+        >
+          TezPi Studio
+        </Link>
+
+        <nav aria-label="Primary" className="hidden md:block">
+          <ul className="flex items-center gap-1 lg:gap-3">
+            {items.map((item) => (
+              <li key={item.id}>
+                <NavItem href={item.href} label={item.label} active={active === item.id} onHome={onHome} />
+              </li>
+            ))}
+            <li>
+              <NavItem
+                href={resumeLink.href}
+                label="Resume"
+                external={resumeLink.external}
+                active={false}
+                onHome={onHome}
+              />
+            </li>
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <ButtonLink href="/#contact" variant="sun" className="max-[399px]:hidden">
+            Contact
+          </ButtonLink>
+          <button
+            type="button"
+            className="grid size-10 place-items-center rounded-control transition-colors hover:bg-snow/10 md:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <XIcon size={22} weight="bold" aria-hidden /> : <ListIcon size={22} weight="bold" aria-hidden />}
+          </button>
+        </div>
+      </div>
+
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} items={items} />
+    </motion.header>
+  );
+}
+
+function NavItem({
+  href,
+  label,
+  active,
+  external,
+  onHome,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  external?: boolean;
+  onHome: boolean;
+}) {
+  const className = cn(
+    "group relative flex h-10 items-center gap-2 rounded-control px-2.5 font-mono text-nav font-bold transition-colors duration-150",
+    active ? "text-snow" : "text-snow/85 hover:text-snow",
+  );
+
+  const marker = (
+    <span aria-hidden className="relative grid size-3 place-items-center">
+      <PlayIcon size={12} weight="fill" className="text-snow/30 transition-colors group-hover:text-sun/70" />
+      {active ? (
+        <motion.span
+          layoutId="nav-marker"
+          className="absolute inset-0 grid place-items-center text-sun"
+          transition={{ type: "spring", stiffness: 420, damping: 34 }}
+        >
+          <PlayIcon size={12} weight="fill" />
+        </motion.span>
+      ) : null}
+    </span>
+  );
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {marker}
+        {label}
+        <ArrowUpRightIcon size={14} weight="bold" aria-hidden />
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className} aria-current={active ? (onHome ? "location" : "page") : undefined}>
+      {marker}
+      {label}
+    </Link>
+  );
+}

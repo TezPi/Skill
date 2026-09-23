@@ -1,1 +1,53 @@
-# Skill
+# TezPi Studio Portfolio
+
+Portfolio for Hồ Phú Thịnh (UI/UX Designer), rebuilt from the Figma file
+[Portfolio-Design](https://www.figma.com/design/nXTzlY93ii7puYURR5oyEY/Portfolio-Design).
+
+Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · Motion · Phosphor Icons.
+Fonts are self-hosted with Fontsource: **Jersey 10** (display/body) and **Iosevka Charon Mono** (labels, long-form).
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build (all case studies are prerendered)
+npm run typecheck
+```
+
+## Adding your content
+
+Everything you edit lives in `src/content/`. You never need to touch components.
+
+| What | File | Notes |
+| --- | --- | --- |
+| Name, bio, contact, experience, education | `site.ts` | Empty strings hide their UI (e.g. social links) |
+| Resume | `site.ts` → `resumeUrl` | Put `resume.pdf` in `/public` and set `"/resume.pdf"`. Empty = "Resume" jumps to Experience |
+| Portrait on the ID badge | `site.ts` → `portrait` | e.g. `"/images/portrait.jpg"`. Empty = "HT" monogram |
+| 3 client + 4 personal projects | `projects.ts` | Replace the writing prompts. Keep `shortName` ≤ 8 characters (vertical rail) |
+| Case study sections | `projects.ts` | Client projects use the evidence-led template, personal projects the lighter one. Delete blocks you don't need |
+| Images | `public/images/projects/<slug>/` | Set `src` on the matching slot. Empty `src` shows a labelled placeholder frame |
+| Playground | `playground.ts` | Empty the array to hide the section and its nav item |
+| NDA work | `projects.ts` → `confidential: true` | Hero stays public, body becomes a "Request access" state |
+
+Rules the templates assume: never invent metrics (delete the card or use a
+qualitative outcome), and write display text (titles, taglines) in Latin
+characters, since Jersey 10 has no Vietnamese glyphs. Names with diacritics
+render in Iosevka Charon Mono.
+
+## Design system
+
+Tokens are in `src/app/globals.css` (`@theme`), taken from the Figma "Design System" board:
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `cobalt` | `#3457DB` | Brand surface, primary buttons |
+| `cobalt-deep` | `#192F81` | Hard shadow, footer bar, text on sun |
+| `cream` | `#FFF5E7` | Page surface (light) |
+| `sun` | `#FECD50` | Registration marks, selection frame, CTA on cobalt |
+| `amber` | `#FFB700` | Marker highlight, index chips |
+| `putty` / `putty-deep` | `#898478` / `#5E5A51` | Placeholders / tag fills and muted text |
+| `ink` | `#0B0B0C` | Text |
+
+Radius scale 2 / 4 / 8 / pill. Accessibility adjustments to the original palette:
+sun-on-putty tags (2.5:1) now use `putty-deep` (4.6:1); small text on sun uses
+`cobalt-deep` (8:1) instead of cobalt (4:1); small labels on cobalt use cream (5.5:1).
+Light and dark themes follow the OS, with a manual toggle in the header.
