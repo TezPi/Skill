@@ -21,8 +21,9 @@
   --color-putty-deep: #5e5a51; /* AA-safe putty: tag fills + muted text on cream */
   --color-ink: #0b0b0c;
   --color-snow: #fffefb;
+  --color-panel: #1f2024; /* Figma-style dark UI chrome (toolbar, tooltips) */
 
-  --font-display: "Jersey 10", "Iosevka Charon Mono", ui-monospace, monospace;
+  --font-display: var(--font-jersey), "Jersey 10", "Iosevka Charon Mono", ui-monospace, monospace;
   --font-mono: "Iosevka Charon Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* Brand scale 96 / 64 / 36 / 20 (Jersey 10) + 14 / 12 labels (mono) */
@@ -154,6 +155,21 @@
   .on-cobalt {
     --focus: #fecd50;
   }
+}
+
+/* ------------------------------------------------------------------
+   Intro (first visit). Hidden unless the boot script chose to play it,
+   so no-JS visitors, deep links and repeat visits never see it.
+   No overflow lock: scrolling is treated as "skip" instead (see IntroLoader),
+   which also avoids a scrollbar-width layout jump when the intro ends.
+   ------------------------------------------------------------------ */
+#intro-loader {
+  display: none;
+}
+
+html[data-intro="play"] #intro-loader,
+html[data-intro="reveal"] #intro-loader {
+  display: grid;
 }
 
 /* ------------------------------------------------------------------

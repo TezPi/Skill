@@ -11,6 +11,7 @@ import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { MobileMenu } from "./MobileMenu";
+import { useIntro } from "@/components/intro/IntroProvider";
 
 const SPY_IDS = [...nav.map((n) => n.id), "contact"];
 
@@ -19,6 +20,7 @@ export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
   const onHome = pathname === "/";
   const items = nav.filter((item) => item.id !== "playground" || showPlayground);
 
+  const { phase, cue } = useIntro();
   const spied = useScrollSpy(onHome ? SPY_IDS : []);
   const active = onHome ? spied : pathname.startsWith("/work") ? "work" : null;
 
@@ -34,8 +36,15 @@ export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
   return (
     <motion.header
       className="on-cobalt sticky top-0 z-40 bg-cobalt text-snow"
-      animate={{ y: hidden && !menuOpen ? "-100%" : "0%" }}
-      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+      initial={false}
+      animate={{ y: phase === "loading" || (hidden && !menuOpen) ? "-100%" : "0%" }}
+      transition={
+        phase === "loading"
+          ? { duration: 0 }
+          : phase === "revealing"
+            ? { type: "spring", stiffness: 260, damping: 30, delay: cue("tabBar") }
+            : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }
+      }
       onFocusCapture={() => setHidden(false)}
     >
       <a
@@ -115,18 +124,22 @@ function NavItem({
   );
 
   const marker = (
-    <span aria-hidden className="relative grid size-3 place-items-center">
-      <PlayIcon size={12} weight="fill" className="text-snow/30 transition-colors group-hover:text-sun/70" />
+    <>
+      <PlayIcon
+        size={12}
+        weight="fill"
+        aria-hidden
+        className={cn("transition-transform duration-200 ease-out-expo group-hover:translate-x-0.5", active ? "text-sun" : "text-sun/60")}
+      />
       {active ? (
         <motion.span
-          layoutId="nav-marker"
-          className="absolute inset-0 grid place-items-center text-sun"
+          layoutId="tab-underline"
+          aria-hidden
+          className="absolute right-2.5 bottom-1 left-[1.875rem] h-0.5 rounded-full bg-sun"
           transition={{ type: "spring", stiffness: 420, damping: 34 }}
-        >
-          <PlayIcon size={12} weight="fill" />
-        </motion.span>
+        />
       ) : null}
-    </span>
+    </>
   );
 
   if (external) {

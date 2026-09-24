@@ -16,20 +16,25 @@ const handles = ["-top-[5px] -left-[5px]", "-top-[5px] -right-[5px]", "-bottom-[
 
 /**
  * The brand's signature: a Figma selection box with sun registration handles.
- * With `draw`, the box is traced once on mount (storytelling: the designer
- * selecting their own title). Reduced motion renders it static via MotionConfig.
+ * With `draw`, the box is traced once (storytelling: the designer selecting
+ * their own title). `play` holds the trace until the caller is ready, e.g.
+ * until the intro curtain has lifted. Reduced motion renders it static via
+ * MotionConfig.
  */
 export function SelectionFrame({
   children,
   draw = false,
+  play = true,
   delay = 0,
   className,
 }: {
   children: React.ReactNode;
   draw?: boolean;
+  play?: boolean;
   delay?: number;
   className?: string;
 }) {
+  const shown = !draw || play;
   return (
     <div className={cn("relative", className)}>
       {lines.map((line, i) => (
@@ -38,7 +43,7 @@ export function SelectionFrame({
           aria-hidden
           className={cn("absolute bg-sun", line.className)}
           initial={draw ? { [line.axis]: 0 } : false}
-          animate={{ [line.axis]: 1 }}
+          animate={{ [line.axis]: shown ? 1 : 0 }}
           transition={{ duration: 0.5, delay: delay + i * 0.09, ease: EASE }}
         />
       ))}
@@ -48,7 +53,7 @@ export function SelectionFrame({
           aria-hidden
           className={cn("absolute z-[1] size-[13px] rounded-mark bg-sun", pos)}
           initial={draw ? { scale: 0 } : false}
-          animate={{ scale: 1 }}
+          animate={{ scale: shown ? 1 : 0 }}
           transition={{ type: "spring", stiffness: 520, damping: 22, delay: delay + 0.1 + i * 0.09 }}
         />
       ))}

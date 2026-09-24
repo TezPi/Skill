@@ -3,15 +3,17 @@
 import Image from "next/image";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { site } from "@/content/site";
+import { useIntro } from "@/components/intro/IntroProvider";
 
 /**
  * The ID badge from the Figma About board, promoted to the hero: a face and a
  * name answer "who is this?" before any copy is read.
- * Motion: drops in on a lanyard once, then sways toward the pointer (spring,
+ * Motion: drops in on a lanyard once (after the intro, if it plays), then sways toward the pointer (spring,
  * motion values only, no React re-renders). Static under reduced motion.
  */
 export function LanyardBadge() {
   const reduce = useReducedMotion();
+  const { ready, cue } = useIntro();
   const tilt = useMotionValue(0);
   const rotate = useSpring(tilt, { stiffness: 110, damping: 7, mass: 0.8 });
 
@@ -26,8 +28,8 @@ export function LanyardBadge() {
     <motion.div
       className="flex origin-top flex-col items-center"
       initial={reduce ? false : { y: -120, rotate: 7 }}
-      animate={{ y: 0, rotate: 0 }}
-      transition={{ type: "spring", stiffness: 70, damping: 8, delay: 0.25 }}
+      animate={ready ? { y: 0, rotate: 0 } : { y: -120, rotate: 7 }}
+      transition={{ type: "spring", stiffness: 70, damping: 8, delay: cue("hero") + 0.25 }}
     >
       <motion.div
         className="flex origin-top flex-col items-center"

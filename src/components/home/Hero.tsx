@@ -11,9 +11,9 @@ import { LanyardBadge } from "./LanyardBadge";
  */
 export function Hero() {
   return (
-    <section aria-label="Introduction" className="on-cobalt canvas-grid relative overflow-hidden bg-cobalt text-snow">
-      <div className="container-page grid gap-y-4 lg:min-h-[calc(100dvh-4rem-7.5rem)] lg:grid-cols-12 lg:gap-x-10">
-        <div className="self-center pt-12 pb-6 sm:pt-16 lg:col-span-7 lg:py-16">
+    <section id="intro" aria-label="Introduction" className="on-cobalt canvas-grid relative overflow-hidden bg-cobalt text-snow">
+      <div className="container-page grid gap-y-4 lg:min-h-[calc(100dvh-4rem-11.5rem)] lg:grid-cols-12 lg:gap-x-10">
+        <div className="self-center pt-12 pb-6 sm:pt-16 lg:col-span-7 lg:py-10">
           <HeroHeadline />
 
           <p className="mt-6 max-w-[36ch] text-[1.625rem] leading-[1.2] text-cream sm:text-[1.875rem]">

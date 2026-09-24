@@ -75,7 +75,7 @@ export function SiteFooter({ showPlayground }: { showPlayground: boolean }) {
         </Reveal>
       </div>
 
-      <div className="bg-cobalt-deep">
+      <div id="site-base" className="bg-cobalt-deep">
         <div className="container-page flex h-14 items-center justify-between gap-4 font-mono text-label font-bold tracking-[0.12em] text-cream uppercase">
           <p>© {new Date().getFullYear()} {site.handle}. Made with pixels.</p>
           <a href="#main" className="inline-flex items-center gap-1.5 hover:text-sun">

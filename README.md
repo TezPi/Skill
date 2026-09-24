@@ -33,6 +33,28 @@ qualitative outcome), and write display text (titles, taglines) in Latin
 characters, since Jersey 10 has no Vietnamese glyphs. Names with diacritics
 render in Iosevka Charon Mono.
 
+## Intro sequence and toolbar
+
+First visit to `/` plays a short loader ("Opening Portfolio.fig"), then the
+curtain lifts and the chrome enters in order: toolbar (bottom), tab bar (top),
+hero frame.
+
+- **When it plays**: once per browser session, only on `/`, not for `#hash`
+  deep links or `prefers-reduced-motion`. The decision is made before first paint
+  in `bootScript` (`src/app/layout.tsx`), so skipped visits never flash the loader.
+- **Timing**: progress fills to 90% in `MIN_FILL_S`, then waits for fonts and
+  page load, capped at `MAX_WAIT_MS` (`src/components/intro/IntroLoader.tsx`).
+  Entrance offsets live in `INTRO_CUES` (`src/components/intro/constants.ts`).
+- **Skipping**: any key, click, scroll/swipe, or the "Skip intro" button.
+- **Replay while developing**: run `sessionStorage.removeItem("tezpi-intro-seen")`
+  in the console and reload.
+
+The toolbar (`src/components/layout/CanvasToolbar.tsx`) is the Figma tool strip
+from the original hero, wired as navigation: Move → Intro, Frame → Work,
+Text → About, Pen → Playground, Comment → Contact, plus Resume. Keyboard:
+one Tab stop, arrow keys/Home/End, and the Figma letter (V, F, T, P, C, R)
+while the toolbar has focus.
+
 ## Design system
 
 Tokens are in `src/app/globals.css` (`@theme`), taken from the Figma "Design System" board:
