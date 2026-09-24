@@ -62,6 +62,7 @@ export function PlaygroundRail({ items, header }: { items: PlaygroundItem[]; hea
         ref={rail}
         tabIndex={0}
         aria-label="Playground experiments"
+        data-cursor="Scroll sideways"
         className="mt-10 flex snap-x snap-mandatory scroll-px-4 items-end gap-6 overflow-x-auto px-4 pb-6 [scrollbar-width:thin] sm:scroll-px-6 sm:px-6 lg:scroll-px-10 lg:px-10 xl:scroll-px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] xl:px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]"
       >
         {items.map((item) => (

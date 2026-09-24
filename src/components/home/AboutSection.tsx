@@ -11,7 +11,7 @@ import { Reveal } from "@/components/motion/Reveal";
  */
 export function AboutSection() {
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-16 overflow-x-clip border-t border-line py-24 lg:py-32">
+    <section id="about" data-scroll-marker="About" aria-labelledby="about-title" className="scroll-mt-16 overflow-x-clip border-t border-line py-24 lg:py-32">
       <div className="container-page">
         <Reveal>
           <Plate id="about-title" bleed="right">

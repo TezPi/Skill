@@ -24,7 +24,7 @@ export function CaseFileCard({ project, index, total }: { project: Project; inde
             Project / {String(index).padStart(2, "0")}
           </p>
           <h4 className="mt-3 font-display text-title text-fg">
-            <Link href={href} className="after:absolute after:inset-0 after:z-[3] focus-visible:outline-none">
+            <Link href={href} data-cursor="View case study" className="after:absolute after:inset-0 after:z-[3] focus-visible:outline-none">
               {project.title}
             </Link>
           </h4>

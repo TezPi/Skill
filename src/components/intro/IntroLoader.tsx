@@ -5,6 +5,7 @@ import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import { site } from "@/content/site";
 import { SelectionFrame } from "@/components/ui/SelectionFrame";
 import { MultiplayerCursor } from "@/components/ui/MultiplayerCursor";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { useIntro } from "./IntroProvider";
 import { INTRO_STORAGE_KEY } from "./constants";
 
@@ -137,9 +138,7 @@ export function IntroLoader() {
       >
         <div className="relative">
           <SelectionFrame draw play={started} delay={0.05} className="p-4 sm:p-5">
-            <span className="block rounded-control bg-snow px-[0.16em] pt-[0.1em] pb-[0.02em] font-display text-[clamp(3.25rem,11vw,6.25rem)] leading-none text-cobalt">
-              {site.brand}
-            </span>
+            <BrandMark className="text-[clamp(1.125rem,4.4vw,2.75rem)]" />
           </SelectionFrame>
           <MultiplayerCursor label={site.handle} show={started} delay={0.5} className="absolute right-0 -bottom-12 translate-x-4 sm:translate-x-8" />
         </div>

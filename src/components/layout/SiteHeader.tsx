@@ -5,10 +5,11 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { ArrowUpRightIcon, ListIcon, PlayIcon, XIcon } from "@phosphor-icons/react";
-import { nav, resumeLink } from "@/content/site";
+import { nav, resumeLink, site } from "@/content/site";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { ThemeToggle } from "./ThemeToggle";
 import { MobileMenu } from "./MobileMenu";
 import { useIntro } from "@/components/intro/IntroProvider";
@@ -57,10 +58,10 @@ export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <Link
           href="/"
-          aria-label="TezPi Studio, home"
-          className="rounded-control bg-snow px-2.5 pt-1 pb-0.5 font-display text-[1.75rem] leading-none text-cobalt transition-transform duration-200 ease-out-expo hover:-rotate-2"
+          aria-label={`${site.brand}, home`}
+          className="shrink-0 rounded-control transition-transform duration-200 ease-out-expo hover:-rotate-2"
         >
-          TezPi Studio
+          <BrandMark className="text-[0.9375rem] lg:text-base" />
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
@@ -84,7 +85,7 @@ export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <ButtonLink href="/#contact" variant="sun" className="max-[399px]:hidden">
+          <ButtonLink href="/#contact" variant="sun" className="max-[439px]:hidden">
             Contact
           </ButtonLink>
           <button

@@ -55,6 +55,20 @@ Text → About, Pen → Playground, Comment → Contact, plus Resume. Keyboard:
 one Tab stop, arrow keys/Home/End, and the Figma letter (V, F, T, P, C, R)
 while the toolbar has focus.
 
+## Cursor and scrollbar (mouse devices)
+
+- **Multiplayer cursor** (`src/components/cursor/CanvasCursor.tsx`): the visitor's
+  pointer is a Figma cursor tagged "You", next to the designer's "HoPhuThinh"
+  cursor in the hero. The arrow tracks the pointer exactly; the tag trails and
+  changes on context. Give any element `data-cursor="Label"` to set its tag
+  text (project cards, email, ID card already have one). Touch devices keep
+  native behavior.
+- **Brand scrollbar** (`src/components/layout/CanvasScrollbar.tsx`): replaces the
+  OS scrollbar, tied to scroll progress. Drag the thumb, click the track, or
+  click a section marker. Markers come from `data-scroll-marker="Label"` on
+  sections. Touch devices and inner scrollers keep native scrollbars in brand
+  colors.
+
 ## Design system
 
 Tokens are in `src/app/globals.css` (`@theme`), taken from the Figma "Design System" board:

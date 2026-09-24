@@ -12,7 +12,7 @@ export function SiteFooter({ showPlayground }: { showPlayground: boolean }) {
   ];
 
   return (
-    <footer id="contact" className="on-cobalt scroll-mt-16 bg-cobalt text-snow">
+    <footer id="contact" data-scroll-marker="Contact" className="on-cobalt scroll-mt-16 bg-cobalt text-snow">
       <div className="container-page grid gap-14 py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
         <Reveal className="lg:col-span-7">
           <h2 className="font-display text-display text-snow">
@@ -26,6 +26,7 @@ export function SiteFooter({ showPlayground }: { showPlayground: boolean }) {
           <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4">
             <a
               href={`mailto:${site.email}`}
+              data-cursor="Say hi"
               className="font-display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-none text-sun underline decoration-sun decoration-2 underline-offset-[0.25em] transition-colors hover:text-snow hover:decoration-snow"
             >
               {site.email}

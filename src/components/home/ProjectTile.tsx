@@ -43,7 +43,7 @@ export function ProjectTile({
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
           <h4 className="font-display text-heading text-fg">
-            <Link href={`/work/${project.slug}`} className="after:absolute after:inset-0 after:z-[3] focus-visible:outline-none">
+            <Link href={`/work/${project.slug}`} data-cursor="Open project" className="after:absolute after:inset-0 after:z-[3] focus-visible:outline-none">
               {project.title}
             </Link>
           </h4>

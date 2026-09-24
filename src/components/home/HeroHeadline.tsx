@@ -9,8 +9,9 @@ import { useIntro } from "@/components/intro/IntroProvider";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Keeps the original PORT|FOLIO treatment (white word + boxed cobalt word inside a
- * sun selection frame) but spends it on the role, so the 5-second test is passed.
+ * The original PORT|FOLIO treatment: white word + boxed cobalt word inside a sun
+ * selection frame. The role is carried by the header lockup ("Thịnh - UIUX
+ * Designer") and, for screen readers, by the hidden prefix in the h1.
  * Load order: title fades up -> frame traces around it -> the designer's cursor
  * arrives at the corner handle. Waits for the intro curtain when it plays.
  */
@@ -25,12 +26,14 @@ export function HeroHeadline() {
           initial={{ opacity: 0, y: 14 }}
           animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
           transition={{ duration: 0.55, ease: EASE, delay: base }}
-          className="font-mono text-hero font-bold tracking-[0.06em] text-snow uppercase"
+          className="font-mono text-hero font-bold tracking-[0.06em] whitespace-nowrap text-snow uppercase lg:text-[clamp(4.5rem,8.2vw,8rem)]"
         >
-          <span className="sr-only">{site.name}, </span>
-          <span className="block pl-[0.04em]">UI/UX</span>
-          <span className="mt-[0.08em] inline-block rounded-card bg-snow px-[0.1em] pt-[0.06em] pb-[0.02em] text-cobalt [text-shadow:-0.07em_0.03em_0.03em_rgb(11_11_12/0.22)]">
-            Designer
+          <span className="sr-only">
+            {site.name}, {site.role}.{" "}
+          </span>
+          <span className="pl-[0.04em]">Port</span>
+          <span className="ml-[0.04em] inline-block rounded-card bg-snow px-[0.1em] pt-[0.06em] pb-[0.02em] text-cobalt [text-shadow:-0.07em_0.03em_0.03em_rgb(11_11_12/0.22)]">
+            folio
           </span>
         </motion.h1>
       </SelectionFrame>

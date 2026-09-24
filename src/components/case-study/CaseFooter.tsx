@@ -33,6 +33,7 @@ export function NextProject({ prev, next }: { prev?: Project; next: Project }) {
     <nav aria-label="More projects" className="border-t border-line">
       <Link
         href={`/work/${next.slug}`}
+        data-cursor="Next project"
         className="group container-page flex flex-col gap-6 py-16 focus-visible:outline-offset-[-3px] sm:flex-row sm:items-end sm:justify-between lg:py-24"
       >
         <span>

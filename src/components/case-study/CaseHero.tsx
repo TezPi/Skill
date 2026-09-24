@@ -17,7 +17,7 @@ export function CaseHero({ project }: { project: Project }) {
   const meta = [{ label: "Role", value: project.role }, { label: "Year", value: project.year }, ...project.meta];
 
   return (
-    <section aria-labelledby="case-title" className="grid border-b border-line lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-12">
+    <section id="case-top" data-scroll-marker="Cover" aria-labelledby="case-title" className="grid border-b border-line lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-12">
       <ProjectRail index={index} total={total} kicker={kicker} name={project.shortName} className="lg:col-span-3 xl:col-span-2" />
 
       <div className="relative grid gap-12 px-4 py-12 sm:px-8 lg:col-span-9 lg:grid-cols-9 lg:gap-8 lg:px-12 lg:py-16 xl:col-span-10 xl:grid-cols-10">

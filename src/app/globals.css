@@ -27,8 +27,9 @@
   --font-mono: "Iosevka Charon Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* Brand scale 96 / 64 / 36 / 20 (Jersey 10) + 14 / 12 labels (mono) */
-  --text-hero: clamp(3.25rem, min(17vw, 10vw + 2.5rem), 9.25rem);
-  --text-hero--line-height: 0.82;
+  /* One-line PORTFOLIO: 9 mono glyphs must fit the column at every width */
+  --text-hero: clamp(2.5rem, 11.2vw, 7.5rem);
+  --text-hero--line-height: 0.9;
   --text-display: clamp(3.5rem, 7vw, 6rem);
   --text-display--line-height: 0.88;
   --text-title: clamp(2.5rem, 4.6vw, 4rem);
@@ -82,6 +83,7 @@
   --select: #3457db;
   --placeholder: rgb(137 132 120 / 0.2);
   --focus: #3457db;
+  --scroll-thumb: #3457db;
   color-scheme: light;
 }
 
@@ -95,6 +97,7 @@
   --select: #8fa6f2;
   --placeholder: rgb(137 132 120 / 0.22);
   --focus: #8fa6f2;
+  --scroll-thumb: #8fa6f2;
   color-scheme: dark;
 }
 
@@ -109,6 +112,7 @@
     --accent-fg: #8fa6f2;
     --select: #8fa6f2;
     --focus: #8fa6f2;
+    --scroll-thumb: #8fa6f2;
     color-scheme: dark;
   }
 }
@@ -143,6 +147,26 @@
   ::selection {
     background-color: var(--color-sun);
     color: var(--color-ink);
+  }
+
+  /* Native scrollbars (touch devices, inner scrollers) in brand colors */
+  html {
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+
+  /* Mouse devices: the brand scrollbar (CanvasScrollbar) replaces the OS one */
+  html[data-scrollbar="canvas"] {
+    scrollbar-width: none;
+  }
+
+  html[data-scrollbar="canvas"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Multiplayer cursor active: hide the OS pointer everywhere */
+  html[data-pointer="canvas"],
+  html[data-pointer="canvas"] * {
+    cursor: none !important;
   }
 
   :focus-visible {
@@ -206,11 +230,58 @@ html[data-intro="reveal"] #intro-loader {
   background-position: -11px -11px;
 }
 
-/* Woven lanyard strap texture */
-@utility strap {
+/* ---- ID badge materials ------------------------------------------ */
+
+/* Printed woven strap: sun fabric, fine weave, stitched edges */
+@utility strap-band {
   background:
-    repeating-linear-gradient(0deg, rgb(11 11 12 / 0.05) 0 2px, transparent 2px 5px),
-    linear-gradient(90deg, #e9e4da, #fffefb 30%, #fffefb 70%, #e1dbcf);
+    repeating-linear-gradient(0deg, rgb(25 47 129 / 0.07) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, #f0bd3c, #fecd50 22%, #ffd978 50%, #fecd50 78%, #f0bd3c);
+  box-shadow:
+    inset 1.5px 0 0 rgb(25 47 129 / 0.28),
+    inset -1.5px 0 0 rgb(25 47 129 / 0.28),
+    0 2px 6px rgb(11 11 12 / 0.25);
+}
+
+/* Brushed chrome for the crimp */
+@utility metal {
+  background: linear-gradient(180deg, #f7f8fa 0%, #c3c8d0 40%, #8b919c 62%, #dfe2e7 100%);
+}
+
+/* Split ring: conic chrome drawn as a gradient border */
+@utility ring-metal {
+  border: 4px solid transparent;
+  background:
+    linear-gradient(transparent, transparent) padding-box,
+    conic-gradient(from 210deg, #f6f7f9, #8a909b, #e7e9ed, #7b818c, #f6f7f9) border-box;
+  box-shadow: 0 1px 2px rgb(11 11 12 / 0.35);
+}
+
+/* Portrait placeholder: print halftone on the sun backdrop */
+@utility halftone {
+  background:
+    radial-gradient(rgb(25 47 129 / 0.16) 1px, transparent 1.6px) 0 0 / 7px 7px,
+    linear-gradient(160deg, #ffd978, #fecd50 45%, #f3b93a);
+}
+
+@utility barcode {
+  background: repeating-linear-gradient(
+    90deg,
+    #0b0b0c 0 2px,
+    transparent 2px 3px,
+    #0b0b0c 3px 4px,
+    transparent 4px 7px,
+    #0b0b0c 7px 10px,
+    transparent 10px 11px,
+    #0b0b0c 11px 12px,
+    transparent 12px 15px
+  );
+}
+
+/* Holographic seal in brand hues; position is driven by the swing */
+@utility holo {
+  background: conic-gradient(from 0deg, #fecd50, #fff5e7, #8fa6f2, #3457db, #ffb700, #fecd50);
+  background-size: 220% 220%;
 }
 
 @utility skeleton {

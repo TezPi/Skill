@@ -15,6 +15,7 @@ export function CopyEmail({ email }: { email: string }) {
     <button
       type="button"
       onClick={() => copy(email)}
+      data-cursor={state === "copied" ? "Copied" : "Copy"}
       className="inline-flex h-10 items-center gap-2 rounded-control px-3 font-mono text-nav font-bold text-snow ring-1 ring-inset ring-snow/40 transition-colors duration-150 hover:bg-snow/10 hover:ring-snow/70 active:bg-snow/15"
     >
       <AnimatePresence mode="popLayout" initial={false}>

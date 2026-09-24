@@ -5,7 +5,10 @@ import type { ExternalLink, MetaItem, TimelineItem } from "./types";
  * Empty strings are treated as "not set" and hide their UI.
  */
 export const site = {
-  brand: "TezPi Studio",
+  /** Brand lockup (header logo, loader, metadata). Rendered in Iosevka: Jersey 10 has no "ị" */
+  brand: "Thịnh - UIUX Designer",
+  brandName: "Thịnh",
+  brandRole: "UIUX Designer",
   /** Full name with diacritics: rendered in Iosevka Charon Mono (Jersey 10 has no Vietnamese glyphs) */
   name: "Hồ Phú Thịnh",
   /** Latin form for Jersey 10 display type */
@@ -22,7 +25,7 @@ export const site = {
 
   /** e.g. "/resume.pdf" (put the file in /public). Empty = Resume links jump to Experience. */
   resumeUrl: "",
-  /** Portrait for the lanyard badge, e.g. "/images/portrait.jpg". Empty = monogram fallback. */
+  /** Portrait for the ID card, e.g. "/images/portrait.jpg" (4:5 crop works best). Empty = monogram fallback. */
   portrait: "",
 
   disciplines: ["UIUX Design", "Graphic Design", "Motion Art"],

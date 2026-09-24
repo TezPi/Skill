@@ -8,7 +8,7 @@ export function PlaygroundSection() {
   if (playground.length === 0) return null;
 
   return (
-    <section id="playground" aria-labelledby="playground-title" className="scroll-mt-16 border-t border-line py-24 lg:py-32">
+    <section id="playground" data-scroll-marker="Playground" aria-labelledby="playground-title" className="scroll-mt-16 border-t border-line py-24 lg:py-32">
       <Reveal>
         <PlaygroundRail
           items={playground}

@@ -21,7 +21,7 @@ const tileLayout = [
 
 export function WorkSection() {
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-16 overflow-x-clip py-24 lg:py-32">
+    <section id="work" data-scroll-marker="Work" aria-labelledby="work-title" className="scroll-mt-16 overflow-x-clip py-24 lg:py-32">
       <div className="container-page">
         <Reveal>
           <Plate id="work-title" bleed="left">

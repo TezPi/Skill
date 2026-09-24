@@ -63,6 +63,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
               <section
                 key={section.id}
                 id={section.id}
+                data-scroll-marker={section.nav}
                 aria-labelledby={`${section.id}-title`}
                 className={i === 0 ? "scroll-mt-24" : "scroll-mt-24 border-t border-line pt-14 mt-14 lg:pt-20 lg:mt-20"}
               >
