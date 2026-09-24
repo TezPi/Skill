@@ -55,26 +55,31 @@ Text → About, Pen → Playground, Comment → Contact, plus Resume. Keyboard:
 one Tab stop, arrow keys/Home/End, and the Figma letter (V, F, T, P, C, R)
 while the toolbar has focus.
 
-## Character (master asset)
+## Avatar card
 
-The hero character is the master model from `design/character/`, rigged and animated
-in `src/components/character/`.
+The hero avatar is your image, traced 1:1 and animated in `src/components/avatar/`.
 
-- **Traced, not redrawn**: head, hair, face, glasses, neck, shirt top, sleeves, straps
-  and backpack are vector paths traced from `master-model.webp` into `master-paths.ts`
-  (`npm run trace:character`; never hand-edit that file). Eyes are the master's exact
-  ellipses, separated so they can blink and follow the pointer.
-- **Drawn to match** (the master bust ends at the sleeves): forearms and hands, lower
-  shirt, baggy pants, sneakers. Same palette (`#1959BB`, `#0F0F11`, white) and line
-  weight. Locked parameters live in `character.config.ts`.
-- **Rig**: root, legs (hip, knee, shoe), upper body (waist), head (neck), forearms
-  (elbow). Animations only move these joints and swap expression/hand states.
-- **Actions** (`actions.ts`): idle (breathing, blink, sway), wave, point, talk, jump,
-  walk, run, sit, sleep/wake, greet. The toolbar under the artboard triggers them.
-- **On the page**: greets after the intro, eyes and head follow the pointer, waves on
-  hover, jumps on click, dozes off after 24s without activity. Any element with
-  `data-character-cue="Text"` makes him point at it and say the text (the hero CTAs use it).
-- Reduced motion: loops off, poses change instantly.
+- **Swap the image**: replace `design/avatar/avatar.webp` (1254 x 1254, same bust
+  pose) and run `npm run trace:avatar`. That regenerates `avatar-paths.ts` (head,
+  body, blue reaction dashes, eye positions); never hand-edit it. Locked
+  parameters and the crop live in `avatar.config.ts`.
+- **Card** (`AvatarCard.tsx`): pixel-cut player card (`pixel-corners` utility),
+  sun portrait with a halftone backdrop, name plate and a "Say hi" button.
+- **Tracks the pointer**: eyes, head tilt and a slight body lean follow the pointer
+  anywhere on the page; with no pointer (touch, idle) he glances around. Idle
+  layers: breathing, blinking (open, half, closed, half, open).
+- **Click (portrait or Say hi)**: greeting, then a question with answers
+  (`script.ts`). "Hiring" jumps to Contact; "Browsing" makes him look at the
+  View work button and highlight it (`data-avatar-target="work"`).
+- **Contact**: hovering or focusing anything with `data-contact-cue` (header
+  Contact button, toolbar Contact tool) makes him smile and say "I'm waiting for
+  your information." The Contact section has its own copy of him
+  (`ContactPeek.tsx`) peeking over the base bar: hover or focus inside the
+  section for the same line (touch screens get it once on arrival); click him
+  for the greeting.
+- Keyboard: Say hi opens the conversation and focuses the first answer; Esc
+  closes it. Lines are announced once to screen readers. Reduced motion: text
+  appears instantly, no idle loops, only the eyes follow the pointer.
 
 ## Cursor and scrollbar (mouse devices)
 
@@ -82,7 +87,7 @@ in `src/components/character/`.
   pointer is a Figma cursor tagged "You", next to the designer's "HoPhuThinh"
   cursor in the hero. The arrow tracks the pointer exactly; the tag trails and
   changes on context. Give any element `data-cursor="Label"` to set its tag
-  text (project cards, email, ID card already have one). Touch devices keep
+  text (project cards, email and the avatar already have one). Touch devices keep
   native behavior.
 - **Brand scrollbar** (`src/components/layout/CanvasScrollbar.tsx`): replaces the
   OS scrollbar, tied to scroll progress. Drag the thumb, click the track, or

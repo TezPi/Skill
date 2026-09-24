@@ -230,6 +230,59 @@ html[data-intro="reveal"] #intro-loader {
   background-position: -11px -11px;
 }
 
+/*
+ * Pixel-stepped corners ("made with pixels"): two-step notch per corner, sized by
+ * --pixel. Used by the avatar card and its dialogue box only; stack two layers
+ * (ink under surface, inset by the border width) to get a pixel outline.
+ */
+@utility pixel-corners {
+  --p: var(--pixel, 4px);
+  --p2: calc(var(--p) * 2);
+  clip-path: polygon(
+    0 var(--p2), var(--p) var(--p2), var(--p) var(--p), var(--p2) var(--p), var(--p2) 0,
+    calc(100% - var(--p2)) 0, calc(100% - var(--p2)) var(--p), calc(100% - var(--p)) var(--p), calc(100% - var(--p)) var(--p2), 100% var(--p2),
+    100% calc(100% - var(--p2)), calc(100% - var(--p)) calc(100% - var(--p2)), calc(100% - var(--p)) calc(100% - var(--p)), calc(100% - var(--p2)) calc(100% - var(--p)), calc(100% - var(--p2)) 100%,
+    var(--p2) 100%, var(--p2) calc(100% - var(--p)), var(--p) calc(100% - var(--p)), var(--p) calc(100% - var(--p2)), 0 calc(100% - var(--p2))
+  );
+}
+
+/* Comic-print halftone for the avatar portrait: amber dots fading in from two corners */
+@utility halftone {
+  background-image: radial-gradient(circle, var(--color-amber) 1.8px, transparent 2.3px);
+  background-size: 10px 10px;
+  mask-image: radial-gradient(circle at 100% 0%, #000 10%, transparent 70%), radial-gradient(circle at 0% 100%, #000 5%, transparent 60%);
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The avatar points the visitor at something: two expanding rings around it */
+@keyframes attention {
+  from {
+    outline-offset: 2px;
+    outline-color: rgb(255 254 251 / 0.95);
+  }
+  to {
+    outline-offset: 14px;
+    outline-color: rgb(255 254 251 / 0);
+  }
+}
+
+[data-attention="on"] {
+  outline: 3px solid transparent;
+  animation: attention 1s var(--ease-out-expo) 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-attention="on"] {
+    outline-color: var(--color-snow);
+    outline-offset: 4px;
+  }
+}
+
 @utility skeleton {
   background: linear-gradient(100deg, transparent 20%, rgb(255 254 251 / 0.35) 50%, transparent 80%) var(--placeholder);
   background-size: 200% 100%;

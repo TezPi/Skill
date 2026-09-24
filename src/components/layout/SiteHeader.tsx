@@ -85,7 +85,7 @@ export function SiteHeader({ showPlayground }: { showPlayground: boolean }) {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <ButtonLink href="/#contact" variant="sun" className="max-[439px]:hidden">
+          <ButtonLink href="/#contact" variant="sun" data-contact-cue className="max-[439px]:hidden">
             Contact
           </ButtonLink>
           <button

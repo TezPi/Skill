@@ -197,7 +197,16 @@ function ToolLink({
     );
   }
   return (
-    <Link ref={ref} href={tool.href} aria-label={tool.label} aria-current={active ? "location" : undefined} tabIndex={tabIndex} onFocus={onFocus} className={className}>
+    <Link
+      ref={ref}
+      href={tool.href}
+      aria-label={tool.label}
+      aria-current={active ? "location" : undefined}
+      tabIndex={tabIndex}
+      onFocus={onFocus}
+      data-contact-cue={tool.id === "contact" ? "" : undefined}
+      className={className}
+    >
       {inner}
     </Link>
   );

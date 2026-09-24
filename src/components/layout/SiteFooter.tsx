@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpIcon, ArrowUpRightIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react/dist/ssr";
 import { nav, resumeLink, site } from "@/content/site";
 import { Reveal } from "@/components/motion/Reveal";
+import { ContactPeek } from "@/components/avatar/ContactPeek";
 import { CopyEmail } from "./CopyEmail";
 
 export function SiteFooter({ showPlayground }: { showPlayground: boolean }) {
@@ -48,31 +49,35 @@ export function SiteFooter({ showPlayground }: { showPlayground: boolean }) {
           </ul>
         </Reveal>
 
-        <Reveal delay={0.1} className="grid grid-cols-2 gap-10 lg:col-span-4 lg:col-start-9 lg:border-l lg:border-snow/20 lg:pl-10">
-          <FooterList title="Sitemap">
-            {sitemap.map((item) =>
-              item.external ? (
-                <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-sun">
-                  {item.label}
-                  <ArrowUpRightIcon size={14} weight="bold" aria-hidden />
-                </a>
-              ) : (
-                <Link key={item.id} href={item.href} className="hover:text-sun">
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </FooterList>
-          {socials.length > 0 ? (
-            <FooterList title="Social">
-              {socials.map((s) => (
-                <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-sun">
-                  {s.label}
-                  <ArrowUpRightIcon size={14} weight="bold" aria-hidden />
-                </a>
-              ))}
+        <Reveal delay={0.1} className="flex flex-col gap-12 lg:col-span-4 lg:col-start-9 lg:border-l lg:border-snow/20 lg:pl-10">
+          <div className="grid grid-cols-2 gap-10">
+            <FooterList title="Sitemap">
+              {sitemap.map((item) =>
+                item.external ? (
+                  <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-sun">
+                    {item.label}
+                    <ArrowUpRightIcon size={14} weight="bold" aria-hidden />
+                  </a>
+                ) : (
+                  <Link key={item.id} href={item.href} className="hover:text-sun">
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </FooterList>
-          ) : null}
+            {socials.length > 0 ? (
+              <FooterList title="Social">
+                {socials.map((s) => (
+                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-sun">
+                    {s.label}
+                    <ArrowUpRightIcon size={14} weight="bold" aria-hidden />
+                  </a>
+                ))}
+              </FooterList>
+            ) : null}
+          </div>
+          {/* The avatar waits here, peeking over the base bar (negative margin = section padding) */}
+          <ContactPeek className="mt-auto -mb-20 lg:-mb-28" />
         </Reveal>
       </div>
 
