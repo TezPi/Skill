@@ -230,60 +230,6 @@ html[data-intro="reveal"] #intro-loader {
   background-position: -11px -11px;
 }
 
-/* ---- ID badge materials ------------------------------------------ */
-
-/* Printed woven strap: sun fabric, fine weave, stitched edges */
-@utility strap-band {
-  background:
-    repeating-linear-gradient(0deg, rgb(25 47 129 / 0.07) 0 1px, transparent 1px 3px),
-    linear-gradient(90deg, #f0bd3c, #fecd50 22%, #ffd978 50%, #fecd50 78%, #f0bd3c);
-  box-shadow:
-    inset 1.5px 0 0 rgb(25 47 129 / 0.28),
-    inset -1.5px 0 0 rgb(25 47 129 / 0.28),
-    0 2px 6px rgb(11 11 12 / 0.25);
-}
-
-/* Brushed chrome for the crimp */
-@utility metal {
-  background: linear-gradient(180deg, #f7f8fa 0%, #c3c8d0 40%, #8b919c 62%, #dfe2e7 100%);
-}
-
-/* Split ring: conic chrome drawn as a gradient border */
-@utility ring-metal {
-  border: 4px solid transparent;
-  background:
-    linear-gradient(transparent, transparent) padding-box,
-    conic-gradient(from 210deg, #f6f7f9, #8a909b, #e7e9ed, #7b818c, #f6f7f9) border-box;
-  box-shadow: 0 1px 2px rgb(11 11 12 / 0.35);
-}
-
-/* Portrait placeholder: print halftone on the sun backdrop */
-@utility halftone {
-  background:
-    radial-gradient(rgb(25 47 129 / 0.16) 1px, transparent 1.6px) 0 0 / 7px 7px,
-    linear-gradient(160deg, #ffd978, #fecd50 45%, #f3b93a);
-}
-
-@utility barcode {
-  background: repeating-linear-gradient(
-    90deg,
-    #0b0b0c 0 2px,
-    transparent 2px 3px,
-    #0b0b0c 3px 4px,
-    transparent 4px 7px,
-    #0b0b0c 7px 10px,
-    transparent 10px 11px,
-    #0b0b0c 11px 12px,
-    transparent 12px 15px
-  );
-}
-
-/* Holographic seal in brand hues; position is driven by the swing */
-@utility holo {
-  background: conic-gradient(from 0deg, #fecd50, #fff5e7, #8fa6f2, #3457db, #ffb700, #fecd50);
-  background-size: 220% 220%;
-}
-
 @utility skeleton {
   background: linear-gradient(100deg, transparent 20%, rgb(255 254 251 / 0.35) 50%, transparent 80%) var(--placeholder);
   background-size: 200% 100%;

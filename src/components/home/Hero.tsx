@@ -2,12 +2,12 @@ import { ArrowRightIcon, ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr
 import { resumeLink, site } from "@/content/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { HeroHeadline } from "./HeroHeadline";
-import { LanyardBadge } from "./LanyardBadge";
+import { CharacterStage } from "@/components/character/CharacterStage";
 
 /**
- * Intro section. Hero stack (4 elements max): role headline, one-line intro
- * with the full name, primary + secondary CTA. Identity is carried visually by
- * the ID badge; fast-scan facts live in the strip right below.
+ * Intro section. Hero stack (4 elements max): headline, one-line intro with the
+ * full name, primary + secondary CTA. Identity is carried by the animated
+ * master character; fast-scan facts live in the strip right below.
  */
 export function Hero() {
   return (
@@ -21,11 +21,12 @@ export function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <ButtonLink href="/#work" variant="sun" size="lg" icon={<ArrowRightIcon size={20} weight="bold" />}>
+            <ButtonLink href="/#work" variant="sun" size="lg" data-character-cue="My work is right here!" icon={<ArrowRightIcon size={20} weight="bold" />}>
               View work
             </ButtonLink>
             <ButtonLink
               href={resumeLink.href}
+              data-character-cue="My resume, have a look!"
               external={resumeLink.external}
               variant="ghost"
               size="lg"
@@ -36,8 +37,8 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="flex justify-center pt-12 pb-14 lg:col-span-5 lg:justify-end lg:self-start lg:pt-0 lg:pr-8 lg:pb-0">
-          <LanyardBadge />
+        <div className="flex justify-center pt-4 pb-14 lg:col-span-5 lg:justify-end lg:self-center lg:py-8 lg:pr-4 [@media(max-height:820px)_and_(min-height:741px)]:lg:[zoom:0.86] [@media(max-height:740px)]:lg:[zoom:0.76]">
+          <CharacterStage />
         </div>
       </div>
     </section>

@@ -55,6 +55,27 @@ Text → About, Pen → Playground, Comment → Contact, plus Resume. Keyboard:
 one Tab stop, arrow keys/Home/End, and the Figma letter (V, F, T, P, C, R)
 while the toolbar has focus.
 
+## Character (master asset)
+
+The hero character is the master model from `design/character/`, rigged and animated
+in `src/components/character/`.
+
+- **Traced, not redrawn**: head, hair, face, glasses, neck, shirt top, sleeves, straps
+  and backpack are vector paths traced from `master-model.webp` into `master-paths.ts`
+  (`npm run trace:character`; never hand-edit that file). Eyes are the master's exact
+  ellipses, separated so they can blink and follow the pointer.
+- **Drawn to match** (the master bust ends at the sleeves): forearms and hands, lower
+  shirt, baggy pants, sneakers. Same palette (`#1959BB`, `#0F0F11`, white) and line
+  weight. Locked parameters live in `character.config.ts`.
+- **Rig**: root, legs (hip, knee, shoe), upper body (waist), head (neck), forearms
+  (elbow). Animations only move these joints and swap expression/hand states.
+- **Actions** (`actions.ts`): idle (breathing, blink, sway), wave, point, talk, jump,
+  walk, run, sit, sleep/wake, greet. The toolbar under the artboard triggers them.
+- **On the page**: greets after the intro, eyes and head follow the pointer, waves on
+  hover, jumps on click, dozes off after 24s without activity. Any element with
+  `data-character-cue="Text"` makes him point at it and say the text (the hero CTAs use it).
+- Reduced motion: loops off, poses change instantly.
+
 ## Cursor and scrollbar (mouse devices)
 
 - **Multiplayer cursor** (`src/components/cursor/CanvasCursor.tsx`): the visitor's
