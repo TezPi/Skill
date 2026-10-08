@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        [data-composition-id="hook"] .center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        [data-composition-id="hook"] .w { display: inline-block; opacity: 0; }
+        [data-composition-id="hook"] .display {
+          font-size: var(--type-display-size);
+          font-weight: var(--type-display-weight);
+          letter-spacing: var(--type-display-tracking);
+          line-height: var(--type-display-leading);
+          white-space: nowrap;
+        }
+        [data-composition-id="hook"] .label {
+          font-size: var(--type-label-size);
+          font-weight: var(--type-label-weight);
+          letter-spacing: var(--type-label-tracking);
+          line-height: var(--type-label-leading);
+          text-transform: uppercase;
+          color: var(--ink-muted);
+        }
+        #hook-group { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        #hook-label { word-spacing: 0.3em; }
+      </style>
+
+      <!-- route: staged reveals — waterfall entry → nudge → label reveals in the burst -->
+      <div data-hf-id="hf-gus8" id="root" data-composition-id="hook" data-width="1920" data-height="1080" data-duration="2.6">
+        <div data-hf-id="hf-0oij" class="center">
+          <div data-hf-id="hf-9hgi" id="hook-group">
+            <h1 data-hf-id="hf-su74" class="display">
+              <span data-hf-id="hf-frhy" class="w" id="hook-w1">Motion</span> <span data-hf-id="hf-9luu" class="w" id="hook-w2">that</span>
+              <span data-hf-id="hf-hy7j" class="w" id="hook-w3a">mo</span><span data-hf-id="hf-f72y" class="w" id="hook-w3b">ves</span><span data-hf-id="hf-gqvx" class="w" id="hook-w4">.</span>
+            </h1>
+            <p data-hf-id="hf-80c9" id="hook-label" class="label">
+              <span data-hf-id="hf-nq8g" class="w" id="hook-l1">tezpi-motion</span> <span data-hf-id="hf-goeb" class="w" id="hook-l2">·</span>
+              <span data-hf-id="hf-gyeh" class="w" id="hook-l3">seam</span> <span data-hf-id="hf-gvk2" class="w" id="hook-l4">doctrine</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          // waterfall entry; the final word splits into fragments to extend the climax
+          TZM.waterfallEntry(tl, [
+            { el: "#hook-w1", weight: "heavy" },
+            { el: "#hook-w2", weight: "normal" },
+            { el: "#hook-w3a", weight: "light", offset: 70, duration: 0.16 },
+            { el: "#hook-w3b", weight: "light", offset: 70, duration: 0.15 },
+            { el: "#hook-w4", weight: "light" },
+          ], 0.25);
+
+          // the in-flow label (still hidden) would pull the headline off true center: park the group
+          // down by half the label block, then nudge it home — the label reveals during the linear burst
+          var NUDGE_AT = 1.15;
+          var PARK = 34;
+          gsap.set("#hook-group", { y: PARK });
+          TZM.nudge(tl, "#hook-group", { axis: "y", from: PARK, distance: -PARK }, NUDGE_AT);
+          TZM.waterfallEntry(tl, [
+            { el: "#hook-l1", weight: "light" },
+            { el: "#hook-l2", weight: "light" },
+            { el: "#hook-l3", weight: "light" },
+            { el: "#hook-l4", weight: "light" },
+          ], TZM.nudgeBurstAt(NUDGE_AT));
+
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
