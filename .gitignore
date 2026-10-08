@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+
+# Renders and QA output — regenerate, never commit
+films/*/renders/
+films/*/.qa/
+films/*/snapshots/
+remotion/out/
+*.mp4
+*.mov
+*.webm
+!films/*/assets/**/*.webm
+
+# HyperFrames caches
+.hyperframes/
+films/*/.hyperframes/

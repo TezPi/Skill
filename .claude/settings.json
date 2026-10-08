@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm --prefix remotion run:*)",
+      "Bash(node tools/:*)",
+      "Bash(npx --yes hyperframes@0.8.141:*)",
+      "Bash(npx hyperframes:*)",
+      "Bash(npx remotion:*)",
+      "Bash(ffprobe:*)"
+    ]
+  }
+}

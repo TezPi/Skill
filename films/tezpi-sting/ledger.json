@@ -1,0 +1,20 @@
+{
+  "fps": 30,
+  "seams": [
+    {
+      "id": "hook→claim",
+      "cut": 2.6,
+      "technique": "cut-the-curve LEFT",
+      "exit": { "selector": "#el-hook", "axis": "x", "dir": -1 },
+      "entry": { "selector": "#el-claim", "axis": "x", "dir": -1 }
+    },
+    {
+      "id": "claim→payoff",
+      "cut": 5.9,
+      "technique": "inverse zoom-through (arrival)",
+      "blur": 10,
+      "exit": { "selector": "#el-claim", "axis": "z", "dir": -1 },
+      "entry": { "selector": "#el-payoff", "axis": "z", "dir": -1, "scanRoot": "#el-payoff" }
+    }
+  ]
+}

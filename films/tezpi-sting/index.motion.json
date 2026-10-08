@@ -1,0 +1,33 @@
+{
+  "duration": 8.1,
+  "maxStaticSec": 1.2,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#hook-w1",
+      "bySec": 0.5
+    },
+    {
+      "kind": "before",
+      "a": "#hook-w1",
+      "b": "#hook-w4"
+    },
+    {
+      "kind": "before",
+      "a": "#hook-w4",
+      "b": "#hook-l1"
+    },
+    {
+      "kind": "before",
+      "a": "#claim-chk1",
+      "b": "#claim-status"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#payoff-title"
+    },
+    {
+      "kind": "keepsMoving"
+    }
+  ]
+}

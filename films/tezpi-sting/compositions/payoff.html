@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        [data-composition-id="payoff"] .center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        #payoff-group { display: flex; flex-direction: column; align-items: center; gap: 84px; }
+        #payoff-titlewrap { position: relative; }
+        #payoff-title {
+          font-size: var(--type-display-size);
+          font-weight: var(--type-display-weight);
+          letter-spacing: var(--type-display-tracking);
+          line-height: var(--type-display-leading);
+          white-space: nowrap;
+        }
+        #payoff-rule {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -36px;
+          height: 10px;
+          border-radius: var(--radius-pill);
+          background: var(--accent);
+        }
+        #payoff-label {
+          opacity: 0;
+          font-size: var(--type-label-size);
+          font-weight: var(--type-label-weight);
+          letter-spacing: var(--type-label-tracking);
+          line-height: var(--type-label-leading);
+          text-transform: uppercase;
+          color: var(--ink-muted);
+        }
+      </style>
+
+      <!-- route: arrives COMPOSED inside the retracting wrapper (Z sign: no grow-from-small in the seam
+           window) → staged reveals after it settles → held end card -->
+      <div data-hf-id="hf-od5c" id="root" data-composition-id="payoff" data-width="1920" data-height="1080" data-duration="2.2">
+        <div data-hf-id="hf-0oij" class="center">
+          <div data-hf-id="hf-xqwm" id="payoff-group">
+            <div data-hf-id="hf-b27l" id="payoff-titlewrap">
+              <h2 data-hf-id="hf-ods6" id="payoff-title">Cut the curve.</h2>
+              <div data-hf-id="hf-fhgf" id="payoff-rule"></div>
+            </div>
+            <p data-hf-id="hf-t05n" id="payoff-label">npm run seam:gate → passed</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var M = window.TEZPI.motion;
+          var tl = gsap.timeline({ paused: true });
+          gsap.set("#payoff-rule", { scaleX: 0, transformOrigin: "0% 50%" });
+
+          var settled = M.duration.inverseZoom.entry; // the master inverse-zoom retraction ends here
+          var labelIn = TZM.waterfallEntry(tl, [{ el: "#payoff-label", weight: "light" }], settled + 0.05);
+          tl.fromTo("#payoff-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: M.ease.arrival, immediateRender: false }, labelIn + 0.08);
+
+          window.__timelines["payoff"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

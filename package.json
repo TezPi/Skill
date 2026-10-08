@@ -1,0 +1,29 @@
+{
+  "name": "tezpi-motion-studio",
+  "private": true,
+  "type": "module",
+  "description": "Motion graphics workspace driven by the tezpi-motion plugin: HyperFrames films + Remotion host, one token source, Seam Gate enforced.",
+  "engines": {
+    "node": ">=22"
+  },
+  "config": {
+    "hyperframes": "0.8.141"
+  },
+  "scripts": {
+    "tokens": "node tools/build-tokens.mjs",
+    "tokens:check": "node tools/build-tokens.mjs --check",
+    "film:new": "node tools/new-film.mjs",
+    "film:sync": "node tools/sync-film.mjs",
+    "seam:stamp": "node tools/seam.mjs stamp",
+    "seam:gate": "node tools/seam.mjs gate",
+    "seam:probe": "node tools/seam.mjs probe",
+    "film:qa": "node tools/film-qa.mjs",
+    "doctor": "node tools/doctor.mjs",
+    "remotion:studio": "npm --prefix remotion run dev",
+    "remotion:check": "npm --prefix remotion run typecheck && npm --prefix remotion run eases:verify"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "gsap": "3.14.2"
+  }
+}

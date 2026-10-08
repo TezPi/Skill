@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        /* container-type: the oversized cursor is sized in cqw of this 1920 stage */
+        #root { position: absolute; inset: 0; container-type: inline-size; }
+        [data-composition-id="claim"] .w { display: inline-block; opacity: 0; }
+        /* fixed geometry so the cursor tip targets are exact — mirrored in GEOMETRY below */
+        #claim-card {
+          position: absolute;
+          left: 400px;
+          top: 260px;
+          width: 1120px;
+          height: 560px;
+          background: var(--surface);
+          border: 1px solid var(--surface-line);
+          border-radius: var(--radius-card);
+        }
+        #claim-eyebrow {
+          position: absolute;
+          left: 64px;
+          top: 64px;
+          font-size: var(--type-label-size);
+          font-weight: var(--type-label-weight);
+          letter-spacing: var(--type-label-tracking);
+          line-height: var(--type-label-leading);
+          text-transform: uppercase;
+          color: var(--accent);
+        }
+        #claim-title {
+          position: absolute;
+          left: 64px;
+          top: 108px;
+          font-size: var(--type-title-size);
+          font-weight: var(--type-title-weight);
+          letter-spacing: var(--type-title-tracking);
+          line-height: var(--type-title-leading);
+        }
+        #claim-track {
+          position: absolute;
+          left: 64px;
+          right: 64px;
+          top: 236px;
+          height: 12px;
+          border-radius: var(--radius-pill);
+          background: var(--surface-line);
+          overflow: hidden;
+        }
+        #claim-fill { position: absolute; inset: 0; background: var(--accent); }
+        #claim-checks { position: absolute; left: 64px; right: 64px; top: 292px; display: flex; gap: 56px; }
+        [data-composition-id="claim"] .check {
+          align-items: center;
+          gap: 16px;
+          font-size: var(--type-body-size);
+          font-weight: var(--type-body-weight);
+          letter-spacing: var(--type-body-tracking);
+        }
+        [data-composition-id="claim"] .check.w { display: inline-flex; }
+        [data-composition-id="claim"] .check svg { width: 36px; height: 36px; flex: none; }
+        #claim-run {
+          position: absolute;
+          right: 64px;
+          bottom: 64px;
+          width: 280px;
+          height: 88px;
+          border-radius: var(--radius-pill);
+          background: var(--accent-strong);
+          color: var(--ink);
+          font-size: 32px;
+          font-weight: 640;
+          letter-spacing: -0.01em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #claim-status {
+          position: absolute;
+          left: 64px;
+          bottom: 64px;
+          height: 88px;
+          padding: 0 36px;
+          border-radius: var(--radius-pill);
+          border: 2px solid var(--accent);
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          font-size: 32px;
+          font-weight: 640;
+          letter-spacing: 0.04em;
+          opacity: 0;
+        }
+        #claim-status small { font-size: 28px; font-weight: 450; letter-spacing: 0; color: var(--ink-muted); }
+        #claim-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: var(--cursor-size);
+          height: var(--cursor-size);
+          z-index: 20;
+          filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+          pointer-events: none;
+          will-change: transform;
+        }
+      </style>
+
+      <!-- route: cursor-led action → sequenced UI life → stillness → result -->
+      <div data-hf-id="hf-lo55" id="root" data-composition-id="claim" data-width="1920" data-height="1080" data-duration="3.3">
+        <div data-hf-id="hf-j1km" id="claim-card">
+          <p data-hf-id="hf-nfnn" id="claim-eyebrow">Seam gate</p>
+          <h2 data-hf-id="hf-jveq" id="claim-title">Every cut, verified.</h2>
+          <div data-hf-id="hf-r58x" id="claim-track"><div data-hf-id="hf-76ev" id="claim-fill"></div></div>
+          <div data-hf-id="hf-ggmf" id="claim-checks">
+            <span data-hf-id="hf-u7e0" class="check w" id="claim-chk1">
+              <svg data-hf-id="hf-uely" viewBox="0 0 36 36" aria-hidden="true"><circle data-hf-id="hf-hgyn" cx="18" cy="18" r="18" fill="var(--accent)" /><path data-hf-id="hf-d0fq" d="M11 18.5l4.6 4.6L25.5 13" fill="none" stroke="var(--accent-ink)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              Exit moving
+            </span>
+            <span data-hf-id="hf-v9n0" class="check w" id="claim-chk2">
+              <svg data-hf-id="hf-z2e2" viewBox="0 0 36 36" aria-hidden="true"><circle data-hf-id="hf-63dr" cx="18" cy="18" r="18" fill="var(--accent)" /><path data-hf-id="hf-eti2" d="M11 18.5l4.6 4.6L25.5 13" fill="none" stroke="var(--accent-ink)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              Zero overlap
+            </span>
+            <span data-hf-id="hf-7zkr" class="check w" id="claim-chk3">
+              <svg data-hf-id="hf-zgp3" viewBox="0 0 36 36" aria-hidden="true"><circle data-hf-id="hf-5p2q" cx="18" cy="18" r="18" fill="var(--accent)" /><path data-hf-id="hf-f7t3" d="M11 18.5l4.6 4.6L25.5 13" fill="none" stroke="var(--accent-ink)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              Z sign matched
+            </span>
+          </div>
+          <div data-hf-id="hf-8bqy" id="claim-status">PASSED <small data-hf-id="hf-x9ju">2 / 2 seams</small></div>
+          <div data-hf-id="hf-lnsj" id="claim-run">Run gate</div>
+        </div>
+        <svg data-hf-id="hf-1irp" id="claim-cursor" viewBox="0 0 24 24" aria-hidden="true">
+          <path data-hf-id="hf-7tqa" d="M5 3.36V20.4l4.3-3.9 2.8 6.2 2.9-1.3-2.75-6.1h6.05z" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <script>
+        (function () {
+          var T = window.TEZPI;
+          var CURSOR_PX = (parseFloat(T.motion.cursor.size) / 100) * T.canvas.width;
+          // GEOMETRY — mirrors #claim-card (400,260 · 1120×560) and #claim-run (inset 64 · 280×88)
+          var RUN_CENTER = { x: 400 + 1120 - 64 - 140, y: 260 + 560 - 64 - 44 };
+          var DRIFT_TIP = { x: 1600, y: 920 };
+          var RUN = 0.75; // progress duration
+          var STILLNESS = 0.45; // dramatic comma between the run and its result
+
+          var tl = gsap.timeline({ paused: true });
+          var runTip = TZM.tipTo(CURSOR_PX, RUN_CENTER.x, RUN_CENTER.y);
+          gsap.set("#claim-cursor", { x: runTip.x, y: Math.round(T.canvas.height * 1.15) }); // resting pose is off-screen
+          gsap.set("#claim-fill", { scaleX: 0, transformOrigin: "0% 50%" });
+
+          var arrived = TZM.cursorEnter(tl, "#claim-cursor", runTip, 0.2);
+          var ignite = TZM.click(tl, "#claim-cursor", arrived + 0.1, { target: "#claim-run" });
+          // the click IS the cause: progress starts on the ignition frame
+          tl.fromTo("#claim-fill", { scaleX: 0 }, { scaleX: 1, duration: RUN, ease: "power2.out", immediateRender: false }, ignite);
+          ["#claim-chk1", "#claim-chk2", "#claim-chk3"].forEach(function (el, i) {
+            TZM.waterfallEntry(tl, [{ el: el, weight: "light" }], ignite + 0.2 + i * 0.25);
+          });
+          TZM.cursorDrift(tl, "#claim-cursor", TZM.tipTo(CURSOR_PX, DRIFT_TIP.x, DRIFT_TIP.y), ignite + 0.15);
+          TZM.waterfallEntry(tl, [{ el: "#claim-status", weight: "heavy" }], ignite + RUN + STILLNESS);
+
+          window.__timelines["claim"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
