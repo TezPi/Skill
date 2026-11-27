@@ -186,7 +186,11 @@ function errorMessage(err: unknown) {
   if (err instanceof Anthropic.AuthenticationError) return "Invalid API key. Check Settings.";
   if (err instanceof Anthropic.RateLimitError) return "Rate limited. Try again in a moment.";
   if (err instanceof Anthropic.APIConnectionError) return "Can't reach the Anthropic API. Check your connection.";
-  if (err instanceof Anthropic.APIError) return `API error ${err.status ?? ""}: ${err.message}`;
+  if (err instanceof Anthropic.APIError) {
+    // show the API's own sentence, not "400 {json}"
+    const msg = (err.error as { error?: { message?: string } } | undefined)?.error?.message;
+    return msg ?? `API error ${err.status ?? ""}: ${err.message}`;
+  }
   return err instanceof Error ? err.message : String(err);
 }
 
