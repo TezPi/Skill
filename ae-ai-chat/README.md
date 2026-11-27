@@ -66,10 +66,14 @@ Link thư mục vào AE. macOS:
 ln -s "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/ae-ai-chat
 ```
 
-Windows (cmd, chạy trong thư mục `ae-ai-chat`):
+Windows (cmd, chạy trong thư mục `ae-ai-chat`; junction `/J` không cần quyền admin):
 
 ```bash
-mklink /D "%APPDATA%\Adobe\CEP\extensions\ae-ai-chat" "%CD%"
+mkdir "%APPDATA%\Adobe\CEP\extensions"
+```
+
+```bash
+mklink /J "%APPDATA%\Adobe\CEP\extensions\ae-ai-chat" "%CD%"
 ```
 
 Khởi động lại AE → **Window › Extensions › AI Chat** → ⚙ dán API key.
