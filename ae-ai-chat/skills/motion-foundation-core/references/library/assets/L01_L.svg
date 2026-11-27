@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img"><title>L01 Hero Hook L</title><rect width="1920" height="1080" fill="#F6F8FC"/>
+<rect x="108" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="252" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="396" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="540" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="684" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="828" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="972" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="1116" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="1260" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="1404" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="1548" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<rect x="1692" y="72" width="120" height="936" fill="#004AAD" opacity="0.035"/>
+<line x1="108" x2="1812" y1="72" y2="72" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="192" y2="192" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="312" y2="312" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="432" y2="432" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="552" y2="552" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="672" y2="672" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="792" y2="792" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="912" y2="912" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="108" x2="1812" y1="1008" y2="1008" stroke="#B7C6DC" stroke-width="1"/>
+<rect x="108" y="72" width="1704" height="936" fill="none" stroke="#8297B6" stroke-width="2" stroke-dasharray="10 8"/>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(528.0 144.0) scale(1.00000) translate(-528.0 -144.0)">
+<text x="108" y="144" fill="#17253B" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start">
+<tspan x="108" dy="0">CÂU HỎI MỞ ĐẦU</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(528.0 426.0) scale(1.00000) translate(-528.0 -426.0)">
+<text x="108" y="336" fill="#17253B" font-family="Arial, sans-serif" font-size="72" font-weight="700" text-anchor="start">
+<tspan x="108" dy="0">DOANH THU TĂNG</tspan>
+<tspan x="108" dy="84">LỢI NHUẬN</tspan>
+<tspan x="108" dy="84">Ở ĐÂU?</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(528.0 744.0) scale(1.00000) translate(-528.0 -744.0)">
+<text x="108" y="708" fill="#17253B" font-family="Arial, sans-serif" font-size="36" font-weight="400" text-anchor="start">
+<tspan x="108" dy="0">Một câu hỏi.</tspan>
+<tspan x="108" dy="48">Một trọng tâm cần làm rõ.</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(1392.0 516.0) scale(1.00000) translate(-1392.0 -516.0)">
+<ellipse cx="1392.0" cy="516.0" rx="228.0" ry="228.0" fill="#004AAD"/>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(1392.0 870.0) scale(1.00000) translate(-1392.0 -870.0)">
+<text x="1392.0" y="870" fill="#17253B" font-family="Arial, sans-serif" font-size="30" font-weight="400" text-anchor="middle">
+<tspan x="1392.0" dy="0">PHÂN TÍCH</tspan>
+</text>
+</g></svg>

@@ -1,0 +1,63 @@
+---
+title: SSAO
+nav: 1
+---
+
+A Screen Space Ambient Occlusion (SSAO) effect.
+For high quality visuals use two SSAO effect instances in a row with different radii, one for rough AO and one for fine details.
+
+This effect supports depth-aware upsampling and should be rendered at a lower resolution. The resolution should match that of the downsampled normals and depth. If you intend to render SSAO at full resolution, do not provide a downsampled normalDepthBuffer and make sure to disable depthAwareUpsampling.
+
+```jsx
+import { SSAO } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
+
+return (
+  <SSAO
+    blendFunction={BlendFunction.MULTIPLY} // blend mode
+    samples={30} // amount of samples per pixel (shouldn't be a multiple of the ring count)
+    rings={4} // amount of rings in the occlusion sampling pattern
+    distanceThreshold={1.0} // global distance threshold at which the occlusion effect starts to fade out. min: 0, max: 1
+    distanceFalloff={0.0} // distance falloff. min: 0, max: 1
+    rangeThreshold={0.5} // local occlusion range threshold at which the occlusion starts to fade out. min: 0, max: 1
+    rangeFalloff={0.1} // occlusion range falloff. min: 0, max: 1
+    luminanceInfluence={0.9} // how much the luminance of the scene influences the ambient occlusion
+    radius={20} // occlusion sampling radius
+    intensity={1.0} // intensity of the ambient occlusion
+    bias={0.5} // occlusion bias
+  />
+)
+```
+
+## Example
+
+[![SSAO demo](https://pmndrs.github.io/examples/ssao/thumbnail.webp)](https://pmndrs.github.io/examples/ssao)
+
+## Props
+
+| Name                    | Type                                                                                                                     | Default                | Description                                                                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| blendFunction           | [BlendFunction](https://vanruesc.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) | BlendFunction.MULTIPLY | The blend function of this effect.                                                                                                                |
+| depthAwareUpsampling    | Boolean                                                                                                                  | true                   | Enables or disables depth-aware upsampling. Has no effect if WebGL 2 is not supported.                                                            |
+| normalDepthBuffer       | Texture                                                                                                                  |                        | Deprecated and ignored. Supplied automatically from `<EffectComposer enableNormalPass resolutionScale>`.                                          |
+| samples                 | Number                                                                                                                   | 30                     | The amount of samples per pixel. Should not be a multiple of the ring count.                                                                      |
+| rings                   | Number                                                                                                                   | 4                      | The amount of spiral turns in the occlusion sampling pattern. Should be a prime number.                                                           |
+| distanceThreshold       | Number                                                                                                                   | 1                      | Deprecated in favor of `worldDistanceThreshold`. A global distance threshold at which the occlusion effect starts to fade out. Range [0.0, 1.0].  |
+| distanceFalloff         | Number                                                                                                                   | 0.0                    | Deprecated in favor of `worldDistanceFalloff`. The distance falloff. Influences the smoothness of the overall occlusion cutoff. Range [0.0, 1.0]. |
+| worldDistanceThreshold  | Number                                                                                                                   | undefined              | The world distance threshold at which the occlusion effect starts to fade out.                                                                    |
+| worldDistanceFalloff    | Number                                                                                                                   | undefined              | The world distance falloff. Influences the smoothness of the occlusion cutoff.                                                                    |
+| rangeThreshold          | Number                                                                                                                   | 0.5                    | Deprecated in favor of `worldProximityThreshold`. A local occlusion range threshold at which the occlusion starts to fade out. Range [0.0, 1.0].  |
+| rangeFalloff            | Number                                                                                                                   | 0.1                    | Deprecated in favor of `worldProximityFalloff`. The occlusion range falloff. Influences the smoothness of the proximity cutoff. Range [0.0, 1.0]. |
+| worldProximityThreshold | Number                                                                                                                   | undefined              | The world proximity threshold at which the occlusion starts to fade out.                                                                          |
+| worldProximityFalloff   | Number                                                                                                                   | undefined              | The world proximity falloff. Influences the smoothness of the proximity cutoff.                                                                   |
+| minRadiusScale          | Number                                                                                                                   | 0.1                    | The minimum radius scale.                                                                                                                         |
+| luminanceInfluence      | Number                                                                                                                   | 0.9                    | Determines how much the luminance of the scene influences the ambient occlusion.                                                                  |
+| radius                  | Number                                                                                                                   | 20                     | The occlusion sampling radius, expressed as a scale relative to the resolution. Range [1e-6, 1.0].                                                |
+| intensity               | Number                                                                                                                   | 1.0                    | The intensity of the ambient occlusion.                                                                                                           |
+| bias                    | Number                                                                                                                   | 0.5                    | An occlusion bias. Eliminates artifacts caused by depth discontinuities.                                                                          |
+| fade                    | Number                                                                                                                   | 0.01                   | Influences the smoothness of the shadows. A lower value results in higher contrast.                                                               |
+| color                   | ColorRepresentation \| null                                                                                              | null                   | Tints the ambient occlusion. `null` disables tinting.                                                                                             |
+| resolutionScale         | Number                                                                                                                   | 1.0                    | The resolution scale. Inherits `<EffectComposer resolutionScale>` if set.                                                                         |
+| resolutionX             | Number                                                                                                                   | Resolution.AUTO_SIZE   | The render width.                                                                                                                                 |
+| resolutionY             | Number                                                                                                                   | Resolution.AUTO_SIZE   | The render height.                                                                                                                                |
+| opacity                 | Number                                                                                                                   | 1                      | The opacity of this effect.                                                                                                                       |

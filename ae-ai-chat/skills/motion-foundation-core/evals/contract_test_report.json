@@ -1,0 +1,16 @@
+{
+  "tests_run": 36,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "scope": "Deterministic specification, source-state and command-gating tests with synthetic fixtures. No AE render or media quality validation.",
+  "skill_lines": 116,
+  "catalogue_items": 84,
+  "extra_text_treatments": 12,
+  "main_layouts": 20,
+  "adapted_variants": 8,
+  "reference_markdown": 31,
+  "svg_assets": 51,
+  "broken_markdown_links": [],
+  "standard_creator_quick_validator": "Not run successfully because PyYAML is unavailable; known frontmatter and package structure were checked with stdlib assertions instead."
+}

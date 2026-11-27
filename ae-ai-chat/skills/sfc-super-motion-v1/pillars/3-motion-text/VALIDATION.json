@@ -1,0 +1,35 @@
+{
+  "skill_name": "motion-text-custom",
+  "language": "en",
+  "catalog": {
+    "passed": true,
+    "full_scan": true,
+    "records_read": 1000000,
+    "unique_ids": 1000000,
+    "shards_checked": 100,
+    "hashes_verified": true,
+    "errors": [],
+    "rendered_count": 0,
+    "visually_reviewed_count": 0,
+    "checked_at_utc": "2026-10-28T08:40:43.605030+00:00"
+  },
+  "behavioral_checks": 293,
+  "selftest_checks": 22,
+  "source_registry_entries": 42,
+  "operator_families": 100,
+  "dimension_family_counts": {
+    "2d": 40,
+    "2.5d": 30,
+    "3d": 30
+  },
+  "domain_profiles": 26,
+  "input_specific_example_blueprints": 12,
+  "compressed_catalog_bytes": 135354387,
+  "native_projects_generated": 0,
+  "rendered_count": 0,
+  "visually_reviewed_count": 0,
+  "independent_review_status": "Interrupted by account usage limits; main-agent behavioral tests completed and labeled accordingly.",
+  "validation_scope": "Content, IDs, definitions, actual record counts, file hashes, language and software behavior; no rendered visual-quality guarantee.",
+  "official_quick_validator": "Attempted; PyYAML unavailable in bundled Python. Equivalent simple frontmatter/name/description checks completed.",
+  "generated_at_utc": "2026-10-28T08:40:55.961857+00:00"
+}

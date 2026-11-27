@@ -1,0 +1,44 @@
+{
+  "kind": "new_operator_or_stage_graph",
+  "id": "CUST-author-assigned",
+  "parent_ids": [
+    "MT-0121000",
+    "MT-0701000"
+  ],
+  "semantic_rationale": "Reveal meaning, establish solid form, then accent it without disturbing reading.",
+  "new_operator": {
+    "name": "Contour-guided solid reveal",
+    "dimension": "3d",
+    "equations": [
+      "For an authored normalized contour coordinate a(p) in [0,1], alpha(p,s)=smoothstep(-f,f,s-a(p)), feather f=.03; preserve the complete target mesh at s=1.",
+      "Grow glyph depth as depth(s)=.005+.155*s em after the contour reveal; hold the measured final pose before exit."
+    ],
+    "requirements": [
+      "Measured glyph geometry",
+      "Authored contour field"
+    ],
+    "channel_ownership": {
+      "reveal": "child mesh clipping",
+      "depth": "glyph geometry",
+      "camera": "single shot rig"
+    }
+  },
+  "stage_graph": [
+    {
+      "name": "reveal",
+      "start_seconds": 0,
+      "end_seconds": 0.55
+    },
+    {
+      "name": "depth",
+      "start_seconds": 0.55,
+      "end_seconds": 1.25
+    },
+    {
+      "name": "read",
+      "start_seconds": 1.25,
+      "end_seconds": 4.25
+    }
+  ],
+  "validation_state": "described_template_requires_contour_mapping_and_rig_not_rendered"
+}

@@ -1,0 +1,447 @@
+{
+  "profiles": [
+    {
+      "id": "education",
+      "selection_rationale": "Explain one concept at a time; preserve logical clauses and definitions.",
+      "preferred_families": [
+        "F012",
+        "F021",
+        "F000"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 0,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "saas",
+      "selection_rationale": "Tie labels to actual interface behavior; keep UI annotations stable.",
+      "preferred_families": [
+        "F000",
+        "F049",
+        "F012"
+      ],
+      "default_grouping": 1,
+      "default_temporal": 1,
+      "default_composition": 8,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "ecommerce",
+      "selection_rationale": "Keep the price, currency, qualifiers and product claim together.",
+      "preferred_families": [
+        "F012",
+        "F023",
+        "F037"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 0,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "fashion",
+      "selection_rationale": "Use expressive title pacing with a clean final silhouette.",
+      "preferred_families": [
+        "F007",
+        "F026",
+        "F044"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 1,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "beauty",
+      "selection_rationale": "Use restrained reveals and controlled reflective detail.",
+      "preferred_families": [
+        "F017",
+        "F028",
+        "F085"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 6,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "food",
+      "selection_rationale": "Use tactile emphasis without changing quantities or ingredients.",
+      "preferred_families": [
+        "F005",
+        "F023",
+        "F021"
+      ],
+      "default_grouping": 1,
+      "default_temporal": 0,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "real-estate",
+      "selection_rationale": "Anchor labels to verified property features and keep dimensions exact.",
+      "preferred_families": [
+        "F049",
+        "F066",
+        "F000"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 8,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "automotive",
+      "selection_rationale": "Use controlled spatial title assembly with legible product identifiers.",
+      "preferred_families": [
+        "F072",
+        "F086",
+        "F012"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 0,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "travel",
+      "selection_rationale": "Keep place names readable; use motion to connect actual locations.",
+      "preferred_families": [
+        "F001",
+        "F049",
+        "F017"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 6,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "sports",
+      "selection_rationale": "Use strong arrivals on editorial beats while preserving scores and names.",
+      "preferred_families": [
+        "F010",
+        "F037",
+        "F077"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 7,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "fitness",
+      "selection_rationale": "Keep instruction, duration and safety qualifiers together.",
+      "preferred_families": [
+        "F000",
+        "F021",
+        "F037"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 0,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "music",
+      "selection_rationale": "Sync expressive title stages to supplied beat markers.",
+      "preferred_families": [
+        "F009",
+        "F032",
+        "F098"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 5,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "podcast",
+      "selection_rationale": "Keep transcript timing and speaker identity stable.",
+      "preferred_families": [
+        "F036",
+        "F037",
+        "F023"
+      ],
+      "default_grouping": 1,
+      "default_temporal": 0,
+      "default_composition": 2,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "news",
+      "selection_rationale": "Prioritize exact attribution, dates and qualifier visibility.",
+      "preferred_families": [
+        "F012",
+        "F000",
+        "F021"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 2,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "finance",
+      "selection_rationale": "Keep values, periods, signs and units exact; avoid decorative false time series.",
+      "preferred_families": [
+        "F012",
+        "F021",
+        "F025"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "healthcare",
+      "selection_rationale": "Keep complete instructions and negation visible; prefer restrained motion.",
+      "preferred_families": [
+        "F012",
+        "F000",
+        "F023"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "science",
+      "selection_rationale": "Keep terminology, uncertainty and units together.",
+      "preferred_families": [
+        "F012",
+        "F022",
+        "F049"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "legal",
+      "selection_rationale": "Retain exact conditions, exceptions and attribution in a stable reading interval.",
+      "preferred_families": [
+        "F000",
+        "F012",
+        "F021"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "hr",
+      "selection_rationale": "Present names, roles and policy qualifications clearly.",
+      "preferred_families": [
+        "F000",
+        "F012",
+        "F022"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "internal-training",
+      "selection_rationale": "Reveal complete process steps without hiding their prerequisites.",
+      "preferred_families": [
+        "F012",
+        "F021",
+        "F008"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 1,
+      "default_composition": 4,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "logistics",
+      "selection_rationale": "Use ordered process motion and exact labels, quantities and destinations.",
+      "preferred_families": [
+        "F000",
+        "F001",
+        "F022"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 8,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "gaming",
+      "selection_rationale": "Use expressive short titles, with clean text and a reduced alternate.",
+      "preferred_families": [
+        "F034",
+        "F079",
+        "F093"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 7,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "events",
+      "selection_rationale": "Use a clear title hierarchy and preserve venue/date information.",
+      "preferred_families": [
+        "F019",
+        "F070",
+        "F086"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 0,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "nonprofit",
+      "selection_rationale": "Let hierarchy support the message without distorting the claim.",
+      "preferred_families": [
+        "F012",
+        "F023",
+        "F000"
+      ],
+      "default_grouping": 6,
+      "default_temporal": 1,
+      "default_composition": 1,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "luxury",
+      "selection_rationale": "Use measured spatial motion, real geometry and controlled highlights.",
+      "preferred_families": [
+        "F070",
+        "F085",
+        "F086"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 6,
+      "default_composition": 0,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    },
+    {
+      "id": "documentary",
+      "selection_rationale": "Keep quotes, sources and speaker identity clearly attributable.",
+      "preferred_families": [
+        "F012",
+        "F000",
+        "F021"
+      ],
+      "default_grouping": 2,
+      "default_temporal": 1,
+      "default_composition": 2,
+      "invariants": [
+        "Exact source content and complete qualifiers",
+        "Measured final layout and sufficient reading time",
+        "No invented data or implied evidence"
+      ]
+    }
+  ],
+  "provenance": "Original editorial profiles informed by research; not measured industry popularity."
+}

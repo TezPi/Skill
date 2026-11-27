@@ -1,0 +1,155 @@
+{
+  "artifact_type": "editorial_plan_template",
+  "version": "1.0",
+  "language": "en",
+  "mode": null,
+  "work_status": "template_not_an_executed_edit",
+  "brief": {
+    "purpose": null,
+    "audience": null,
+    "genre": null,
+    "message": null,
+    "point_of_view": null,
+    "intended_emotional_arc": [],
+    "duration_target": null,
+    "aspect_ratio": null,
+    "required_content_and_constraints": [],
+    "assumptions": []
+  },
+  "access": {
+    "available_inputs": [],
+    "media_actually_viewed_or_heard": [],
+    "editing_capabilities_verified": [],
+    "limitations": []
+  },
+  "timeline_metadata": {
+    "sequence_id": null,
+    "fps": null,
+    "timebase": null,
+    "time_reference": null,
+    "timecode_convention": null,
+    "frame_index_origin": null,
+    "out_point_convention": null,
+    "output_frame_size": null
+  },
+  "evidence": [
+    {
+      "id": null,
+      "evidence_type": "unknown",
+      "source_ref": null,
+      "description": null,
+      "source_time_range": {
+        "in": null,
+        "out": null,
+        "time_reference": null
+      },
+      "confidence": null,
+      "confidence_basis": null
+    }
+  ],
+  "shots": [
+    {
+      "id": null,
+      "source_ref": null,
+      "availability": null,
+      "source_metadata": {
+        "fps": null,
+        "timebase": null,
+        "is_variable_frame_rate": null,
+        "timecode_convention": null,
+        "frame_index_origin": null,
+        "out_point_convention": null
+      },
+      "source": {
+        "in": null,
+        "out": null,
+        "time_reference": null
+      },
+      "evidence_ids": [],
+      "observed_or_provided_content": null,
+      "dialogue_and_sound": null,
+      "story_function": null,
+      "screen_direction_and_axis": null,
+      "spatial_relations_and_action_state": null,
+      "unknowns": []
+    }
+  ],
+  "beats": [
+    {
+      "id": null,
+      "viewer_state_before": null,
+      "intended_change": null,
+      "viewer_state_after": null,
+      "supporting_shot_ids": [],
+      "evidence_ids": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": null,
+      "beat_id": null,
+      "outgoing_shot_id": null,
+      "incoming_shot_id": null,
+      "timeline": {
+        "video_cut_position": null,
+        "audio_cut_position": null,
+        "time_reference": null
+      },
+      "evidence_ids": [],
+      "evidence_type": "proposed",
+      "intended_audience_change": null,
+      "decision": null,
+      "hold_or_no_cut_considered": null,
+      "six_criteria": {
+        "emotion": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null
+        },
+        "story": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null
+        },
+        "rhythm": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null
+        },
+        "eye_trace": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null,
+          "outgoing_focus": null,
+          "incoming_focus": null,
+          "attention_evidence_type": null,
+          "coordinate_system_if_used": null
+        },
+        "plane_2d": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null
+        },
+        "space_3d": {
+          "status": "insufficient_evidence",
+          "basis_and_expected_effect": null
+        }
+      },
+      "tradeoff": null,
+      "alternatives": [],
+      "confidence": null,
+      "confidence_basis": null,
+      "unknowns": [],
+      "verification_needed": [],
+      "verification_results": []
+    }
+  ],
+  "review": {
+    "cut_level_checks": [],
+    "scene_level_checks": [],
+    "whole_video_checks": [],
+    "final_aspect_captions_and_audio_checks": [],
+    "unresolved_issues": []
+  },
+  "delivery": {
+    "changes_actually_executed": [],
+    "output_files_actually_created": [],
+    "export_verified": null,
+    "remaining_steps": []
+  }
+}

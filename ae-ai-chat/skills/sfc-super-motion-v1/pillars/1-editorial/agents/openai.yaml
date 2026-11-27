@@ -1,0 +1,4 @@
+interface:
+  display_name: "video editing structure"
+  short_description: "Make editing decisions with six cinematic criteria"
+  default_prompt: "Use $video-editing-structure to analyze the available material and propose a video edit, explaining evidence, tradeoffs, and checks."

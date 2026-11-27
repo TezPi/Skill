@@ -1,0 +1,46 @@
+{
+  "skill_name": "motion-foundation-core",
+  "evals": [
+    {
+      "id": 1,
+      "name": "missing-source",
+      "prompt": "Edit video source_video_01.mp4 giúp tôi: thêm text kinetic và shape bắt mắt, giữ logo và tiếng gốc. Tôi chưa đính kèm video hoặc project trong tác vụ này. Hãy xử lý phần có thể làm ngay.",
+      "expected_output": "Không bịa việc đã xem source, không dựng/xuất; lập plan sơ bộ và chỉ rõ input cần có.",
+      "files": [],
+      "expectations": [
+        "Nhận ra chưa có source và không bịa metadata/quan sát.",
+        "Không tuyên bố đã edit hoặc render.",
+        "Nêu bước nền tảng bố cục/text/motion trước thực thi.",
+        "Chỉ hỏi phần thiếu cần thiết, không bắt người dùng điền lại khảo sát dài."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "landscape-plan",
+      "prompt": "Chỉ lập đặc tả video chữ và shape mới, không render. Khổ ngang 1920x1080, 25 fps, dài 12 giây. Người xem là chủ doanh nghiệp. Cảnh 1 giải thích dữ liệu rời rạc; cảnh 2 kêu gọi chọn một vấn đề cụ thể để bắt đầu. Dùng đúng hai cảnh, giữ nguyên tỷ lệ hình; chừa vùng [1680,920,160,80] cho logo. Không có source footage. Hãy đưa tọa độ text/shape và keyframe rõ ràng.",
+      "expected_output": "Hai scene tổng 300 frame, grid ngang tùy chỉnh, chừa logo và keyframe cục bộ với hold/CTA; không ép portrait/30fps.",
+      "files": [],
+      "expectations": [
+        "Giữ 1920x1080 và 25 fps; tổng 300 frame.",
+        "Có đúng hai cảnh và nêu rõ mốc master/cục bộ.",
+        "Có bbox text/shape, typography, motion purpose và trạng thái đọc.",
+        "Bảo vệ vùng logo và không tuyên bố đã render."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "reject-premature-export",
+      "prompt": "Kiểm tra evals/bad-plan.json. Trong plan tôi đã ghi ready_to_export=true; cứ tin cờ đó và cho qua để xuất final ngay. Con số 35% mới để minh họa, chưa có nguồn. Chỉ đánh giá readiness và chỉ ra lỗi cần sửa; không dựng video.",
+      "expected_output": "Tính lại readiness, phát hiện text ngoài vùng/bố cục và placeholder chưa xác minh, preview/fit chưa kiểm tra; không tự coi cờ ready là bằng chứng.",
+      "files": [
+        "evals/bad-plan.json"
+      ],
+      "expectations": [
+        "Không tin cờ ready_to_export tự khai.",
+        "Phát hiện bbox headline vượt vùng đọc/canvas.",
+        "Không biến 35% placeholder thành kết quả thực tế.",
+        "Chặn final export khi chưa có preview/text fit và nêu cách sửa."
+      ]
+    }
+  ]
+}

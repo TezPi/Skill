@@ -1,0 +1,69 @@
+---
+title: Bloom
+nav: 1
+---
+
+A bloom effect.
+
+```jsx
+import { Bloom } from '@react-three/postprocessing'
+import { KernelSize, Resolution } from 'postprocessing'
+
+return (
+  <Bloom
+    intensity={1.0} // The bloom intensity.
+    kernelSize={KernelSize.LARGE} // blur kernel size
+    luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
+    luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
+    mipmapBlur={false} // Enables or disables mipmap blur.
+    resolutionX={Resolution.AUTO_SIZE} // The horizontal resolution.
+    resolutionY={Resolution.AUTO_SIZE} // The vertical resolution.
+  />
+)
+```
+
+Bloom is selective by default, you control it not on the effect pass but on the
+materials by lifting their colors out of 0-1 range. a `luminanceThreshold` of 1
+ensures that ootb nothing will glow, only the materials you pick. For this to
+work `toneMapped` has to be false on the materials, because it would otherwise
+clamp colors between 0 and 1 again.
+
+```jsx
+<Bloom mipmapBlur luminanceThreshold={1} />
+
+// ❌ will not glow, same as RGB [1,0,0]
+<meshStandardMaterial color="red"/>
+
+// ✅ will glow, same as RGB [2,0,0]
+<meshStandardMaterial emissive="red" emissiveIntensity={2} toneMapped={false} />
+
+// ❌ will not glow, same as RGB [1,0,0]
+<meshBasicMaterial color="red" />
+
+// ❌ will not glow, same as RGB [1,0,0], tone-mapping will clamp colors between 0 and 1
+<meshBasicMaterial color={[2,0,0]} />
+
+// ✅ will glow, same as RGB [2,0,0]
+<meshBasicMaterial color={[2,0,0]} toneMapped={false} />
+```
+
+## Example
+
+[![Bloom demo](https://pmndrs.github.io/examples/bloom/thumbnail.webp)](https://pmndrs.github.io/examples/bloom)
+
+## Props
+
+| Name               | Type          | Default              | Description                                                                                          |
+| ------------------ | ------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| luminanceThreshold | Number        | 0.9                  | The luminance threshold. Raise this value to mask out darker elements in the scene. Range is [0, 1]. |
+| luminanceSmoothing | Number        | 0.025                | Controls the smoothness of the luminance threshold. Range is [0, 1].                                 |
+| blendFunction      | BlendFunction | BlendFunction.ADD    | The blend function of this effect.                                                                   |
+| intensity          | Number        | 1                    | The intensity.                                                                                       |
+| resolutionX        | Number        | Resolution.AUTO_SIZE | The render width.                                                                                    |
+| resolutionY        | Number        | Resolution.AUTO_SIZE | The render height.                                                                                   |
+| kernelSize         | Number        | KernelSize.LARGE     | The blur kernel size.                                                                                |
+| mipmapBlur         | Boolean       | true                 | Enables mipmap blur.                                                                                 |
+| radius             | Number        | 0.85                 | The mipmap blur radius. Only used with mipmapBlur.                                                   |
+| levels             | Number        | 8                    | The number of mipmap blur levels. Only used with mipmapBlur.                                         |
+| opacity            | Number        | 1                    | The opacity of this effect.                                                                          |
+| resolutionScale    | Number        | 0.5                  | The render resolution scale. Ignored if `mipmapBlur` is enabled.                                     |

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": [
+    "exact_numeric_text_and_whitespace",
+    "traversal_changes_unit_activation",
+    "temporal_changes_actual_frame_and_curve",
+    "fps_and_hold_change_actual_frame_plan",
+    "unsupported_3d_engine_rejected",
+    "nonpositive_fps",
+    "insufficient_scene",
+    "exact_boundary_mismatch",
+    "combining_mark_split_rejected",
+    "missing_grapheme_segmentation_is_conditional",
+    "provided_combining_cluster_preserved",
+    "one_unit_degeneracy_reported",
+    "custom_deterministic",
+    "custom_outside_index",
+    "custom_3d_unsupported",
+    "id_roundtrip_0",
+    "id_roundtrip_1",
+    "id_roundtrip_9999",
+    "id_roundtrip_10000",
+    "id_roundtrip_699999",
+    "id_roundtrip_700000",
+    "id_roundtrip_999999"
+  ],
+  "count": 22,
+  "scope": "CLI behavior/content/time/constraints, not rendering or visual legibility"
+}

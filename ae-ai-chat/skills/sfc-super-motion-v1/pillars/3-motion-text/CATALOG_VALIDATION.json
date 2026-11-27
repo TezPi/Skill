@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "full_scan": true,
+  "records_read": 1000000,
+  "unique_ids": 1000000,
+  "shards_checked": 100,
+  "hashes_verified": true,
+  "errors": [],
+  "rendered_count": 0,
+  "visually_reviewed_count": 0,
+  "checked_at_utc": "2026-10-28T08:40:43.605030+00:00"
+}

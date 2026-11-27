@@ -1,0 +1,142 @@
+<!doctype html>
+<!--
+  SFT code-motion-graphics starter. Every pixel is a pure function of time: window.seek(t).
+  No CSS transitions, timers, Math.random, or state carried between frames.
+  Open with ?t=3.25 to freeze any moment. render.mjs drives seek() frame by frame.
+  Replace the SCENE section; keep the ENGINE section.
+-->
+<html><head><meta charset="utf-8"><title>motion</title>
+<style>
+  html,body{margin:0;background:#111;display:grid;place-items:center;min-height:100vh}
+  canvas{width:min(100vw,100vh);height:auto;aspect-ratio:1}
+</style></head>
+<body><canvas id="c"></canvas>
+<script>
+/* ================= ENGINE ================= */
+const W = 1080, H = 1080, FPS = 60;
+const BPM = 120, BEAT = 60 / BPM;            // 0.5 s
+const BEATS = 16, DURATION = BEATS * BEAT;   // 8 s loop
+const b = n => n * BEAT;                      // beat -> seconds
+
+const cv = document.getElementById('c'); cv.width = W; cv.height = H;
+const ctx = cv.getContext('2d');
+
+const clamp = (x, a = 0, z = 1) => Math.min(z, Math.max(a, x));
+const lerp = (a, z, p) => a + (z - a) * p;
+const mix = (c1, c2, p) => '#' + [0, 2, 4].map(i => Math.round(lerp(parseInt(c1.slice(1 + i, 3 + i), 16), parseInt(c2.slice(1 + i, 3 + i), 16), p)).toString(16).padStart(2, '0')).join('');
+
+// Closed-form spring step response 0 -> 1. w = angular freq (12..40), z = damping ratio.
+// z = 1: critically damped, never passes target. z = 0.7..0.85: tiny overshoot.
+function spring(t, w = 18, z = 1) {
+  if (t <= 0) return 0;
+  if (z >= 1) return 1 - (1 + w * t) * Math.exp(-w * t);
+  const wd = w * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + (z * w / wd) * Math.sin(wd * t));
+}
+// A value that changes target many times = sum of one spring per change. Stays pure in t.
+// keys: [[time, value], ...] sorted by time; first key is the resting start value.
+function chain(t, keys, w = 18, z = 1) {
+  let v = keys[0][1];
+  for (let i = 1; i < keys.length; i++) v += (keys[i][1] - keys[i - 1][1]) * spring(t - keys[i][0], w, z);
+  return v;
+}
+// Penner-style eases for wipes, presses, exits (springs for settles).
+const expoOut = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * clamp(p));
+const expoIn = p => p <= 0 ? 0 : Math.pow(2, 10 * clamp(p) - 10);
+function bezier(x1, y1, x2, y2) {           // CSS cubic-bezier as a function
+  return p => { p = clamp(p); let t = p;
+    for (let i = 0; i < 8; i++) { const x = 3*(1-t)**2*t*x1 + 3*(1-t)*t*t*x2 + t**3 - p;
+      const d = 3*(1-t)**2*x1 + 6*(1-t)*t*(x2-x1) + 3*t*t*(1-x2); if (Math.abs(d) < 1e-6) break; t -= x / d; t = clamp(t); }
+    return 3*(1-t)**2*t*y1 + 3*(1-t)*t*t*y2 + t**3; };
+}
+const easeOutPremium = bezier(0.16, 1, 0.3, 1);
+const seg = (t, a, z, ease = easeOutPremium) => ease(clamp((t - a) / (z - a)));
+// Seeded hash instead of Math.random: same id + seed -> same number, every render.
+const hash = (n, s = 1) => { const x = Math.sin(n * 127.1 + s * 311.7) * 43758.5453; return x - Math.floor(x); };
+
+function rrect(x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); ctx.beginPath(); ctx.roundRect(x - w / 2, y - h / 2, w, h, r); }
+
+/* ================= SCENE (replace) =================
+   One shape, never cut: pill -> loader ring -> check -> card -> pill. Last frame = first frame. */
+const INK = '#141414', PAPER = '#efece6', ACCENT = '#ff5a1f';
+// State table in beats -> retiming is one edit.
+const S = { press: b(1), loader: b(2), check: b(5), card: b(7), back: b(13) };
+
+function scene(t) {
+  ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
+  // camera: settles slower than the shape (lower w), pushes in on the card,
+  // and never fully stops (periodic breathe, so the loop seam still matches)
+  const cam = chain(t, [[0, 1], [S.card, 1.08], [S.back, 1]], 6, 1) * (1 + 0.015 * Math.sin(2 * Math.PI * t / DURATION));
+  ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(cam, cam);
+
+  // every state fills roughly half the frame
+  const w = chain(t, [[0, 600], [S.loader, 240], [S.card, 720], [S.back, 600]], 20, 0.8);
+  const h = chain(t, [[0, 170], [S.loader, 240], [S.card, 460], [S.back, 170]], 20, 0.8);
+  const r = chain(t, [[0, 85], [S.loader, 120], [S.card, 40], [S.back, 85]], 20, 1);
+  const press = 1 - 0.06 * (spring(t - S.press, 40, 1) - spring(t - S.press - 0.12, 30, 1));
+  ctx.save(); ctx.scale(press, press);
+  // colour changes are hard-edged floods from the centre, never a crossfade (orange->ink goes muddy)
+  const flood = (from, to, at) => { const p = expoOut(clamp((t - at) / 0.45)); if (p <= 0) return from;
+    ctx.save(); rrect(0, 0, w, h, r); ctx.clip(); ctx.fillStyle = to; ctx.beginPath(); ctx.arc(0, 0, p * Math.hypot(w, h) / 2, 0, 7); ctx.fill(); ctx.restore(); return p >= 1 ? to : from; };
+  rrect(0, 0, w, h, r);
+  const base = t < S.check ? INK : t < S.back ? ACCENT : INK;
+  const prev = t < S.check ? INK : t < S.back ? INK : ACCENT;
+  ctx.fillStyle = prev; ctx.fill();
+  flood(prev, base, t < S.check ? -9 : t < S.back ? S.check : S.back);
+
+  // content swaps: each gets its own enter/exit window so text never overlaps
+  const label = (txt, a, z, size = 44, y = 0) => {
+    const p = seg(t, a, a + 0.3) * (1 - seg(t, z - 0.2, z, expoIn));
+    if (p <= 0) return;
+    ctx.save(); ctx.globalAlpha = p; ctx.filter = `blur(${(1 - p) * 12}px)`;
+    ctx.fillStyle = PAPER; ctx.font = `600 ${size}px Inter, system-ui, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(txt, 0, y + (1 - p) * 18); ctx.restore();
+  };
+  label('Render video', -1, S.loader);
+  label('Render video', S.back + 0.1, DURATION + 1);
+  // loader ring: arc grows on the beat grid
+  const ring = seg(t, S.loader + 0.2, S.check, p => p) * (1 - seg(t, S.check, S.check + 0.2));
+  if (ring > 0) { ctx.strokeStyle = PAPER; ctx.lineWidth = 10; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(0, 0, 44, -Math.PI / 2 + t * 6, -Math.PI / 2 + t * 6 + ring * Math.PI * 1.6); ctx.stroke(); }
+  // check draws on after the colour flood
+  const ck = seg(t, S.check + 0.15, S.check + 0.55) * (1 - seg(t, S.card - 0.1, S.card + 0.1));
+  if (ck > 0) { ctx.strokeStyle = PAPER; ctx.lineWidth = 12; ctx.lineCap = ctx.lineJoin = 'round';
+    ctx.setLineDash([140]); ctx.lineDashOffset = 140 * (1 - ck);
+    ctx.beginPath(); ctx.moveTo(-34, 4); ctx.lineTo(-8, 30); ctx.lineTo(38, -24); ctx.stroke(); ctx.setLineDash([]); }
+  // the hold is never dead: a counter rolls on the frame clock, then the caption lands on a beat
+  const cp = seg(t, S.card + 0.2, S.card + 0.5) * (1 - seg(t, S.back - 0.2, S.back, expoIn));
+  if (cp > 0) {
+    const tf = Math.floor(t * FPS + 0.5) / FPS;   // counters read FRAME time, not sub-frame time, or digits smear under motion blur
+    const n = Math.round(840 * seg(tf, S.card + 0.2, b(11), bezier(0.65, 0, 0.35, 1)));
+    ctx.save(); ctx.globalAlpha = cp; ctx.fillStyle = PAPER; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '700 132px "JetBrains Mono", ui-monospace, monospace';   // tabular digits: no jitter while rolling
+    ctx.fillText(String(n).padStart(3, '0'), 0, -30 + (1 - cp) * 24); ctx.restore();
+  }
+  label('frames rendered', b(11), S.back, 40, 90);
+  ctx.restore();
+
+  // cursor drives the change: glides in across the loop wrap, clicks on S.press, leaves.
+  // Defined on a wrapped clock so position AND velocity match at t = D -> 0.
+  const tc = t < S.loader + 0.6 ? t + DURATION : t;   // switch clocks only once the exit has finished
+  const OFF = [620, 640], HIT = [150, 40];
+  const u = seg(tc, S.back + 0.4, DURATION + S.press, bezier(0.45, 0, 0.15, 1));
+  const v = seg(t, S.press + 0.15, S.loader + 0.6, expoIn);
+  const cx = lerp(lerp(OFF[0], HIT[0], u), OFF[0], t < S.back ? v : 0);
+  const cy = lerp(lerp(OFF[1], HIT[1], u), OFF[1], t < S.back ? v : 0);
+  const tap = 1 - 0.15 * (spring(t - S.press, 40, 1) - spring(t - S.press - 0.1, 30, 1));
+  ctx.save(); ctx.translate(cx, cy); ctx.scale(1.6 * tap, 1.6 * tap);
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, 34); ctx.lineTo(9, 26); ctx.lineTo(16, 41); ctx.lineTo(22, 38); ctx.lineTo(15, 23); ctx.lineTo(27, 23); ctx.closePath();
+  ctx.fillStyle = '#000'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.fill(); ctx.stroke();
+  ctx.restore();
+  ctx.restore();
+}
+
+/* ================= RUNTIME ================= */
+window.DURATION = DURATION; window.FPS = FPS; window.W = W; window.H = H; window.BPM = BPM;
+window.CAPTURE = 'canvas';   // render.mjs reads pixels straight from this canvas (~1.5x faster than page screenshots)
+window.seek = t => { t = ((t % DURATION) + DURATION) % DURATION; scene(t); };
+const q = new URLSearchParams(location.search);
+if (q.has('t')) seek(parseFloat(q.get('t')));
+else if (!q.has('render')) { const t0 = performance.now(); (function loop() { seek((performance.now() - t0) / 1000); requestAnimationFrame(loop); })(); }
+</script></body></html>
