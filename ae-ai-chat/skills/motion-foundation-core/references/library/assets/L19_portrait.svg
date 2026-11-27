@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img"><title>L19 CTA End Card P</title><rect width="1080" height="1920" fill="#F6F8FC"/>
+<rect x="72" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<rect x="232" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<rect x="392" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<rect x="552" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<rect x="712" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<rect x="872" y="192" width="136" height="1416" fill="#004AAD" opacity="0.035"/>
+<line x1="72" x2="1008" y1="192" y2="192" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="312" y2="312" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="432" y2="432" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="552" y2="552" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="672" y2="672" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="792" y2="792" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="912" y2="912" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1032" y2="1032" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1152" y2="1152" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1272" y2="1272" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1392" y2="1392" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1512" y2="1512" stroke="#B7C6DC" stroke-width="1"/>
+<line x1="72" x2="1008" y1="1608" y2="1608" stroke="#B7C6DC" stroke-width="1"/>
+<rect x="72" y="192" width="936" height="1416" fill="none" stroke="#8297B6" stroke-width="2" stroke-dasharray="10 8"/>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 360.0) scale(1.00000) translate(-540.0 -360.0)">
+<rect x="432" y="312" width="216" height="96" rx="24" fill="#004AAD"/>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 486.0) scale(1.00000) translate(-540.0 -486.0)">
+<text x="540.0" y="486" fill="#17253B" font-family="Arial, sans-serif" font-size="30" font-weight="400" text-anchor="middle">
+<tspan x="540.0" dy="0">TÊN THƯƠNG HIỆU</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 780.0) scale(1.00000) translate(-540.0 -780.0)">
+<text x="540.0" y="720" fill="#17253B" font-family="Arial, sans-serif" font-size="72" font-weight="700" text-anchor="middle">
+<tspan x="540.0" dy="0">BẮT ĐẦU TỪ</tspan>
+<tspan x="540.0" dy="84">MỘT VẤN ĐỀ</tspan>
+<tspan x="540.0" dy="84">CỤ THỂ</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 1056.0) scale(1.00000) translate(-540.0 -1056.0)">
+<text x="540.0" y="1044" fill="#17253B" font-family="Arial, sans-serif" font-size="36" font-weight="400" text-anchor="middle">
+<tspan x="540.0" dy="0">Một câu mô tả giá trị</tspan>
+<tspan x="540.0" dy="48">của hành động tiếp theo.</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 1284.0) scale(1.00000) translate(-540.0 -1284.0)">
+<rect x="168" y="1224" width="744" height="120" rx="24" fill="#004AAD"/>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 1290.0) scale(1.00000) translate(-540.0 -1290.0)">
+<text x="540.0" y="1290" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="30" font-weight="400" text-anchor="middle">
+<tspan x="540.0" dy="0">NHẮN TIN ĐỂ TRAO ĐỔI</tspan>
+</text>
+</g>
+<g opacity="1.0000" transform="translate(0.000 0.000) translate(540.0 1470.0) scale(1.00000) translate(-540.0 -1470.0)">
+<text x="540.0" y="1464" fill="#17253B" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle">
+<tspan x="540.0" dy="0">KÊNH LIÊN HỆ HOẶC ĐƯỜNG DẪN</tspan>
+</text>
+</g></svg>

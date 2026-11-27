@@ -1,0 +1,6 @@
+interface:
+  display_name: "Motion Foundation Core"
+  short_description: "Plan grids, text, shapes, and motion before edits"
+  default_prompt: "Use $motion-foundation-core to inspect the source, plan scene grids and text-shape motion, and validate before editing or exporting."
+policy:
+  allow_implicit_invocation: true

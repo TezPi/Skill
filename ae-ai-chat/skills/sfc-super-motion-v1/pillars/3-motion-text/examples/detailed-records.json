@@ -1,0 +1,317 @@
+{
+  "records": [
+    {
+      "schema_version": "2.0",
+      "id": "MT-0021210",
+      "title": "Spiral converge / word / center-out / ease-in-out / center",
+      "dimension": "2d",
+      "factors": {
+        "family": "F002",
+        "grouping": "G01",
+        "traversal": "O02",
+        "temporal": "T01",
+        "composition": "C00"
+      },
+      "operation": {
+        "name": "Spiral converge",
+        "mechanism": "Make two turns around the destination while the orbit radius shrinks to zero. Keep glyph orientation upright unless a secondary rotation is declared.",
+        "movement_equation": "r=1.2*(1-s) em; theta=4*pi*s; offset=(r*cos(theta),r*sin(theta)); s=clamp(v,0,1).",
+        "scope": "unit",
+        "channels": [
+          {
+            "path": "rig.progress",
+            "start": 0,
+            "hold": 1,
+            "interpolation": "selected temporal response; feed into the stated movement equation"
+          }
+        ],
+        "output_channels": [
+          "path.progress"
+        ],
+        "channel_interpretation": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified."
+      },
+      "grouping": {
+        "id": "G01",
+        "slug": "word",
+        "method": "orthographic_tokens",
+        "description": "Group whitespace-delimited orthographic tokens while retaining all spaces and punctuation. These tokens are not guaranteed semantic words in every language."
+      },
+      "activation": {
+        "id": "O02",
+        "slug": "center-out",
+        "formula": "distance_to_center",
+        "description": "Activate nearest to the center of the ordinal unit sequence first, then outward; break ties by original index. This is ordinal, not geometric center."
+      },
+      "composition": {
+        "id": "C00",
+        "slug": "center",
+        "anchor_normalized": [
+          0.5,
+          0.5
+        ],
+        "description": "Center the measured text block around canvas anchor (.5,.5). Keep the original reading order and derive actual widths and wraps from font metrics."
+      },
+      "coordinates": {
+        "canvas": "Normalized anchors [0,1], origin top-left, x right, y down; final glyph positions require actual font metrics. Local offsets use nominal em, not a claim of measured cap height.",
+        "world": "Right-handed, x right, y up, z toward camera; 1wu = 1 nominal em; adapt units and axis signs explicitly."
+      },
+      "timeline_template": {
+        "local_progress": "u=clamp((frame-start_i)/enterFrames,0,1); v=selected temporal curve(u); apply the family equation to v, using s=clamp(v,0,1) wherever specified.",
+        "delays": "start_i=activation_rank_i*staggerFrames; nominal stagger=round(.055*fps), at least one frame. Refit or split the scene if the resulting timing is too long.",
+        "entrance_seconds_per_unit": 0.65,
+        "reading_hold_seconds_initial_heuristic": 2.0,
+        "exit_seconds": 0.35,
+        "reading_rule": "Global read hold begins after the last unit reaches its final read pose. Extend for text complexity, audience and real voice cues; two seconds is an editable starting point, not a reading-speed standard.",
+        "temporal_definition": "Symmetric acceleration and deceleration; curve v=u*u*(3-2*u). Finish entrance before beginning the reading interval.",
+        "action_phase": "enter",
+        "phase_note": "For a shot-scope operator use one shared rig; unit traversal controls visibility/accent only. Portal transit is an exit action after reading."
+      },
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "scene_3d": null,
+      "conditions": {
+        "required_assets_or_rigs": [],
+        "text_boundaries": "orthographic_tokens",
+        "layout": "Resolve actual font shaping, line breaks, measured bounds and safe insets before rendering. Layout anchors are initial suggestions, not fitted typography.",
+        "degeneracy": "Different IDs can yield identical motion on one unit, short text or zero amplitude. Conditional metadata/assets must be supplied or an explicitly labeled fallback selected."
+      },
+      "mix_and_customize": {
+        "family_specific": "Replace the circular orbit with an ellipse or change turn count; finish at exactly the same measured target.",
+        "construction": "Keep a primary action; add independent channels or stage actions sequentially. Declare transform hierarchy, channel ownership, shared camera scope, phase boundaries and final neutral/rest values. For conflicting channels choose override/add/multiply deliberately.",
+        "extension": "You may define new paths, deformations, relations or scene topology beyond this catalog; record parent IDs, equations, parameters, seed, constraints and semantic reason."
+      },
+      "fallbacks": {
+        "reduced": "Remove camera travel, oscillation and deformation; use a brief fade or cut with the same text and sufficient stable reading time.",
+        "static": "Show complete exact text in the fitted final layout, retaining labels, values, units and qualifiers."
+      },
+      "content_invariants": [
+        "Preserve exact text, spaces and punctuation.",
+        "Keep grapheme combining marks with their base.",
+        "Do not fabricate intermediate prices, percentages or claims.",
+        "Keep negation and qualifiers readable with their associated statement."
+      ],
+      "lineage": {
+        "technical_basis": [
+          "A02"
+        ],
+        "kind": "original authored composition; cited sources support underlying techniques, not this exact preset"
+      },
+      "validation_state": "described_not_rendered_or_visually_reviewed"
+    },
+    {
+      "schema_version": "2.0",
+      "id": "MT-0461210",
+      "title": "Dolly title plane / word / center-out / ease-in-out / center",
+      "dimension": "2.5d",
+      "factors": {
+        "family": "F046",
+        "grouping": "G01",
+        "traversal": "O02",
+        "temporal": "T01",
+        "composition": "C00"
+      },
+      "operation": {
+        "name": "Dolly title plane",
+        "mechanism": "Move one camera toward a flat title plane, ending at a framing computed from actual text bounds.",
+        "movement_equation": "Camera distance goes from d_fit+2 wu to d_fit; one camera serves the shot. Unit traversal controls reveal/accent, not duplicated cameras.",
+        "scope": "shot",
+        "channels": [
+          {
+            "path": "rig.progress",
+            "start": 0,
+            "hold": 1,
+            "interpolation": "selected temporal response; feed into the stated movement equation"
+          }
+        ],
+        "output_channels": [
+          "camera.distance_em"
+        ],
+        "channel_interpretation": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified."
+      },
+      "grouping": {
+        "id": "G01",
+        "slug": "word",
+        "method": "orthographic_tokens",
+        "description": "Group whitespace-delimited orthographic tokens while retaining all spaces and punctuation. These tokens are not guaranteed semantic words in every language."
+      },
+      "activation": {
+        "id": "O02",
+        "slug": "center-out",
+        "formula": "distance_to_center",
+        "description": "Activate nearest to the center of the ordinal unit sequence first, then outward; break ties by original index. This is ordinal, not geometric center."
+      },
+      "composition": {
+        "id": "C00",
+        "slug": "center",
+        "anchor_normalized": [
+          0.5,
+          0.5
+        ],
+        "description": "Center the measured text block around canvas anchor (.5,.5). Keep the original reading order and derive actual widths and wraps from font metrics."
+      },
+      "coordinates": {
+        "canvas": "Normalized anchors [0,1], origin top-left, x right, y down; final glyph positions require actual font metrics. Local offsets use nominal em, not a claim of measured cap height.",
+        "world": "Right-handed, x right, y up, z toward camera; 1wu = 1 nominal em; adapt units and axis signs explicitly."
+      },
+      "timeline_template": {
+        "local_progress": "u=clamp((frame-start_i)/enterFrames,0,1); v=selected temporal curve(u); apply the family equation to v, using s=clamp(v,0,1) wherever specified.",
+        "delays": "start_i=activation_rank_i*staggerFrames; nominal stagger=round(.055*fps), at least one frame. Refit or split the scene if the resulting timing is too long.",
+        "entrance_seconds_per_unit": 0.65,
+        "reading_hold_seconds_initial_heuristic": 2.0,
+        "exit_seconds": 0.35,
+        "reading_rule": "Global read hold begins after the last unit reaches its final read pose. Extend for text complexity, audience and real voice cues; two seconds is an editable starting point, not a reading-speed standard.",
+        "temporal_definition": "Symmetric acceleration and deceleration; curve v=u*u*(3-2*u). Finish entrance before beginning the reading interval.",
+        "action_phase": "enter",
+        "phase_note": "For a shot-scope operator use one shared rig; unit traversal controls visibility/accent only. Portal transit is an exit action after reading."
+      },
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "scene_3d": {
+        "representation": "flat text-bearing plane/surface; no glyph side volume",
+        "depth_em": 0,
+        "bevel_em": 0,
+        "camera": "One perspective camera, initial position (0,0,12) wu aimed at origin, vertical FOV 35deg, near .1/far100wu. Refit distance after shaping: distance=frame_height_world/(2*tan(FOV_y/2)). Orthographic families override projection and fit scale.",
+        "lighting": "Initial key/fill/rim relative intensities 1/.35/.5; key at (4,6,7), fill(-4,2,6), rim(0,3,-3)wu. These are authored starting values; adjust contrast and material response.",
+        "material": "Initial base #F4EEE2, roughness .4, metallic .15, opacity1; verify actual renderer color/energy behavior.",
+        "geometry_checks": "Preserve shaping, diacritics and counters; verify bevel clearance, normals, UVs, clipping and backfaces. A camera-facing plane is not solid glyph geometry."
+      },
+      "conditions": {
+        "required_assets_or_rigs": [],
+        "text_boundaries": "orthographic_tokens",
+        "layout": "Resolve actual font shaping, line breaks, measured bounds and safe insets before rendering. Layout anchors are initial suggestions, not fitted typography.",
+        "degeneracy": "Different IDs can yield identical motion on one unit, short text or zero amplitude. Conditional metadata/assets must be supplied or an explicitly labeled fallback selected."
+      },
+      "mix_and_customize": {
+        "family_specific": "Mix with small per-unit fades; fit the camera after shaping and keep the title within the near/far range.",
+        "construction": "Keep a primary action; add independent channels or stage actions sequentially. Declare transform hierarchy, channel ownership, shared camera scope, phase boundaries and final neutral/rest values. For conflicting channels choose override/add/multiply deliberately.",
+        "extension": "You may define new paths, deformations, relations or scene topology beyond this catalog; record parent IDs, equations, parameters, seed, constraints and semantic reason."
+      },
+      "fallbacks": {
+        "reduced": "Remove camera travel, oscillation and deformation; use a brief fade or cut with the same text and sufficient stable reading time.",
+        "static": "Show complete exact text in the fitted final layout, retaining labels, values, units and qualifiers."
+      },
+      "content_invariants": [
+        "Preserve exact text, spaces and punctuation.",
+        "Keep grapheme combining marks with their base.",
+        "Do not fabricate intermediate prices, percentages or claims.",
+        "Keep negation and qualifiers readable with their associated statement."
+      ],
+      "lineage": {
+        "technical_basis": [
+          "D03",
+          "D05"
+        ],
+        "kind": "original authored composition; cited sources support underlying techniques, not this exact preset"
+      },
+      "validation_state": "described_not_rendered_or_visually_reviewed"
+    },
+    {
+      "schema_version": "2.0",
+      "id": "MT-0701210",
+      "title": "Extrusion grow / word / center-out / ease-in-out / center",
+      "dimension": "3d",
+      "factors": {
+        "family": "F070",
+        "grouping": "G01",
+        "traversal": "O02",
+        "temporal": "T01",
+        "composition": "C00"
+      },
+      "operation": {
+        "name": "Extrusion grow",
+        "mechanism": "Give shaped glyphs actual side surfaces by growing extrusion depth while the front face remains registered to the final text outline.",
+        "movement_equation": "depth=0.005+(0.16-0.005)*clamp(v,0,1) em; bevel starts at 0.015 em only if topology permits; front-face z stays fixed.",
+        "scope": "unit",
+        "channels": [
+          {
+            "path": "rig.progress",
+            "start": 0,
+            "hold": 1,
+            "interpolation": "selected temporal response; feed into the stated movement equation"
+          }
+        ],
+        "output_channels": [
+          "geometry.depth_em"
+        ],
+        "channel_interpretation": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified."
+      },
+      "grouping": {
+        "id": "G01",
+        "slug": "word",
+        "method": "orthographic_tokens",
+        "description": "Group whitespace-delimited orthographic tokens while retaining all spaces and punctuation. These tokens are not guaranteed semantic words in every language."
+      },
+      "activation": {
+        "id": "O02",
+        "slug": "center-out",
+        "formula": "distance_to_center",
+        "description": "Activate nearest to the center of the ordinal unit sequence first, then outward; break ties by original index. This is ordinal, not geometric center."
+      },
+      "composition": {
+        "id": "C00",
+        "slug": "center",
+        "anchor_normalized": [
+          0.5,
+          0.5
+        ],
+        "description": "Center the measured text block around canvas anchor (.5,.5). Keep the original reading order and derive actual widths and wraps from font metrics."
+      },
+      "coordinates": {
+        "canvas": "Normalized anchors [0,1], origin top-left, x right, y down; final glyph positions require actual font metrics. Local offsets use nominal em, not a claim of measured cap height.",
+        "world": "Right-handed, x right, y up, z toward camera; 1wu = 1 nominal em; adapt units and axis signs explicitly."
+      },
+      "timeline_template": {
+        "local_progress": "u=clamp((frame-start_i)/enterFrames,0,1); v=selected temporal curve(u); apply the family equation to v, using s=clamp(v,0,1) wherever specified.",
+        "delays": "start_i=activation_rank_i*staggerFrames; nominal stagger=round(.055*fps), at least one frame. Refit or split the scene if the resulting timing is too long.",
+        "entrance_seconds_per_unit": 0.65,
+        "reading_hold_seconds_initial_heuristic": 2.0,
+        "exit_seconds": 0.35,
+        "reading_rule": "Global read hold begins after the last unit reaches its final read pose. Extend for text complexity, audience and real voice cues; two seconds is an editable starting point, not a reading-speed standard.",
+        "temporal_definition": "Symmetric acceleration and deceleration; curve v=u*u*(3-2*u). Finish entrance before beginning the reading interval.",
+        "action_phase": "enter",
+        "phase_note": "For a shot-scope operator use one shared rig; unit traversal controls visibility/accent only. Portal transit is an exit action after reading."
+      },
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "scene_3d": {
+        "representation": "extruded glyph mesh with real side faces and valid counters",
+        "depth_em": 0.16,
+        "bevel_em": 0.015,
+        "camera": "One perspective camera, initial position (0,0,12) wu aimed at origin, vertical FOV 35deg, near .1/far100wu. Refit distance after shaping: distance=frame_height_world/(2*tan(FOV_y/2)). Orthographic families override projection and fit scale.",
+        "lighting": "Initial key/fill/rim relative intensities 1/.35/.5; key at (4,6,7), fill(-4,2,6), rim(0,3,-3)wu. These are authored starting values; adjust contrast and material response.",
+        "material": "Initial base #F4EEE2, roughness .4, metallic .15, opacity1; verify actual renderer color/energy behavior.",
+        "geometry_checks": "Preserve shaping, diacritics and counters; verify bevel clearance, normals, UVs, clipping and backfaces. A camera-facing plane is not solid glyph geometry."
+      },
+      "conditions": {
+        "required_assets_or_rigs": [],
+        "text_boundaries": "orthographic_tokens",
+        "layout": "Resolve actual font shaping, line breaks, measured bounds and safe insets before rendering. Layout anchors are initial suggestions, not fitted typography.",
+        "degeneracy": "Different IDs can yield identical motion on one unit, short text or zero amplitude. Conditional metadata/assets must be supplied or an explicitly labeled fallback selected."
+      },
+      "mix_and_customize": {
+        "family_specific": "Mix with a front matte or light sweep; side geometry must exist in the resulting engine scene.",
+        "construction": "Keep a primary action; add independent channels or stage actions sequentially. Declare transform hierarchy, channel ownership, shared camera scope, phase boundaries and final neutral/rest values. For conflicting channels choose override/add/multiply deliberately.",
+        "extension": "You may define new paths, deformations, relations or scene topology beyond this catalog; record parent IDs, equations, parameters, seed, constraints and semantic reason."
+      },
+      "fallbacks": {
+        "reduced": "Remove camera travel, oscillation and deformation; use a brief fade or cut with the same text and sufficient stable reading time.",
+        "static": "Show complete exact text in the fitted final layout, retaining labels, values, units and qualifiers."
+      },
+      "content_invariants": [
+        "Preserve exact text, spaces and punctuation.",
+        "Keep grapheme combining marks with their base.",
+        "Do not fabricate intermediate prices, percentages or claims.",
+        "Keep negation and qualifiers readable with their associated statement."
+      ],
+      "lineage": {
+        "technical_basis": [
+          "D01",
+          "D05",
+          "D07"
+        ],
+        "kind": "original authored composition; cited sources support underlying techniques, not this exact preset"
+      },
+      "validation_state": "described_not_rendered_or_visually_reviewed"
+    }
+  ]
+}

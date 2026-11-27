@@ -1,0 +1,5 @@
+{
+  "generated": 1000000,
+  "shards": 100,
+  "manifest": "catalog/manifest.json"
+}

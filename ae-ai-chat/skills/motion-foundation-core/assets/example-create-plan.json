@@ -1,0 +1,364 @@
+{
+  "schema_version": "1.0",
+  "task": {
+    "kind": "create_new",
+    "deliverable": "final_video",
+    "objective": "Giải thích rằng nội dung cần có cấu trúc trước khi thêm chuyển động.",
+    "audience": "Người dựng video và đội nội dung.",
+    "scope": "Tạo một cảnh mới; không sửa source có sẵn."
+  },
+  "source": {
+    "status": "new",
+    "preserve_original": true,
+    "assets": [],
+    "missing": []
+  },
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps_num": 30,
+    "fps_den": 1,
+    "total_frames": 180
+  },
+  "design": {
+    "coordinate_basis": "comp_bbox",
+    "safe_bbox": [
+      72,
+      192,
+      936,
+      1416
+    ],
+    "grid": {
+      "columns": 6,
+      "gutter": 24,
+      "column_width": 136
+    },
+    "font_family": "Arial",
+    "palette": {
+      "ink": "#17253B",
+      "background": "#F6F8FC",
+      "brand": "#004AAD"
+    }
+  },
+  "scenes": [
+    {
+      "id": "SC01",
+      "start": 0,
+      "end": 180,
+      "intent": "Cho thấy thứ tự nội dung, bố cục rồi chuyển động.",
+      "layout": "L01-adapted",
+      "layout_reason": "Một câu chính và một dòng hỗ trợ phù hợp hero layout.",
+      "origin": "generated",
+      "source_asset_ids": [],
+      "protected_regions": [],
+      "layers": [
+        {
+          "id": "TXT_HEAD",
+          "kind": "text",
+          "role": "content",
+          "z": 1,
+          "bbox": [
+            72,
+            432,
+            936,
+            192
+          ],
+          "essential": true,
+          "meaning": "Thông tin chính hoặc hỗ trợ có thứ bậc.",
+          "text": {
+            "content": "NỘI DUNG TRƯỚC\nCHUYỂN ĐỘNG SAU",
+            "font_size": 72,
+            "leading": 84,
+            "max_lines": 2,
+            "align": "left",
+            "fit": {
+              "status": "estimated",
+              "evidence": "Ước tính bố cục; chưa đo/render font thật."
+            }
+          },
+          "motion": {
+            "purpose": "Dẫn mắt tới thông tin theo thứ tự, ổn định để đọc.",
+            "anchor_basis": "Text top-left reference at static layout; resolve actual AE anchor during implementation.",
+            "entry": [
+              0,
+              18
+            ],
+            "hold": [
+              24,
+              150
+            ],
+            "exit": [
+              150,
+              179
+            ],
+            "keyframes": [
+              {
+                "frame": 0,
+                "property": "position",
+                "value": [
+                  72,
+                  492
+                ]
+              },
+              {
+                "frame": 18,
+                "property": "position",
+                "value": [
+                  72,
+                  432
+                ]
+              },
+              {
+                "frame": 0,
+                "property": "opacity",
+                "value": 0
+              },
+              {
+                "frame": 18,
+                "property": "opacity",
+                "value": 100
+              },
+              {
+                "frame": 150,
+                "property": "position",
+                "value": [
+                  72,
+                  432
+                ]
+              },
+              {
+                "frame": 179,
+                "property": "position",
+                "value": [
+                  24,
+                  432
+                ]
+              },
+              {
+                "frame": 150,
+                "property": "opacity",
+                "value": 100
+              },
+              {
+                "frame": 179,
+                "property": "opacity",
+                "value": 0
+              }
+            ],
+            "easing": "ease-out on entry; do not infer exact AE Influence from this label."
+          }
+        },
+        {
+          "id": "TXT_BODY",
+          "kind": "text",
+          "role": "content",
+          "z": 2,
+          "bbox": [
+            72,
+            744,
+            936,
+            144
+          ],
+          "essential": true,
+          "meaning": "Thông tin chính hoặc hỗ trợ có thứ bậc.",
+          "text": {
+            "content": "Bố cục rõ ràng giúp\nngười xem theo dõi thông tin.",
+            "font_size": 36,
+            "leading": 48,
+            "max_lines": 3,
+            "align": "left",
+            "fit": {
+              "status": "estimated",
+              "evidence": "Ước tính bố cục; chưa đo/render font thật."
+            }
+          },
+          "motion": {
+            "purpose": "Dẫn mắt tới thông tin theo thứ tự, ổn định để đọc.",
+            "anchor_basis": "Text top-left reference at static layout; resolve actual AE anchor during implementation.",
+            "entry": [
+              12,
+              30
+            ],
+            "hold": [
+              36,
+              150
+            ],
+            "exit": [
+              150,
+              179
+            ],
+            "keyframes": [
+              {
+                "frame": 12,
+                "property": "position",
+                "value": [
+                  72,
+                  804
+                ]
+              },
+              {
+                "frame": 30,
+                "property": "position",
+                "value": [
+                  72,
+                  744
+                ]
+              },
+              {
+                "frame": 12,
+                "property": "opacity",
+                "value": 0
+              },
+              {
+                "frame": 30,
+                "property": "opacity",
+                "value": 100
+              },
+              {
+                "frame": 150,
+                "property": "position",
+                "value": [
+                  72,
+                  744
+                ]
+              },
+              {
+                "frame": 179,
+                "property": "position",
+                "value": [
+                  24,
+                  744
+                ]
+              },
+              {
+                "frame": 150,
+                "property": "opacity",
+                "value": 100
+              },
+              {
+                "frame": 179,
+                "property": "opacity",
+                "value": 0
+              }
+            ],
+            "easing": "ease-out on entry; do not infer exact AE Influence from this label."
+          }
+        },
+        {
+          "id": "TXT_CTA",
+          "kind": "text",
+          "role": "cta",
+          "z": 3,
+          "bbox": [
+            72,
+            1248,
+            936,
+            96
+          ],
+          "essential": true,
+          "meaning": "Thông tin chính hoặc hỗ trợ có thứ bậc.",
+          "text": {
+            "content": "BẮT ĐẦU TỪ MỘT Ý CHÍNH",
+            "font_size": 36,
+            "leading": 48,
+            "max_lines": 2,
+            "align": "left",
+            "fit": {
+              "status": "estimated",
+              "evidence": "Ước tính bố cục; chưa đo/render font thật."
+            }
+          },
+          "motion": {
+            "purpose": "Dẫn mắt tới thông tin theo thứ tự, ổn định để đọc.",
+            "anchor_basis": "Text top-left reference at static layout; resolve actual AE anchor during implementation.",
+            "entry": [
+              24,
+              42
+            ],
+            "hold": [
+              48,
+              180
+            ],
+            "exit": null,
+            "keyframes": [
+              {
+                "frame": 24,
+                "property": "position",
+                "value": [
+                  72,
+                  1308
+                ]
+              },
+              {
+                "frame": 42,
+                "property": "position",
+                "value": [
+                  72,
+                  1248
+                ]
+              },
+              {
+                "frame": 24,
+                "property": "opacity",
+                "value": 0
+              },
+              {
+                "frame": 42,
+                "property": "opacity",
+                "value": 100
+              }
+            ],
+            "easing": "ease-out on entry; do not infer exact AE Influence from this label."
+          }
+        }
+      ],
+      "transition_out": {
+        "style": "hold",
+        "reason": "Kết thúc trên thông điệp; giữ CTA đến cuối."
+      }
+    }
+  ],
+  "claims": [],
+  "reviews": {
+    "preview": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "readability": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "source_preservation": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "audio": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "data": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "format": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "transitions": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    },
+    "cta": {
+      "status": "pending",
+      "evidence": [],
+      "reason": "Chưa dựng preview."
+    }
+  }
+}

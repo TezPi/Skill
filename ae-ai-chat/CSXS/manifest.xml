@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CSXS 11 = AE 2022+ (Chromium 88+). Older CEP runtimes lack the web APIs the SDK needs. -->
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.aeaichat" ExtensionBundleVersion="0.1.0" ExtensionBundleName="AI Chat">
+  <ExtensionList>
+    <Extension Id="com.aeaichat.panel" Version="0.1.0" />
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="AEFT" Version="[22.0,99.9]" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="11.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.aeaichat.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./index.html</MainPath>
+          <ScriptPath>./host/host.jsx</ScriptPath>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>AI Chat</Menu>
+          <Geometry>
+            <Size><Width>360</Width><Height>620</Height></Size>
+            <MinSize><Width>260</Width><Height>320</Height></MinSize>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

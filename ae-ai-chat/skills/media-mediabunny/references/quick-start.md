@@ -1,0 +1,720 @@
+---
+description: A collection of short code snippets that showcase the most common operations that Mediabunny can do.
+---
+
+# Quick start
+
+This page is a collection of short code snippets that showcase the most common operations you may use this library for.
+
+## Read file metadata
+
+```ts
+import { Input, ALL_FORMATS, BlobSource } from 'mediabunny';
+
+const input = new Input({
+	formats: ALL_FORMATS, // Supporting all file formats
+	source: new BlobSource(file), // Assuming a File instance
+});
+
+const duration = await input.computeDuration(); // in seconds
+const allTracks = await input.getTracks(); // List of all tracks
+
+// Extract video metadata
+const videoTrack = await input.getPrimaryVideoTrack();
+if (videoTrack) {
+	await videoTrack.getDisplayWidth(); // in pixels
+	await videoTrack.getDisplayHeight(); // in pixels
+	await videoTrack.getRotation(); // in degrees clockwise
+
+	// Estimate frame rate (FPS)
+	const frameRateMetrics = await videoTrack.computeFrameRateMetrics();
+	const frameRate = frameRateMetrics.bestGuessFrameRate;
+}
+
+// Extract audio metadata
+const audioTrack = await input.getPrimaryAudioTrack();
+if (audioTrack) {
+	await audioTrack.getNumberOfChannels();
+	await audioTrack.getSampleRate(); // in Hz
+}
+
+// Extract metadata tags
+const tags = await input.getMetadataTags();
+tags.title; // Title
+tags.date; // Release date
+tags.images[0]; // Cover art
+tags.raw['TBPM']; // Custom tags
+// ...
+```
+
+::: info
+- Check out the <a href="/examples/metadata-extraction" target="_self">Metadata extraction example</a> for this code in action.
+- You can read from more than just `File` instances - check out [Input sources](./reading-media-files.md#input-sources) for more.
+:::
+
+
+## Read media data
+
+```ts
+import {
+	Input,
+	ALL_FORMATS,
+	BlobSource,
+	VideoSampleSink,
+	AudioSampleSink,
+} from 'mediabunny';
+
+const input = new Input({
+	formats: ALL_FORMATS,
+	source: new BlobSource(file),
+});
+
+// Read video frames
+const videoTrack = await input.getPrimaryVideoTrack();
+if (videoTrack) {
+	const decodable = await videoTrack.canDecode();
+	if (decodable) {
+		const sink = new VideoSampleSink(videoTrack);
+
+		// Get the video frame at timestamp 5s
+		const videoSample = await sink.getSample(5);
+		videoSample.timestamp; // in seconds
+		videoSample.duration; // in seconds
+
+		// Draw the frame to a canvas
+		videoSample.draw(ctx, 0, 0);
+
+		// Loop over all frames in the first 30s of video
+		for await (const sample of sink.samples(0, 30)) {
+			// ...
+		}
+	}
+}
+
+// Read audio chunks
+const audioTrack = await input.getPrimaryAudioTrack();
+if (audioTrack) {
+	const decodable = await audioTrack.canDecode();
+	if (decodable) {
+		const sink = new AudioSampleSink(audioTrack);
+
+		// Get audio chunk at timestamp 5s; a short chunk of audio
+		const audioSample = await sink.getSample(5);
+		audioSample.timestamp; // in seconds
+		audioSample.duration; // in seconds
+		audioSample.numberOfFrames;
+
+		// Convert to AudioBuffer for use with the Web Audio API
+		const audioBuffer = audioSample.toAudioBuffer();
+
+		// Loop over all samples in the first 30s of audio
+		for await (const sample of sink.samples(0, 30)) {
+			// ...
+		}
+	}
+}
+```
+
+::: info
+- Check out the <a href="/examples/media-player" target="_self">Media player example</a> for a demo built on this use case.
+- See [Media sinks](./media-sinks.md) for all the ways to extract media data from tracks.
+:::
+
+## Extract video thumbnails
+
+```ts
+import {
+	Input,
+	ALL_FORMATS,
+	BlobSource,
+	CanvasSink,
+} from 'mediabunny';
+
+const input = new Input({
+	formats: ALL_FORMATS,
+	source: new BlobSource(file),
+});
+
+const videoTrack = await input.getPrimaryVideoTrack();
+if (videoTrack) {
+	const decodable = await videoTrack.canDecode();
+	if (decodable) {
+		const sink = new CanvasSink(videoTrack, {
+			width: 320, // Automatically resize the thumbnails
+		});
+
+		// Get the thumbnail at timestamp 10s
+		const result = await sink.getCanvas(10);
+		result.canvas; // HTMLCanvasElement | OffscreenCanvas
+		result.timestamp; // in seconds
+		result.duration; // in seconds
+
+		// Generate five equally-spaced thumbnails through the video
+		const startTimestamp = await videoTrack.getFirstTimestamp();
+		const endTimestamp = await videoTrack.computeDuration();
+		const timestamps = [0, 0.2, 0.4, 0.6, 0.8].map(
+			(t) => startTimestamp + t * (endTimestamp - startTimestamp)
+		);
+
+		// Loop over these timestamps
+		for await (const result of sink.canvasesAtTimestamps(timestamps)) {
+			// ...
+		}
+	}
+}
+```
+
+::: info
+- Check out the <a href="/examples/thumbnail-generation" target="_self">Thumbnail generation example</a> for this code in action.
+- You can further configure [`CanvasSink`](./media-sinks.md#canvassink).
+:::
+
+## Extract encoded packets
+
+```ts
+import {
+	Input,
+	ALL_FORMATS,
+	BlobSource,
+	EncodedPacketSink,
+} from 'mediabunny';
+
+const input = new Input({
+	formats: ALL_FORMATS,
+	source: new BlobSource(file),
+});
+
+const videoTrack = await input.getPrimaryVideoTrack();
+if (videoTrack) {
+	const sink = new EncodedPacketSink(videoTrack);
+
+	// Get packet for timestamp 10s
+	const packet = await sink.getPacket(10);
+	packet.data; // Uint8Array
+	packet.type; // 'key' | 'delta'
+	packet.timestamp; // in seconds
+	packet.duration; // in seconds
+
+	// Get the closest key packet to timestamp 10s
+	const keyPacket = await sink.getKeyPacket(10);
+
+	// Get the following packet
+	const nextPacket = await sink.getNextPacket(keyPacket);
+
+	// Set up a manual decoder
+	const decoderConfig = await videoTrack.getDecoderConfig();
+	const videoDecoder = new VideoDecoder({
+		output: console.log,
+		error: console.error,
+	});
+	videoDecoder.configure(decoderConfig);
+
+	// Loop over all packets in decode order
+	for await (const packet of sink.packets()) {
+		videoDecoder.decode(packet.toEncodedVideoChunk());
+	}
+
+	await videoDecoder.flush();
+}
+```
+
+::: info
+Check out [`EncodedPacketSink`](./media-sinks.md#encodedpacketsink) for the full documentation.
+:::
+
+## Create new media files
+
+```ts
+import {
+	AudioBufferSource,
+	BufferTarget,
+	CanvasSource,
+	Mp4OutputFormat,
+	Output,
+	Quality,
+} from 'mediabunny';
+
+// An Output represents a new media file
+const output = new Output({
+	format: new Mp4OutputFormat(), // The format of the file
+	target: new BufferTarget(), // Where to write the file (here, to memory)
+});
+
+// Example: add a video track driven by a canvas
+const videoSource = new CanvasSource(canvas, {
+	codec: 'avc',
+	quality: new Quality('high'),
+});
+output.addVideoTrack(videoSource);
+
+// Example: add an audio track driven by AudioBuffers
+const audioSource = new AudioBufferSource({
+	codec: 'aac',
+	quality: new Quality('high'),
+});
+output.addAudioTrack(audioSource);
+
+// Set some metadata tags
+output.setMetadataTags({
+	title: 'My Movie',
+	artist: 'Me',
+});
+
+await output.start();
+
+// Add some video frames
+for (let frame = 0; ...) {
+	await videoSource.add(frame / 30, 1 / 30);
+}
+
+// Add some audio data
+await audioSource.add(audioBuffer1);
+await audioSource.add(audioBuffer2);
+
+await output.finalize();
+
+const buffer = output.target.buffer; // ArrayBuffer containing the final MP4 file
+```
+
+::: info
+- Check out the <a href="/examples/procedural-generation" target="_self">Procedural generation example</a> for a demo of in-browser video generation.
+- You can create files of many different formats; check out [Output formats](./output-formats.md) for the full list.
+- Media data can be added from different sources, see [Media sources](./media-sources.md).
+:::
+
+## Write directly to disk
+
+```ts
+import {
+	Output,
+	StreamTarget,
+} from 'mediabunny';
+
+// File System API
+const handle = await window.showSaveFilePicker();
+const writableStream = await handle.createWritable();
+
+const output = new Output({
+	// `chunked: true` to batch disk operations
+	target: new StreamTarget(writableStream, { chunked: true }),
+	// ...
+});
+
+// ...
+
+await output.finalize();
+
+// The file has been fully written to disk
+```
+
+## Stream over the network
+
+```ts
+import {
+	Output,
+	AppendOnlyStreamTarget,
+	Mp4OutputFormat,
+} from 'mediabunny';
+
+const { writable, readable } = new TransformStream<Uint8Array, Uint8Array>();
+
+const output = new Output({
+	target: new AppendOnlyStreamTarget(writable),
+	// We must use an append-only format here, such as fragmented MP4
+	format: new Mp4OutputFormat({ fastStart: 'fragmented' }),
+});
+
+const uploadComplete = fetch('https://example.com/upload', {
+	method: 'POST',
+	body: readable,
+	duplex: 'half',
+	headers: {
+		'Content-Type': output.format.mimeType,
+	},
+});
+
+await output.start();
+
+// ...
+
+await output.finalize();
+await uploadComplete;
+```
+
+::: info
+- This code automatically handles the backpressure applied by a slow network.
+- Read more on [append-only formats](./output-formats.md#append-only-writing), a requirement for this pattern.
+:::
+
+## Record live media
+
+```ts
+import {
+	BufferTarget,
+	MediaStreamAudioTrackSource,
+	MediaStreamVideoTrackSource,
+	Output,
+	Quality,
+	WebMOutputFormat,
+} from 'mediabunny';
+
+const userMedia = await navigator.mediaDevices.getUserMedia({
+	video: true,
+	audio: true,
+});
+const videoTrack = userMedia.getVideoTracks()[0];
+const audioTrack = userMedia.getAudioTracks()[0];
+
+const output = new Output({
+	format: new WebMOutputFormat(),
+	target: new BufferTarget(),
+});
+
+if (videoTrack) {
+	const source = new MediaStreamVideoTrackSource(videoTrack, {
+		codec: 'vp9',
+		quality: new Quality('medium'),
+	});
+	output.addVideoTrack(source);
+}
+
+if (audioTrack) {
+	const source = new MediaStreamAudioTrackSource(audioTrack, {
+		codec: 'opus',
+		quality: new Quality('medium'),
+	});
+	output.addAudioTrack(source);
+}
+
+await output.start();
+
+// Wait...
+
+await output.finalize();
+```
+
+::: info
+- Check out the <a href="/examples/live-recording">Live recording demo</a> for this code in action.
+- This is basically [`MediaRecorder`](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), but less sucky.
+:::
+
+## Creating transparent video
+
+```ts
+import {
+	BufferTarget,
+	CanvasSource,
+	Output,
+	Quality,
+	WebMOutputFormat,
+} from 'mediabunny';
+
+const output = new Output({
+	// Use a format that supports transparency:
+	format: new WebMOutputFormat(),
+	target: new BufferTarget(),
+});
+
+const canvas = new OffscreenCanvas(1280, 720);
+const context = canvas.getContext('2d', { alpha: true })!;
+
+const source = new CanvasSource(canvas, {
+	codec: 'vp9',
+	quality: new Quality('medium'),
+	alpha: 'keep', // => Also encode alpha data
+});
+output.addVideoTrack(source);
+
+await output.start();
+
+// Add data...
+await source.add(0, 1 / 30);
+// ...
+
+await output.finalize();
+```
+
+## Check encoding support
+
+```ts
+import {
+	MovOutputFormat,
+	getFirstEncodableVideoCodec,
+	getFirstEncodableAudioCodec,
+	getEncodableVideoCodecs,
+	getEncodableAudioCodecs,
+} from 'mediabunny';
+
+const outputFormat = new MovOutputFormat();
+
+// Find the best supported codec for the given container format
+const bestVideoCodec = await getFirstEncodableVideoCodec(
+	outputFormat.getSupportedVideoCodecs(),
+	// Optionally, constrained by these parameters:
+	{ width: 1920, height: 1080 },
+);
+const bestAudioCodec = await getFirstEncodableAudioCodec(
+	outputFormat.getSupportedAudioCodecs(),
+);
+
+// Find all supported codecs
+const supportedVideoCodecs = await getEncodableVideoCodecs();
+const supportedAudioCodecs = await getEncodableAudioCodecs();
+```
+
+## Convert files
+
+```ts
+import {
+	Input,
+	Output,
+	Conversion,
+	ALL_FORMATS,
+	BlobSource,
+	Mp4OutputFormat,
+} from 'mediabunny';
+
+// Check the above snippets for more examples of Input and Output
+const input = new Input({
+	formats: ALL_FORMATS,
+	source: new BlobSource(file),
+});
+const output = new Output({
+	format: new Mp4OutputFormat(),
+	target: new BufferTarget(),
+});
+
+const conversion = await Conversion.init({ input, output });
+if (!conversion.isValid) {
+	// The conversion isn't possible and would error upon execution.
+	// Check `discardedTracks` for the reasons.
+	return;
+}
+
+// List of tracks that won't make it into the output:
+conversion.discardedTracks;
+
+conversion.onProgress = (progress) => {
+	progress; // Number between 0 and 1, inclusive
+};
+
+await conversion.execute();
+// Conversion is complete
+
+const buffer = output.target.buffer; // ArrayBuffer containing the final MP4 file
+```
+
+::: info
+- This code will automatically transmux (copy media data) when possible, and transcode (re-encode media data) when necessary.
+- Refer to [Converting media files](./converting-media-files.md) for the full documentation.
+:::
+
+## Extract audio
+
+```ts
+import {
+	Input,
+	Output,
+	Conversion,
+	WavOutputFormat,
+} from 'mediabunny';
+
+const input = new Input(...);
+const output = new Output({
+	// Write to a .wav file, keeping only the audio track
+	format: new WavOutputFormat(),
+	// ...
+});
+
+const conversion = await Conversion.init({
+	input,
+	output,
+	audio: {
+		sampleRate: 16000, // Resample to 16 kHz
+	},
+});
+await conversion.execute();
+// Conversion is complete
+```
+
+::: info
+- You can extract to other audio-only formats, such as .mp3, .ogg, or even .m4a. See [Output formats](./output-formats.md).
+:::
+
+## Compress media
+
+```ts
+import {
+	Conversion,
+	Input,
+	Output,
+	Quality,
+} from 'mediabunny';
+
+const input = new Input(...);
+const output = new Output(...);
+
+const conversion = await Conversion.init({
+	input,
+	output,
+	tracks: 'primary', // Keep only the first track of each type
+	video: {
+		width: 480, // Resize to 480p
+		quality: new Quality('low'),
+	},
+	audio: {
+		numberOfChannels: 1, // Resample to mono
+		quality: new Quality('low'),
+	},
+	trim: {
+		// Let's keep only the first 60 seconds
+		start: 0,
+		end: 60,
+	},
+	tags: {}, // Remove any metadata tags
+});
+
+await conversion.execute();
+// Conversion is complete
+```
+
+::: info
+- Check out the <a href="/examples/file-compression">File compression example</a> for this code in action.
+:::
+
+## Add a video overlay
+
+```ts
+import {
+	Input,
+	Output,
+	Conversion,
+} from 'mediabunny';
+
+// For example, let's load a watermark image
+const watermark = new Image();
+watermark.src = '/watermark.jpg';
+await new Promise(resolve => watermark.onload = resolve);
+
+const input = new Input(...);
+const output = new Output(...);
+
+let ctx: CanvasRenderingContext2D | null = null;
+const conversion = await Conversion.init({
+	input,
+	output,
+	video: {
+		process: (sample) => {
+			if (!ctx) {
+				// Create a canvas for image compositing
+				const canvas = new OffscreenCanvas(
+					sample.displayWidth,
+					sample.displayHeight,
+				);
+				ctx = canvas.getContext('2d')!;
+			}
+
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			sample.draw(ctx, 0, 0);
+			ctx.drawImage(watermark, 32, 32);
+
+			return ctx.canvas;
+		},
+	},
+});
+
+await conversion.execute();
+// Conversion is complete
+```
+
+## Combine multiple files into one
+
+```ts
+import {
+	Input,
+	Output,
+	Conversion,
+} from 'mediabunny';
+
+// Let's take the video track from one file...
+const videoInput = new Input(...);
+// ...and the audio track from another
+const audioInput = new Input(...);
+
+const output = new Output(...);
+
+const videoConversion = await Conversion.init({
+	input: videoInput,
+	output,
+	composable: true, // Ensure the conversion doesn't own the output
+	audio: { discard: true },
+});
+const audioConversion = await Conversion.init({
+	input: audioInput,
+	output,
+	composable: true,
+	video: { discard: true },
+});
+
+await output.start();
+await Promise.all([
+	videoConversion.execute(),
+	audioConversion.execute(),
+]);
+await output.finalize();
+// Conversion is complete
+```
+
+::: info
+See [Composable conversions](./converting-media-files.md#composable-conversions) for the full documentation.
+:::
+
+## Reading HLS playlists
+
+```ts
+import { Input, UrlSource, HLS_FORMATS, desc } from 'mediabunny';
+
+const input = new Input({
+	source: new UrlSource('https://example.com/master.m3u8'),
+	formats: HLS_FORMATS,
+});
+
+// Get all tracks
+const tracks = await input.getTracks();
+
+// Get video tracks by quality
+const sortedVideoTracks = await input.getVideoTracks({
+	sortBy: async track => desc(await track.getDisplayHeight()),
+});
+
+// Select a quality
+const bestVideoTrack = sortedVideoTracks[0]!;
+// Get a matching audio track
+const matchingAudioTrack = await bestVideoTrack.getPrimaryPairableAudioTrack();
+
+// HLS tracks can be read like any other Mediabunny InputTrack
+// ...
+
+const isLive = await bestVideoTrack.isLive();
+if (isLive) {
+	// Poll some data using the refresh interval, for example duration
+	let currentDuration: number | null = null;
+	const poll = async () => {
+		currentDuration = await bestVideoTrack.getDurationFromMetadata({
+			skipLiveWait: true,
+		});
+
+		const refreshInterval = await bestVideoTrack.getLiveRefreshInterval();
+		if (refreshInterval === null) {
+			return; // No longer live
+		}
+
+		setTimeout(poll, 1000 * refreshInterval);
+	};
+	await poll();
+}
+```
+
+::: info
+See [Reading HLS](./reading-hls.md) for an in-depth guide.
+:::

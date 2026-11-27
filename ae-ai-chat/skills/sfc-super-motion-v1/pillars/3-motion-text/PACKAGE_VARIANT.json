@@ -1,0 +1,7 @@
+{
+  "variant": "compact",
+  "materialized_catalog_records": 0,
+  "reproducible_address_count": 1000000,
+  "language": "en",
+  "catalog_note": "Shards omitted inside SFT Super Motion Studio V2. `describe`/`resolve` rebuild any MT ID deterministically; `generate` then `validate --full` rematerializes all 100 shards."
+}

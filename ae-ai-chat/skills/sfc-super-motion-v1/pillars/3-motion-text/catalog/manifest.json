@@ -1,0 +1,822 @@
+{
+  "schema_version": "2.0",
+  "skill_name": "motion-text-custom",
+  "language": "en",
+  "record_detail": "self_contained_expanded_specification",
+  "address_count": 1000000,
+  "family_count": 100,
+  "axes_cardinality": [
+    100,
+    10,
+    10,
+    10,
+    10
+  ],
+  "record_kind": "descriptive_compositional_recipe_addresses",
+  "distinct_visual_output_count": null,
+  "rendered_count": 0,
+  "visually_reviewed_count": 0,
+  "registry_sha256": "cb992347e5fc31eccf8da70fa945f024ef098129c5b9b02e4a76b747f64876c2",
+  "shards": [
+    {
+      "file": "family-000.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0000000",
+      "last_id": "MT-0009999",
+      "bytes": 1312897,
+      "sha256": "fbf873fe96343acabfaeb9927e7c596c793959d1e77ce9f9545ecf207edebafc"
+    },
+    {
+      "file": "family-001.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0010000",
+      "last_id": "MT-0019999",
+      "bytes": 1315677,
+      "sha256": "4e1f967c452001f48e1471612a5d5c9cc5ca259ff524e82a883ecab454f997cc"
+    },
+    {
+      "file": "family-002.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0020000",
+      "last_id": "MT-0029999",
+      "bytes": 1313304,
+      "sha256": "b3b166b159c0504d465433549bf10c291a91f68568dacac19e71ea937394d767"
+    },
+    {
+      "file": "family-003.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0030000",
+      "last_id": "MT-0039999",
+      "bytes": 1326187,
+      "sha256": "cc677916e204844f993ef416c02109a536e2d29087ebeb4962b00d653f81a87d"
+    },
+    {
+      "file": "family-004.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0040000",
+      "last_id": "MT-0049999",
+      "bytes": 1313549,
+      "sha256": "eca2f9a0c7f70aeaf29a465ac786de027e7650b279844bd0b9491bd3fadc291d"
+    },
+    {
+      "file": "family-005.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0050000",
+      "last_id": "MT-0059999",
+      "bytes": 1318628,
+      "sha256": "8cb23550570c19697f3bab54f0b6d76afeadf7d99b195d6615c5a52399fd9a71"
+    },
+    {
+      "file": "family-006.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0060000",
+      "last_id": "MT-0069999",
+      "bytes": 1316585,
+      "sha256": "dd1c111354ca7bfe2522a99b00daa58a7ec50bea3207b9f8e75408a0aade61a6"
+    },
+    {
+      "file": "family-007.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0070000",
+      "last_id": "MT-0079999",
+      "bytes": 1316493,
+      "sha256": "273ab13850069f8dbe920cb4a96f0c99096f34a4e629f7416d45bb4873fad375"
+    },
+    {
+      "file": "family-008.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0080000",
+      "last_id": "MT-0089999",
+      "bytes": 1310339,
+      "sha256": "b27cfaece8eda7523e2c1672a2f10498dffc593d20331d62306d0d83a533228e"
+    },
+    {
+      "file": "family-009.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0090000",
+      "last_id": "MT-0099999",
+      "bytes": 1307561,
+      "sha256": "85aa5cefd1d392d248d9650461557486007c5a84e07360ec52df7e7878c2c671"
+    },
+    {
+      "file": "family-010.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0100000",
+      "last_id": "MT-0109999",
+      "bytes": 1315291,
+      "sha256": "4e1cea61d11de67f60d442abcaccfa82b9b1edb4a9eae8d58ca7975139a37fc1"
+    },
+    {
+      "file": "family-011.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0110000",
+      "last_id": "MT-0119999",
+      "bytes": 1321940,
+      "sha256": "9e3d326b07e22b3d440acad61710ee7fee11cd1b4c8fb9d88477690a16824ba8"
+    },
+    {
+      "file": "family-012.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0120000",
+      "last_id": "MT-0129999",
+      "bytes": 1321527,
+      "sha256": "7e0db616b25981b799f8563026ad14a3b80e1a456d5c5fb35865240cc212b181"
+    },
+    {
+      "file": "family-013.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0130000",
+      "last_id": "MT-0139999",
+      "bytes": 1316906,
+      "sha256": "e2e8a22053f0e272dd84e7edc942394461b45dc3588beeb06a8d6a5824d693b3"
+    },
+    {
+      "file": "family-014.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0140000",
+      "last_id": "MT-0149999",
+      "bytes": 1316009,
+      "sha256": "563f2fb84a8063bd64e5ee835255778a6dbb306c2cba01128e8c07d41e6386b1"
+    },
+    {
+      "file": "family-015.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0150000",
+      "last_id": "MT-0159999",
+      "bytes": 1317956,
+      "sha256": "41c70157644baa77c9ab7beed0a5339dc0e79b9a5036abf090c8a5d5dfd7ab8d"
+    },
+    {
+      "file": "family-016.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0160000",
+      "last_id": "MT-0169999",
+      "bytes": 1317812,
+      "sha256": "5fca8bb25aba3f166ca98cc0b6b2ae0d8de71fed19c08ef85a010e76b5995a4e"
+    },
+    {
+      "file": "family-017.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0170000",
+      "last_id": "MT-0179999",
+      "bytes": 1322058,
+      "sha256": "59943e094d1654faf2b4cbe47211a8116136d91a0dec074e73bc59740a6fb271"
+    },
+    {
+      "file": "family-018.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0180000",
+      "last_id": "MT-0189999",
+      "bytes": 1321172,
+      "sha256": "65e2a16ede12309e7292d5d24626e808628460970476a91350ff05c11104946b"
+    },
+    {
+      "file": "family-019.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0190000",
+      "last_id": "MT-0199999",
+      "bytes": 1314223,
+      "sha256": "6e56877d2adcdf60956adf00f70f4498c0cc53742a3de7d66207b3cc4c39b362"
+    },
+    {
+      "file": "family-020.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0200000",
+      "last_id": "MT-0209999",
+      "bytes": 1320269,
+      "sha256": "1ef58d62e63a5c47e37174d6f45ccdb563ca55f669d9f83c414158cdd537af45"
+    },
+    {
+      "file": "family-021.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0210000",
+      "last_id": "MT-0219999",
+      "bytes": 1317916,
+      "sha256": "9060496deef5bbc1ee23b3b0bc80584bfc9c609905e9bfee33e0ee2bc6af68c4"
+    },
+    {
+      "file": "family-022.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0220000",
+      "last_id": "MT-0229999",
+      "bytes": 1297404,
+      "sha256": "d7a918a47da125107bffc7cf08a15ae0d779e695761a4a176a8a09938fb3be40"
+    },
+    {
+      "file": "family-023.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0230000",
+      "last_id": "MT-0239999",
+      "bytes": 1309210,
+      "sha256": "faed314748be6c769f4162a7a4fc6374f2d97041d75c2b4984a76f5f1d33197f"
+    },
+    {
+      "file": "family-024.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0240000",
+      "last_id": "MT-0249999",
+      "bytes": 1320027,
+      "sha256": "bf7d8319983dba48c4cc550cb3e7d7e7f1fdd10d5a875a2e3a728c47cd3ace57"
+    },
+    {
+      "file": "family-025.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0250000",
+      "last_id": "MT-0259999",
+      "bytes": 1316163,
+      "sha256": "81597bd409e666a179a963cb1a13943266ce0469692a7747f55fb73367d58c1b"
+    },
+    {
+      "file": "family-026.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0260000",
+      "last_id": "MT-0269999",
+      "bytes": 1323551,
+      "sha256": "7d1c3d07dde48dd220bd6c48b69c44c61adbd840cb572cdb40edf88fa0050063"
+    },
+    {
+      "file": "family-027.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0270000",
+      "last_id": "MT-0279999",
+      "bytes": 1312919,
+      "sha256": "7eab6d19330b303776b5397c1a8877e2211712a1f839e5962b1df35c144befea"
+    },
+    {
+      "file": "family-028.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0280000",
+      "last_id": "MT-0289999",
+      "bytes": 1320408,
+      "sha256": "7e931ef9a97afe49acac6bcdb2642566a085d8b7ddff387fe98638e4fd45a683"
+    },
+    {
+      "file": "family-029.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0290000",
+      "last_id": "MT-0299999",
+      "bytes": 1323231,
+      "sha256": "bcb223f4b167bf2d20168e7b9a3f5955db7b85e2c11cbaa3853b5a3bf00134de"
+    },
+    {
+      "file": "family-030.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0300000",
+      "last_id": "MT-0309999",
+      "bytes": 1318725,
+      "sha256": "dcdcd9e833ac5789ac1163ae8321f0a43611c6e17ea26a281863817f3838c57c"
+    },
+    {
+      "file": "family-031.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0310000",
+      "last_id": "MT-0319999",
+      "bytes": 1320483,
+      "sha256": "3e57d742b457c1cac82b31136d5084335f850d20fb4bd9d3dfa6edd4ea1f6719"
+    },
+    {
+      "file": "family-032.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0320000",
+      "last_id": "MT-0329999",
+      "bytes": 1323323,
+      "sha256": "f7c3fe5cb3d320bd0fb06bc067c4db7a5a9b7c9225ff5867d644d42b454234d0"
+    },
+    {
+      "file": "family-033.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0330000",
+      "last_id": "MT-0339999",
+      "bytes": 1322836,
+      "sha256": "0a1686b3984da3206b4de57032fa2b6f56576e0bc040fc9e00ad48ca6dffed04"
+    },
+    {
+      "file": "family-034.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0340000",
+      "last_id": "MT-0349999",
+      "bytes": 1310124,
+      "sha256": "2e25b260cb81dc86dae9f5c4ef6961ff421f648304acbd7ebdf56a37fb70ddb2"
+    },
+    {
+      "file": "family-035.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0350000",
+      "last_id": "MT-0359999",
+      "bytes": 1321837,
+      "sha256": "517de57e79433b1dc9371a8a15c302d52a286058a31380c934071f2edc0d28e8"
+    },
+    {
+      "file": "family-036.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0360000",
+      "last_id": "MT-0369999",
+      "bytes": 1326123,
+      "sha256": "dbd5c8c3f71b50ef0c60d91a2a5aa9793051787149a0173ee8d4bf8201ac1773"
+    },
+    {
+      "file": "family-037.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0370000",
+      "last_id": "MT-0379999",
+      "bytes": 1316408,
+      "sha256": "578a68406247719c83cc29f2524f002408595441b3fcbf67cff51b8e168a6134"
+    },
+    {
+      "file": "family-038.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0380000",
+      "last_id": "MT-0389999",
+      "bytes": 1318423,
+      "sha256": "769cf20c2a4c1c368b0176246604fd613f403481e5d70e38a3908f47ddafe92e"
+    },
+    {
+      "file": "family-039.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0390000",
+      "last_id": "MT-0399999",
+      "bytes": 1319741,
+      "sha256": "0f83dd799e122466bafd240307e241df62a6f973ebd8dbb595700f301b4f3947"
+    },
+    {
+      "file": "family-040.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0400000",
+      "last_id": "MT-0409999",
+      "bytes": 1371486,
+      "sha256": "3e80a8111f953964fd8230074de2dda52a492541f2fc59eb71251eea5a2af897"
+    },
+    {
+      "file": "family-041.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0410000",
+      "last_id": "MT-0419999",
+      "bytes": 1373145,
+      "sha256": "af759312d33916756b632090fd373d969e25a8a6234a6a05241fda32a45fbd5f"
+    },
+    {
+      "file": "family-042.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0420000",
+      "last_id": "MT-0429999",
+      "bytes": 1364347,
+      "sha256": "ef3aa42f41fce6a6d709a0e09ceb2d5c9f03c089b28741d5bcd3618f45799cb5"
+    },
+    {
+      "file": "family-043.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0430000",
+      "last_id": "MT-0439999",
+      "bytes": 1367869,
+      "sha256": "d01e80dddc57c5d7339f2c0ee40dc67e8835b6ca703ef7958c6b362935c61568"
+    },
+    {
+      "file": "family-044.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0440000",
+      "last_id": "MT-0449999",
+      "bytes": 1373010,
+      "sha256": "0841d70d4dc6bba298f0892687bd1a223bd23a88ad3b0dc69cb1500b63b8defb"
+    },
+    {
+      "file": "family-045.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0450000",
+      "last_id": "MT-0459999",
+      "bytes": 1383194,
+      "sha256": "0b942c257481ddf2025d365be0616d4b1d2f81eba2f774ca8acc6a09fe598983"
+    },
+    {
+      "file": "family-046.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0460000",
+      "last_id": "MT-0469999",
+      "bytes": 1379747,
+      "sha256": "11d8223d0efac80aa8ed37e6419a5de1106aeb020672138bebe87f4874933b60"
+    },
+    {
+      "file": "family-047.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0470000",
+      "last_id": "MT-0479999",
+      "bytes": 1375940,
+      "sha256": "f5227c243152aaab2e201b99e0432a9b7a23bb2dcfe1db23847abc4a2b255ce6"
+    },
+    {
+      "file": "family-048.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0480000",
+      "last_id": "MT-0489999",
+      "bytes": 1378444,
+      "sha256": "8fa8c9c44deefed33fddc7914f985db3e4f9b2921b795e1333837d3a9fca6b2d"
+    },
+    {
+      "file": "family-049.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0490000",
+      "last_id": "MT-0499999",
+      "bytes": 1373957,
+      "sha256": "f9034bf7207802c3aafdf4c9eb81f35a9ba9e718c18ed3f15df74ed1fda343fa"
+    },
+    {
+      "file": "family-050.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0500000",
+      "last_id": "MT-0509999",
+      "bytes": 1365737,
+      "sha256": "42f561f0a9c85ecb28e504873f879bf2462f6d8f613e596ba31da13c802a4223"
+    },
+    {
+      "file": "family-051.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0510000",
+      "last_id": "MT-0519999",
+      "bytes": 1377131,
+      "sha256": "8222df0584f28aadded820292deb06c996e8fe18a1fea063c43303c9d8444ec6"
+    },
+    {
+      "file": "family-052.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0520000",
+      "last_id": "MT-0529999",
+      "bytes": 1370529,
+      "sha256": "70d1d250fbdb1922ebe9b8e064deae83f8482c3194ab96929208128f9b8922ff"
+    },
+    {
+      "file": "family-053.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0530000",
+      "last_id": "MT-0539999",
+      "bytes": 1369839,
+      "sha256": "4e948d8c40112140c560c616851e07986a22e61a13493aa3cc75b7447a28dd2c"
+    },
+    {
+      "file": "family-054.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0540000",
+      "last_id": "MT-0549999",
+      "bytes": 1368005,
+      "sha256": "8788332b0637cf1d34fd14d1735cef04f8cf9457b92b10ace0c93b9515f03cfd"
+    },
+    {
+      "file": "family-055.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0550000",
+      "last_id": "MT-0559999",
+      "bytes": 1367251,
+      "sha256": "6279088dd4711195000b87e015fa4ef94ddaa5f06f4c2441dc3e58ac2d57642b"
+    },
+    {
+      "file": "family-056.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0560000",
+      "last_id": "MT-0569999",
+      "bytes": 1380299,
+      "sha256": "7dc950280ae1613e937cc97e9390d11f0105ad603c4eace4035391e30f0dae41"
+    },
+    {
+      "file": "family-057.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0570000",
+      "last_id": "MT-0579999",
+      "bytes": 1378069,
+      "sha256": "6541323b65441ecb4e3d14cce6b6f42ea2c83830476b3dd0a627f737e4e823d0"
+    },
+    {
+      "file": "family-058.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0580000",
+      "last_id": "MT-0589999",
+      "bytes": 1367020,
+      "sha256": "261e541e8c21b2e7f7de3c3c8fe0d1a3977defd792676f6d77ce3ceba94e64fb"
+    },
+    {
+      "file": "family-059.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0590000",
+      "last_id": "MT-0599999",
+      "bytes": 1372799,
+      "sha256": "e0b7591ffffd2bc3997a2ca3d054b65d76e503403e7546184940af1d0c2de572"
+    },
+    {
+      "file": "family-060.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0600000",
+      "last_id": "MT-0609999",
+      "bytes": 1381621,
+      "sha256": "f4df783d48aebb6b05c65a1a4b7ce3c445febb40df513cf8ebde7cb3e80832b8"
+    },
+    {
+      "file": "family-061.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0610000",
+      "last_id": "MT-0619999",
+      "bytes": 1370378,
+      "sha256": "dd2698ddf3e30b4661c54e1b1526910973f9bdc4aa7aaf5d54cc78dd71956e57"
+    },
+    {
+      "file": "family-062.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0620000",
+      "last_id": "MT-0629999",
+      "bytes": 1367628,
+      "sha256": "379209b88f20d127f92417659060abe2753daf7e9cda15a5d155e6a2d7772902"
+    },
+    {
+      "file": "family-063.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0630000",
+      "last_id": "MT-0639999",
+      "bytes": 1381284,
+      "sha256": "be9840a6d8bca01f8710b0a15ddfbfffd6055b0e4b772cfb54b532098ad303b4"
+    },
+    {
+      "file": "family-064.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0640000",
+      "last_id": "MT-0649999",
+      "bytes": 1371284,
+      "sha256": "600c01cb9ebc72b2c68bc67e17f6e3012d42238798484b0090f27ba00ee416ec"
+    },
+    {
+      "file": "family-065.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0650000",
+      "last_id": "MT-0659999",
+      "bytes": 1368574,
+      "sha256": "ab74b45b2626e9633a7aaac7f483411fc4aa31129716ddc9ab8842008f370728"
+    },
+    {
+      "file": "family-066.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0660000",
+      "last_id": "MT-0669999",
+      "bytes": 1358819,
+      "sha256": "14f5608e1c2580d1bb36240dbe059241a39ed6fc458f517fc2a1a407a8509fdb"
+    },
+    {
+      "file": "family-067.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0670000",
+      "last_id": "MT-0679999",
+      "bytes": 1379354,
+      "sha256": "5e3cf68652591aaebe7b092c5fe65f1127eb2fdea7f10e9fe4f14c632db41e41"
+    },
+    {
+      "file": "family-068.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0680000",
+      "last_id": "MT-0689999",
+      "bytes": 1381491,
+      "sha256": "48ce6d5e68a21167cdc0eeafa3d194dc2d489246a40ffe43b818f1d75b879ea3"
+    },
+    {
+      "file": "family-069.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0690000",
+      "last_id": "MT-0699999",
+      "bytes": 1378267,
+      "sha256": "6832075eb6e366653a00a4b4ad7e4d57ed01840f465efe9690587c138a50b4c3"
+    },
+    {
+      "file": "family-070.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0700000",
+      "last_id": "MT-0709999",
+      "bytes": 1386937,
+      "sha256": "adf35abe9e5a8a347d2f763470dbdad992bfe7467082d957653a32a13ee01fd9"
+    },
+    {
+      "file": "family-071.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0710000",
+      "last_id": "MT-0719999",
+      "bytes": 1368253,
+      "sha256": "01e865d576b1be0c44cd393f53ce08fcd21363544d51157717f7b12217752de3"
+    },
+    {
+      "file": "family-072.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0720000",
+      "last_id": "MT-0729999",
+      "bytes": 1382011,
+      "sha256": "b6d157b20122a706c5439895075f7393f92c92bea08175262f5cd82eadd01621"
+    },
+    {
+      "file": "family-073.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0730000",
+      "last_id": "MT-0739999",
+      "bytes": 1387256,
+      "sha256": "14d6d75bd3d6f11dfca870f34b982345e3bc49b56f48522ee112d65f45851c75"
+    },
+    {
+      "file": "family-074.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0740000",
+      "last_id": "MT-0749999",
+      "bytes": 1366602,
+      "sha256": "ec7f3f0c07da2fc1f58e76605067977c03d5f9fc088138eb28bbe195b60ee92c"
+    },
+    {
+      "file": "family-075.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0750000",
+      "last_id": "MT-0759999",
+      "bytes": 1368516,
+      "sha256": "ac9e3bfa9ecea411e5908faee6c891e9d30c92776611a0e87318f9e607446f9c"
+    },
+    {
+      "file": "family-076.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0760000",
+      "last_id": "MT-0769999",
+      "bytes": 1365496,
+      "sha256": "06896ef7652ec8318d63940b5dfedac3e0f3053a7e28f42ff71058897ca23ac8"
+    },
+    {
+      "file": "family-077.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0770000",
+      "last_id": "MT-0779999",
+      "bytes": 1379813,
+      "sha256": "4527ba51f012b70c86996dda7ab4a6b6a4726b1c2a6bd7f5d01ae40192069302"
+    },
+    {
+      "file": "family-078.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0780000",
+      "last_id": "MT-0789999",
+      "bytes": 1372935,
+      "sha256": "128502c3846e5f2116a2c52ce2e7b8bd487c33ae5560c0d9837e9bf846f8ca7a"
+    },
+    {
+      "file": "family-079.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0790000",
+      "last_id": "MT-0799999",
+      "bytes": 1376898,
+      "sha256": "7dc9efcb48ed35d5f1fc346f0e6936790c9f88b910d4dcaea6ef5c3509bbb761"
+    },
+    {
+      "file": "family-080.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0800000",
+      "last_id": "MT-0809999",
+      "bytes": 1395740,
+      "sha256": "1da26940f26eea132d700b426010653581eefa9b2d6f028e0f4ee5a64eb823ef"
+    },
+    {
+      "file": "family-081.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0810000",
+      "last_id": "MT-0819999",
+      "bytes": 1387607,
+      "sha256": "b2135f4f7e37ac8da2bea26a0335fbf54bd333ee01125c2e72f02545314cf499"
+    },
+    {
+      "file": "family-082.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0820000",
+      "last_id": "MT-0829999",
+      "bytes": 1387001,
+      "sha256": "888d456b74a923a7c91cdb2aabe52205cb2a6eeb77781c734492725d9d97a0a6"
+    },
+    {
+      "file": "family-083.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0830000",
+      "last_id": "MT-0839999",
+      "bytes": 1375067,
+      "sha256": "2e1157a1b5a3eaac256b6588750bea6dd147df924212f1598a7ea3f8c3ce1522"
+    },
+    {
+      "file": "family-084.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0840000",
+      "last_id": "MT-0849999",
+      "bytes": 1377066,
+      "sha256": "3973088080a7fa0ad05db09f50d1403f68608fdea83b22ed3f07677db3733889"
+    },
+    {
+      "file": "family-085.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0850000",
+      "last_id": "MT-0859999",
+      "bytes": 1384223,
+      "sha256": "e3b99a7ee59dd0d17b6c867a75bb9377d80c92bf417aa021ef8e79adb57d1ab5"
+    },
+    {
+      "file": "family-086.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0860000",
+      "last_id": "MT-0869999",
+      "bytes": 1386797,
+      "sha256": "4b57ae72ad123c347d7c214d0032770ce2c927282a2f663b11353667ad727ffc"
+    },
+    {
+      "file": "family-087.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0870000",
+      "last_id": "MT-0879999",
+      "bytes": 1398010,
+      "sha256": "f474c0b2262281e42456b16e9c34f05c9e1545177189442657ea32b69012d60e"
+    },
+    {
+      "file": "family-088.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0880000",
+      "last_id": "MT-0889999",
+      "bytes": 1381199,
+      "sha256": "80e512c39f39b2a37f9dd80066f677c1cbbb79c3e1f7ef4b1820c49640cf39b7"
+    },
+    {
+      "file": "family-089.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0890000",
+      "last_id": "MT-0899999",
+      "bytes": 1392915,
+      "sha256": "63db54625ccc738414a23ada17b7c7258d7c8bc22b6b508b45f320f311865229"
+    },
+    {
+      "file": "family-090.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0900000",
+      "last_id": "MT-0909999",
+      "bytes": 1377877,
+      "sha256": "c935c748c8d2f8da26a1ce24c04f10c43d901f3d414637d733483ed2567f11cb"
+    },
+    {
+      "file": "family-091.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0910000",
+      "last_id": "MT-0919999",
+      "bytes": 1380004,
+      "sha256": "e7e4004c5ad5bf29c537be99e4aaaf30d388b5f26758f3ad93c3c5c231cf5c83"
+    },
+    {
+      "file": "family-092.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0920000",
+      "last_id": "MT-0929999",
+      "bytes": 1382078,
+      "sha256": "e9e9274a4b2a02a8b0ef0b1f0838f434c211633747b658129851d7b1350fb2cf"
+    },
+    {
+      "file": "family-093.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0930000",
+      "last_id": "MT-0939999",
+      "bytes": 1386521,
+      "sha256": "df70a67bd5409b23a79acf2d38386a6ee82c842027128d2c138672d49ae94ef9"
+    },
+    {
+      "file": "family-094.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0940000",
+      "last_id": "MT-0949999",
+      "bytes": 1381811,
+      "sha256": "ee994f914219ad0554a39bf21c8c491e00178ca392b3efe314c471142feaa8a4"
+    },
+    {
+      "file": "family-095.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0950000",
+      "last_id": "MT-0959999",
+      "bytes": 1382964,
+      "sha256": "22ec3c201d4a7e487efef2ed1545bf0f056588ab34938aa2872640bdae660b9f"
+    },
+    {
+      "file": "family-096.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0960000",
+      "last_id": "MT-0969999",
+      "bytes": 1386505,
+      "sha256": "e69fc7dbc647f3334238f7700af0930ad7da87f02719c6564c9b10929122d201"
+    },
+    {
+      "file": "family-097.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0970000",
+      "last_id": "MT-0979999",
+      "bytes": 1386673,
+      "sha256": "99d350b417be530241bb6b592ccb035044faadacdb4dfec408a09781435f4624"
+    },
+    {
+      "file": "family-098.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0980000",
+      "last_id": "MT-0989999",
+      "bytes": 1387831,
+      "sha256": "bf0a46ee10504432cdc6202d39800ccb949ef548990711c32c604cfbb1e86b6d"
+    },
+    {
+      "file": "family-099.jsonl.gz",
+      "records": 10000,
+      "first_id": "MT-0990000",
+      "last_id": "MT-0999999",
+      "bytes": 1390028,
+      "sha256": "49939d9e0b87e06e6cf5cfd61887b7e5f62df1b063c77d644b6637d5e8dc266f"
+    }
+  ]
+}

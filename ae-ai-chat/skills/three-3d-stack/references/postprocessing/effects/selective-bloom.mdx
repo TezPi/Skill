@@ -1,0 +1,61 @@
+---
+title: SelectiveBloom
+nav: 1
+---
+
+A selective bloom effect.
+
+This effect applies bloom to selected objects only.
+
+Attention: If you don't need to limit bloom to a subset of objects, consider using the BloomEffect instead for better performance.
+
+```jsx
+import { SelectiveBloom } from '@react-three/postprocessing'
+import { BlendFunction, Resolution, KernelSize } from 'postprocessing'
+
+return (
+  <SelectiveBloom
+    lights={[lightRef1, lightRef2]} // ⚠️ REQUIRED! all relevant lights
+    selection={[meshRef1, meshRef2]} // selection of objects that will have the bloom effect
+    selectionLayer={10} // selection layer
+    inverted={false} // consider the selection inverted
+    ignoreBackground={false} // discard the background of the selection
+    luminanceThreshold={1.0} // luminance threshold. Raise this value to mask out darker elements in the scene.
+    luminanceSmoothing={0.03} // smoothness of the luminance threshold. Range is [0, 1]
+    mipmapBlur={true} // enables/disables mipmap blur
+    intensity={1.0} // the bloom intensity
+    radius={0.85} // the blur radius, only applies to mipmap blur
+    levels={8} // the amount of MIP levels, only applies to mipmap blur
+    kernelSize={KernelSize.LARGE} // blur kernel size, ignored if mipmapBlur is enabled
+    resolutionScale={0.5} // render resolution scale, ignored if mipmapBlur is enabled
+    resolutionX={Resolution.AUTO_SIZE} // render width, ignored if mipmapBlur is enabled
+    resolutionY={Resolution.AUTO_SIZE} // render height, ignored if mipmapBlur is enabled
+  />
+)
+```
+
+## Example
+
+[![SelectiveBloom demo](https://pmndrs.github.io/examples/selective-bloom/thumbnail.webp)](https://pmndrs.github.io/examples/selective-bloom)
+
+## Props
+
+| Name               | Type          | Default              | Description                                                                                          |
+| ------------------ | ------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| selection          | Objects       |                      | Selection of objects that will have the bloom effect                                                 |
+| lights             | Lights        |                      | All lights that will affect the effect - required                                                    |
+| selectionLayer     | Number        | 10                   | The selection layer                                                                                  |
+| inverted           | Boolean       | false                | Consider the selection inverted.                                                                     |
+| ignoreBackground   | Boolean       | false                | Discard the background of the selection.                                                             |
+| blendFunction      | BlendFunction | BlendFunction.ADD    | The blend function of this effect.                                                                   |
+| luminanceThreshold | Number        | 1.0                  | The luminance threshold. Raise this value to mask out darker elements in the scene. Range is [0, 1]. |
+| luminanceSmoothing | Number        | 0.03                 | Controls the smoothness of the luminance threshold. Range is [0, 1].                                 |
+| mipmapBlur         | Boolean       | true                 | Enables or disables mipmap blur.                                                                     |
+| intensity          | Number        | 1.0                  | The bloom intensity.                                                                                 |
+| radius             | Number        | 0.85                 | The blur radius. Only applies to mipmap blur.                                                        |
+| levels             | Number        | 8                    | The amount of MIP levels. Only applies to mipmap blur.                                               |
+| kernelSize         | KernelSize    | KernelSize.LARGE     | The blur kernel size. Ignored if `mipmapBlur` is enabled.                                            |
+| resolutionScale    | Number        | 0.5                  | The render resolution scale. Ignored if `mipmapBlur` is enabled.                                     |
+| resolutionX        | Number        | Resolution.AUTO_SIZE | The render width. Ignored if `mipmapBlur` is enabled.                                                |
+| resolutionY        | Number        | Resolution.AUTO_SIZE | The render height. Ignored if `mipmapBlur` is enabled.                                               |
+| opacity            | Number        | 1                    | The opacity of this effect.                                                                          |

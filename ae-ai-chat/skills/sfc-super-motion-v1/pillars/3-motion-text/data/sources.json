@@ -1,0 +1,301 @@
+{
+  "accessed": "2026-10-28",
+  "method": "Read official documentation, original paper and creator pages; no demo video analysis or preset download.",
+  "sources": [
+    {
+      "id": "A01",
+      "title": "Adobe Animating text",
+      "url": "https://helpx.adobe.com/after-effects/desktop/animating-text/text-animation/animating-text.html",
+      "verification": "full_text",
+      "technical_basis": "Text animators/selectors, grouping, transform, path and per-character 3D primitives."
+    },
+    {
+      "id": "A02",
+      "title": "Kinetic Typography Engine, Lee/Forlizzi/Hudson, UIST 2002",
+      "url": "https://www.cs.cmu.edu/~johnny/academic/KT_Engine_UIST2002.pdf",
+      "verification": "full_text",
+      "technical_basis": "Factored behavior composition, expressive temporal typography, waveform manipulation."
+    },
+    {
+      "id": "A03",
+      "title": "GSAP Staggers",
+      "url": "https://gsap.com/resources/getting-started/Staggers/",
+      "verification": "full_text",
+      "technical_basis": "each/amount/from/grid and function-based stagger."
+    },
+    {
+      "id": "A04",
+      "title": "Fluent 2 Motion",
+      "url": "https://fluent2.microsoft.design/motion",
+      "verification": "full_text",
+      "technical_basis": "Functional motion, duration, distance and easing; UI guidance rather than video reading-speed evidence."
+    },
+    {
+      "id": "A05",
+      "title": "Mister Horse Animation Composer",
+      "url": "https://misterhorse.com/animation-composer-for-after-effects",
+      "verification": "full_text",
+      "technical_basis": "Discoverable titles, callouts and editable preset applications; no vendor preset copied."
+    },
+    {
+      "id": "A06",
+      "title": "GSAP SplitText",
+      "url": "https://gsap.com/docs/v3/Plugins/SplitText/",
+      "verification": "full_text",
+      "technical_basis": "Split lines/words/chars, font/reflow, cleanup and accessibility caveats."
+    },
+    {
+      "id": "A07",
+      "title": "Remotion Animating properties",
+      "url": "https://www.remotion.dev/docs/animating-properties",
+      "verification": "full_text",
+      "technical_basis": "Frame-driven animation; avoid wall-clock CSS transitions when rendering."
+    },
+    {
+      "id": "A08",
+      "title": "Remotion spring",
+      "url": "https://www.remotion.dev/docs/spring",
+      "verification": "full_text",
+      "technical_basis": "Physical spring controls and optional overshoot clamp."
+    },
+    {
+      "id": "A09",
+      "title": "Remotion interpolate",
+      "url": "https://www.remotion.dev/docs/interpolate",
+      "verification": "full_text",
+      "technical_basis": "Keyframe interpolation, easing and explicit extrapolation clamp."
+    },
+    {
+      "id": "A10",
+      "title": "Unicode UAX29",
+      "url": "https://www.unicode.org/reports/tr29/",
+      "verification": "full_text",
+      "technical_basis": "Extended grapheme clusters, canonical equivalence and segmentation boundaries."
+    },
+    {
+      "id": "A11",
+      "title": "ECMA402 Segmenter",
+      "url": "https://tc39.es/ecma402/#segmenter-objects",
+      "verification": "full_text",
+      "technical_basis": "Intl.Segmenter grapheme/word/sentence; locale-dependent boundaries."
+    },
+    {
+      "id": "A12",
+      "title": "W3C Animation from interactions",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html",
+      "verification": "full_text",
+      "technical_basis": "SC2.3.3 interaction-triggered motion and disabling nonessential animation."
+    },
+    {
+      "id": "A13",
+      "title": "W3C Pause Stop Hide",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html",
+      "verification": "full_text",
+      "technical_basis": "Conditional SC2.2.2 pause/stop/hide requirements."
+    },
+    {
+      "id": "A14",
+      "title": "WCAG22 Flash thresholds",
+      "url": "https://www.w3.org/TR/WCAG22/#three-flashes-or-below-threshold",
+      "verification": "full_text",
+      "technical_basis": "SC2.3.1 flash thresholds, not a universal frequency-only guarantee."
+    },
+    {
+      "id": "D01",
+      "title": "Three.js TextGeometry",
+      "url": "https://threejs.org/docs/pages/TextGeometry.html",
+      "verification": "full_text",
+      "technical_basis": "One geometry per supplied string; extrusion/bevel parameters; separate grouping/shaping needed."
+    },
+    {
+      "id": "D02",
+      "title": "Three.js FontLoader",
+      "url": "https://threejs.org/docs/pages/FontLoader.html",
+      "verification": "full_text",
+      "technical_basis": "Font addon loading and format pipeline."
+    },
+    {
+      "id": "D03",
+      "title": "Three.js PerspectiveCamera",
+      "url": "https://threejs.org/docs/pages/PerspectiveCamera.html",
+      "verification": "full_text",
+      "technical_basis": "FOV/aspect/near/far projection; focus does not implement DoF by itself."
+    },
+    {
+      "id": "D04",
+      "title": "Three.js Sprite",
+      "url": "https://threejs.org/docs/pages/Sprite.html",
+      "verification": "full_text",
+      "technical_basis": "Camera-facing plane; Sprite cannot cast shadows."
+    },
+    {
+      "id": "D05",
+      "title": "Adobe Extrude text and shapes",
+      "url": "https://helpx.adobe.com/after-effects/desktop/work-with-3d-composition/extruding-text-and-shape-layers/extruding-text-shapes.html",
+      "verification": "full_text",
+      "technical_basis": "Current 2026 Advanced3D and C4D renderers support extrusion; renderer material differences."
+    },
+    {
+      "id": "D06",
+      "title": "Maxon Text Object 2026",
+      "url": "https://help.maxon.net/c4d/2026/en-us/Content/html/OMOGRAPH_TEXT.html",
+      "verification": "full_text",
+      "technical_basis": "Letters/words/lines/all grouping and pivots."
+    },
+    {
+      "id": "D07",
+      "title": "Maxon Text Object Properties 2026",
+      "url": "https://help.maxon.net/c4d/2026/en-us/Content/html/OMOGRAPH_TEXT-ID_OBJECTPROPERTIES.html",
+      "verification": "full_text",
+      "technical_basis": "Depth/subdivision; overlapping font paths and kerning limitations."
+    },
+    {
+      "id": "D08",
+      "title": "Maxon Effectors 2026",
+      "url": "https://help.maxon.net/c4d/2026/en-us/Content/html/7443.html",
+      "verification": "full_text",
+      "technical_basis": "Transform, step, formula, random, delay, spline, fields; applicability varies."
+    },
+    {
+      "id": "D09",
+      "title": "Maxon MoGraph Basics",
+      "url": "https://www.maxon.net/en/cinema-4d/features/mograph-basics",
+      "verification": "full_text",
+      "technical_basis": "Cloner distributions, spline, sound/field-driven transforms."
+    },
+    {
+      "id": "D10",
+      "title": "Maxon Extrude Object Properties",
+      "url": "https://help.maxon.net/c4d/2026/en-us/Content/html/OEXTRUDE-ID_OBJECTPROPERTIES.html",
+      "verification": "full_text",
+      "technical_basis": "Extrusion direction/subdivision/normals and hierarchical option."
+    },
+    {
+      "id": "D11",
+      "title": "Blender String to Curves 4.2",
+      "url": "https://docs.blender.org/manual/en/4.2/modeling/geometry_nodes/utilities/text/string_to_curves.html",
+      "verification": "search_index_only",
+      "technical_basis": "Instances of character curves; full document fetch returned402 during research."
+    },
+    {
+      "id": "D12",
+      "title": "Blender Sample Curve 4.5",
+      "url": "https://docs.blender.org/manual/id/4.5/modeling/geometry_nodes/curve/sample/sample_curve.html",
+      "verification": "search_index_only",
+      "technical_basis": "Position/tangent/normal sampling; full document fetch returned402."
+    },
+    {
+      "id": "D13",
+      "title": "Blender Text Properties 3.6",
+      "url": "https://docs.blender.org/manual/en/3.6/modeling/texts/properties.html",
+      "verification": "search_index_only",
+      "technical_basis": "Extrusion/taper/bevel principle; old version and full fetch unavailable."
+    },
+    {
+      "id": "C01",
+      "title": "Mister Horse Text Presets",
+      "url": "https://misterhorse.com/category/text-presets",
+      "verification": "page_text_read",
+      "technical_basis": "Catalog taxonomy separates effects and line/word/character transitions."
+    },
+    {
+      "id": "C02",
+      "title": "Mister Horse Line Transitions",
+      "url": "https://misterhorse.com/category/text-presets-for-after-effects/transitions-lines",
+      "verification": "page_text_read",
+      "technical_basis": "Property families include position, mask, scale/tracking and typewrite; these are listing categories, not tested assets."
+    },
+    {
+      "id": "C03",
+      "title": "AEJuice Text Animation Presets",
+      "url": "https://aejuice.com/product/text-animation-presets/previews/",
+      "verification": "page_text_read",
+      "technical_basis": "Listing names expose transform properties, grouping and easing separately."
+    },
+    {
+      "id": "C04",
+      "title": "Motion Bro",
+      "url": "https://motionbro.com/",
+      "verification": "page_text_read",
+      "technical_basis": "Shared scene controls and aspect-ratio adaptation; no specific typography pack execution verified."
+    },
+    {
+      "id": "C05",
+      "title": "Motion Array In Control Kinetic Typography",
+      "url": "https://motionarray.com/motion-graphics-templates/in-control-kinetic-typography-1800284/",
+      "verification": "page_text_read",
+      "technical_basis": "Creator listing for an editable kinetic-type template; text read, project not executed."
+    },
+    {
+      "id": "C06",
+      "title": "Premiumilk Kinetic Neon Typo Pack",
+      "url": "https://videohive.net/item/kinetic-neon-typo-pack/39609087",
+      "verification": "page_text_read",
+      "technical_basis": "Creator listing distinguishes appearance, loop duration and output aspect ratios."
+    },
+    {
+      "id": "C07",
+      "title": "ProductionCrate Text Animator",
+      "url": "https://www.productioncrate.com/archives/ae-scripts/productioncrate-text-animator",
+      "verification": "page_text_read",
+      "technical_basis": "Creator groups include glitch, fly-in, slide and spin; script not downloaded."
+    },
+    {
+      "id": "C08",
+      "title": "Apple Motion Sequence Text",
+      "url": "https://support.apple.com/guide/motion/apply-the-sequence-text-behavior-motn1607c46e/6.4/mac/26.6",
+      "verification": "page_text_read",
+      "technical_basis": "Configurable text sequencing behavior separates parameters, direction, speed and units."
+    },
+    {
+      "id": "C09",
+      "title": "Kielm Space Type Generator",
+      "url": "https://spacetypegenerator.com/",
+      "verification": "page_text_read",
+      "technical_basis": "Original creator exposes spatial typography module names; individual algorithms and exports not tested."
+    },
+    {
+      "id": "C10",
+      "title": "School of Motion Kinetic Typography Part 2",
+      "url": "https://schoolofmotion.com/blog/kinetic-typography-after-effects-part-2",
+      "verification": "page_text_read",
+      "technical_basis": "Read article/transcript about choosing motion from spoken meaning, markers and reusable compositions."
+    },
+    {
+      "id": "C11",
+      "title": "Kinetic Typography Diffusion Model, ECCV 2024",
+      "url": "https://arxiv.org/abs/2407.10476",
+      "verification": "abstract_read",
+      "technical_basis": "Abstract distinguishes about 600K generated videos from 584 authored templates; no dataset redistributed."
+    },
+    {
+      "id": "C12",
+      "title": "Dynamic Typography",
+      "url": "https://arxiv.org/abs/2404.11614",
+      "verification": "abstract_read",
+      "technical_basis": "Abstract discusses semantic deformation and shape/legibility preservation in its specific research method."
+    },
+    {
+      "id": "C13",
+      "title": "FIT Introduction to Kinetic Typography syllabus",
+      "url": "https://cdn.edex.adobe.com/exAttachments/29193-9-20936.pdf",
+      "verification": "page_text_read",
+      "technical_basis": "Semantic motion selection and animation principles; historical software/delivery advice not adopted."
+    },
+    {
+      "id": "C14",
+      "title": "Carbon Typography Style Strategies",
+      "url": "https://www.carbondesignsystem.com/building-blocks/foundations/typography/style-strategies",
+      "verification": "page_text_read",
+      "technical_basis": "Productive versus expressive typography informs an authored video-domain analogy; not a video benchmark."
+    },
+    {
+      "id": "C16",
+      "title": "Dstl A Bite-Sized Guide to Visualising Data",
+      "url": "https://www.gov.uk/government/publications/a-bite-sized-guide-to-visualising-data-a-dstl-biscuit-book/a-bite-sized-guide-to-visualising-data",
+      "verification": "page_text_read",
+      "technical_basis": "Scale, area and perspective can change data interpretation; numeric-text rules are an authored application."
+    }
+  ],
+  "scope": "Technical documentation, creator catalog text and original research. No commercial template assets, source code, fonts or datasets included. No claim to have watched every demo."
+}

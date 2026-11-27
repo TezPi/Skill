@@ -1,0 +1,30 @@
+---
+title: BrightnessContrast
+nav: 1
+---
+
+Alter brightness and contrast of your scene
+
+```jsx
+import { BrightnessContrast } from '@react-three/postprocessing'
+
+return (
+  <BrightnessContrast
+    brightness={0} // brightness. min: -1, max: 1
+    contrast={0} // contrast: min -1, max: 1
+  />
+)
+```
+
+## Example
+
+[![BrightnessContrast demo](https://pmndrs.github.io/examples/brightness-contrast/thumbnail.webp)](https://pmndrs.github.io/examples/brightness-contrast)
+
+## Props
+
+| Name          | Type          | Default           | Description                        |
+| ------------- | ------------- | ----------------- | ---------------------------------- |
+| brightness    | Number        | 0                 | Scene brightness shift             |
+| contrast      | Number        | 0                 | Scene contrast shift               |
+| blendFunction | BlendFunction | BlendFunction.SRC | The blend function of this effect. |
+| opacity       | Number        | 1                 | The opacity of this effect.        |

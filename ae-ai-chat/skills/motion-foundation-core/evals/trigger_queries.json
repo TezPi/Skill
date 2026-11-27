@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Thêm chữ và shape chuyển động vào video giới thiệu phần mềm.",
+    "should_trigger": true
+  },
+  {
+    "query": "Lập storyboard có grid và keyframe cho một explainer.",
+    "should_trigger": true
+  },
+  {
+    "query": "Đổi bố cục video AE từ ngang sang dọc, giữ logo.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tạo motion typography cho tiêu đề mở đầu.",
+    "should_trigger": true
+  },
+  {
+    "query": "Làm overlay số liệu theo voice trong video.",
+    "should_trigger": true
+  },
+  {
+    "query": "Sửa một caption nằm trong video, giữ phần khác.",
+    "should_trigger": true
+  },
+  {
+    "query": "Dựng infographic animation từ bảng dữ liệu.",
+    "should_trigger": true
+  },
+  {
+    "query": "Chọn transition và motion shape cho source này.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tạo plan kỹ thuật để dựng bằng một công cụ video khác.",
+    "should_trigger": true
+  },
+  {
+    "query": "Rà soát readability và vị trí text của motion poster.",
+    "should_trigger": true
+  },
+  {
+    "query": "Viết caption Facebook cho video đã hoàn thành.",
+    "should_trigger": false
+  },
+  {
+    "query": "Giải thích motion graphics là gì bằng hai câu.",
+    "should_trigger": false
+  },
+  {
+    "query": "Dịch câu tiêu đề này sang tiếng Anh, không dựng video.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tóm tắt báo cáo tài chính trong file Excel.",
+    "should_trigger": false
+  },
+  {
+    "query": "Viết email gửi khách hàng về lịch họp.",
+    "should_trigger": false
+  },
+  {
+    "query": "Chỉ xuất nguyên video sang định dạng khác, không thêm đồ họa.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tôi muốn sửa chính skill motion-foundation-core.",
+    "should_trigger": false
+  },
+  {
+    "query": "Thiết kế bảng học phí in A4 tĩnh.",
+    "should_trigger": false
+  },
+  {
+    "query": "Tư vấn nội dung bài viết về quản trị dữ liệu.",
+    "should_trigger": false
+  },
+  {
+    "query": "Đặt tên file ảnh hoạt động cho thư mục.",
+    "should_trigger": false
+  }
+]

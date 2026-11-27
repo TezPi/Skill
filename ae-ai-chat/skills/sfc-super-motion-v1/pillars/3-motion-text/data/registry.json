@@ -1,0 +1,3572 @@
+{
+  "schema_version": "2.0",
+  "count": 1000000,
+  "axes_order": [
+    "family",
+    "grouping",
+    "traversal",
+    "temporal",
+    "composition"
+  ],
+  "families": [
+    {
+      "id": "F000",
+      "slug": "translate-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Translate settle",
+      "description": "Start each shaped unit 1.1 em below its final baseline. Move vertically to its measured target without changing its width or character order.",
+      "movement_equation": "y=q.y+1.1*(1-v) em; x=q.x; rotation=0; end offset exactly zero.",
+      "mix_guidance": "Combine with a padded matte on a separate opacity channel; do not animate the final baseline during reading.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.y_em"
+      ]
+    },
+    {
+      "id": "F001",
+      "slug": "arc-converge",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "bezier_path"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Bezier arc converge",
+      "description": "Move a unit along a cubic Bezier curve, rotating only if tangent following is explicitly enabled. Stop at the target with the original upright orientation.",
+      "movement_equation": "B(v)=(1-v)^3 P0+3(1-v)^2 v P1+3(1-v)v^2 P2+v^3 P3; P3=q. Supply all four control points in em.",
+      "mix_guidance": "Mix a short highlight after arrival; preserve the curve endpoint when changing its bend.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F002",
+      "slug": "spiral-converge",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Spiral converge",
+      "description": "Make two turns around the destination while the orbit radius shrinks to zero. Keep glyph orientation upright unless a secondary rotation is declared.",
+      "movement_equation": "r=1.2*(1-s) em; theta=4*pi*s; offset=(r*cos(theta),r*sin(theta)); s=clamp(v,0,1).",
+      "mix_guidance": "Replace the circular orbit with an ellipse or change turn count; finish at exactly the same measured target.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F003",
+      "slug": "pivot-orbit-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "External pivot orbit",
+      "description": "Rotate the whole unit through a short arc around an external pivot, then restore its ordinary transform hierarchy without a visible jump.",
+      "movement_equation": "Pivot=q+(-0.5,0.5) em; angle=-45*(1-v) degrees. Reparent at the same world transform after angle reaches zero.",
+      "mix_guidance": "Layer an underline after the orbit; do not change pivot and translation independently without compensating the world transform.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_deg"
+      ]
+    },
+    {
+      "id": "F004",
+      "slug": "pendulum-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Damped pendulum",
+      "description": "Swing the unit around its top-center attachment with decreasing angular amplitude, then lock its readable orientation.",
+      "movement_equation": "theta=18*sin(3*pi*s)*(1-s)^2 degrees, s=clamp(v,0,1); translation follows the pivot; theta(1)=0.",
+      "mix_guidance": "Change oscillation count or attachment point; keep the damping envelope and final baseline explicit.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "deformation.progress"
+      ]
+    },
+    {
+      "id": "F005",
+      "slug": "spring-scale-pop",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Spring scale pop",
+      "description": "Grow from 65 percent size, pass slightly above full size, and settle at scale one around a baseline-aware pivot.",
+      "movement_equation": "scale=1-0.35*exp(-6*s)*cos(8*s), with scale(1)=1 exactly. The family spring is intrinsic; do not double-apply a temporal spring.",
+      "mix_guidance": "Pair with opacity or matte reveal. Tune damping before increasing amplitude; never deform the text payload.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "intrinsic_response": "spring_already_in_family; temporal_profile_sets_duration_without_double_spring",
+      "output_channels": [
+        "transform.scale"
+      ]
+    },
+    {
+      "id": "F006",
+      "slug": "squash-impact",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Squash impact",
+      "description": "Compress height and expand width briefly, then recover the original glyph proportions. This is a stylized transform rather than a soft-body simulation.",
+      "movement_equation": "k=0.20*sin(pi*s)*(1-s); scale_y=1-k; scale_x=1/(1-k); both equal one at s=1.",
+      "mix_guidance": "Precede with a short downward arrival, keeping the impact and recovery in separate stages.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "deformation.progress"
+      ]
+    },
+    {
+      "id": "F007",
+      "slug": "shear-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Shear settle",
+      "description": "Start with an italic-like shear while retaining the original font shape, then remove the shear at the final baseline.",
+      "movement_equation": "skew_x=-18*(1-v) degrees, anchored at baseline center; final skew is zero.",
+      "mix_guidance": "Combine with tracking on a parent group; avoid presenting the temporary skew as a different font style.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.skew_deg"
+      ]
+    },
+    {
+      "id": "F008",
+      "slug": "tracking-compress",
+      "dimension": "2d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "measured_shaping"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Tracking compress",
+      "description": "Reduce additional spacing between already shaped targets without scaling or reshaping their glyph outlines.",
+      "movement_equation": "Extra gap=0.4*(1-v) em. Use measured kerning as the final spacing; compensate the group anchor while gaps change.",
+      "mix_guidance": "Run a subtle opacity stagger inside the group, with one shared spacing controller.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "spacing.extra_em"
+      ]
+    },
+    {
+      "id": "F009",
+      "slug": "baseline-wave-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Baseline wave settle",
+      "description": "Offset units along a traveling vertical wave and progressively remove the wave so the final sentence rests on its baseline.",
+      "movement_equation": "dy=0.35*sin(2*pi*s+0.6*i)*(1-s) em; i is the original unit index; dy(1)=0.",
+      "mix_guidance": "Phase the wave against traversal rank or audio markers; keep original reading order independent of activation order.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "deformation.progress"
+      ]
+    },
+    {
+      "id": "F010",
+      "slug": "bounce-drop",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Bounce drop",
+      "description": "Bring the unit down to its target, add two smaller rebounds, and finish still. Use explicit keys rather than claiming a physics solve.",
+      "movement_equation": "Piecewise normalized keys (s,dy_em): (0,-1.2),(.55,0),(.72,-.22),(.86,0),(.93,-.06),(1,0). Interpolate each segment with monotone easing.",
+      "mix_guidance": "Use a short squash only at contact keys; keep the final rebound before the reading hold.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F011",
+      "slug": "anticipation-launch",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Anticipation launch",
+      "description": "Move a short distance opposite the main travel, accelerate toward the target, and settle without crossing the final text layout.",
+      "movement_equation": "x offset keys in em: (0,-.8),(.18,-.95),(.82,.04),(1,0). Choose the direction deliberately; mirror all offsets together if reversed.",
+      "mix_guidance": "Combine with a reveal matte; retain the anticipation-to-main-action relationship when retiming.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "deformation.progress"
+      ]
+    },
+    {
+      "id": "F012",
+      "slug": "linear-matte-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Linear matte reveal",
+      "description": "Keep text at its final layout and move a clipping edge across its measured bounds. The letters themselves remain stationary.",
+      "movement_equation": "Reveal fraction=clamp(v,0,1); matte width=fraction*(bounds.width+2*padding), padding>=diacritic/outline extent.",
+      "mix_guidance": "Move the text behind the matte as a separate secondary channel, or reveal phrases rather than arbitrary letters.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F013",
+      "slug": "block-matte-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Block matte reveal",
+      "description": "Sweep an opaque block over stationary text; uncover the text behind its trailing edge and move the block entirely away.",
+      "movement_equation": "Block leading edge travels from left-padding to right+padding; trailing edge follows by block_width. End with the block outside the text bounds.",
+      "mix_guidance": "Use the block as a chapter transition, but separate the block color from actual text alpha.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F014",
+      "slug": "iris-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Iris reveal",
+      "description": "Expand an elliptical matte around the unit until every corner and accent is visible.",
+      "movement_equation": "Radius factor=clamp(v,0,1); final ellipse must contain the padded rectangle, not merely match half its width and height.",
+      "mix_guidance": "Change the iris center to a semantic focus point; recompute its final coverage for the actual text.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F015",
+      "slug": "slit-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Slit reveal",
+      "description": "Open a narrow horizontal aperture vertically around the baseline until the complete letter height is exposed.",
+      "movement_equation": "Visible height=(bounds.height+2*padding)*clamp(v,0,1); centered aperture; final mask removed or expanded beyond all accents.",
+      "mix_guidance": "Combine with slight vertical translation; keep mask opening and glyph travel on independent controls.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F016",
+      "slug": "luma-threshold-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "luma_matte"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Luma threshold reveal",
+      "description": "Use a supplied grayscale matte to expose different regions of the final text progressively, then remove all residual masking.",
+      "movement_equation": "Threshold=1-clamp(v,0,1); apply a declared soft transition band. At the last entrance frame bypass the matte so no dark holes remain.",
+      "mix_guidance": "Change the matte texture or traversal, while retaining a fully solid final text state.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F017",
+      "slug": "gradient-alpha-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Gradient alpha reveal",
+      "description": "Move a soft alpha ramp across the unit rather than fading the whole unit uniformly.",
+      "movement_equation": "Ramp center moves from left-padding to right+padding; alpha=clamp((edge-x)/feather+0.5,0,1). Finish with alpha one everywhere.",
+      "mix_guidance": "Use a directional blur only during entrance and explicitly set blur to zero before reading.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "mask.reveal"
+      ]
+    },
+    {
+      "id": "F018",
+      "slug": "stroke-draw",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "outline_paths"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Stroke draw",
+      "description": "Reveal the ordered outline paths by arc length. This draws an outline and does not automatically reproduce human handwriting stroke order.",
+      "movement_equation": "Visible path length=clamp(v,0,1)*total_path_length; specify contour order, direction and cap style; final contour coverage is complete.",
+      "mix_guidance": "Follow with fill reveal; keep holes/counters as separate contours and avoid fake pen ordering claims.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "stroke.progress"
+      ]
+    },
+    {
+      "id": "F019",
+      "slug": "outline-to-fill",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "outline_paths"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Outline to fill",
+      "description": "Present an outline first and then fill the same shaped glyph geometry while the outline becomes subordinate.",
+      "movement_equation": "Fill alpha=clamp((s-.35)/.65,0,1); outline alpha falls from 1 to a declared final value during the final 30 percent.",
+      "mix_guidance": "Mix with a light sweep after fill is stable; retain enough contrast throughout the transition.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "fill.opacity"
+      ]
+    },
+    {
+      "id": "F020",
+      "slug": "highlight-sweep",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Highlight sweep",
+      "description": "Sweep a narrow highlight over text that is already readable in its base color. The moving band carries emphasis rather than essential content.",
+      "movement_equation": "Band center crosses padded bounds; width=0.25*unit_width; additive or color blend uses a bounded gain and ends at zero highlight contribution.",
+      "mix_guidance": "Trigger the sweep on an important spoken phrase; do not use the sweep as the only visible copy of the text.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F021",
+      "slug": "underline-grow",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "measured_shaping"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Underline grow",
+      "description": "Draw an underline from the chosen edge beneath the measured unit while leaving the letters stable.",
+      "movement_equation": "Line length=measured_width*clamp(v,0,1); y=baseline+0.15 em; thickness starts at 0.04 em and is adjusted to the font.",
+      "mix_guidance": "Pair with a quiet unit arrival; preserve the underline relationship to its semantic phrase.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F022",
+      "slug": "bracket-frame-draw",
+      "dimension": "2d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "measured_shaping"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Bracket frame draw",
+      "description": "Draw corner brackets and an optional leader around a measured text region to establish a label or callout.",
+      "movement_equation": "Four L-shaped paths reveal by path length; offsets use padded bounds. Leader endpoint must be supplied if attached to an object.",
+      "mix_guidance": "Mix with an anchored world label; keep bracket motion separate from the target object's motion.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F023",
+      "slug": "marker-wipe",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Marker wipe",
+      "description": "Animate a colored backing strip behind stationary text, keeping the text above the strip and fully readable.",
+      "movement_equation": "Backing width grows from 0 to padded text width; height=1.1 em initial heuristic; text alpha stays one.",
+      "mix_guidance": "Mix with a phrase reveal, and verify the final text/backing contrast instead of assuming a color is legible.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F024",
+      "slug": "color-wave",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Color wave",
+      "description": "Propagate a bounded accent color through units, then restore the specified final color without changing the text shape.",
+      "movement_equation": "Accent mix=sin(pi*s)^2 per delayed unit; final mix=0. Interpolate in an explicitly chosen color space.",
+      "mix_guidance": "Use semantic priority rather than random unit order for important statements; never encode essential meaning by color alone.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F025",
+      "slug": "duotone-emphasis",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Duotone emphasis",
+      "description": "Transition between two declared fill states to mark a semantic change while retaining stable letter geometry.",
+      "movement_equation": "Color=interpolate(base,accent,clamp(v,0,1)); hold uses the declared final state, not an arbitrary flashing alternation.",
+      "mix_guidance": "Combine with an underline or weight change; preserve text and background contrast in both states.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "accent.progress"
+      ]
+    },
+    {
+      "id": "F026",
+      "slug": "variable-weight",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "variable_wght_font",
+        "engine_axis_support"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Variable weight",
+      "description": "Animate the font's actual weight axis while preserving the same text and shaping rules. An ordinary font cannot provide this axis.",
+      "movement_equation": "wght=w0+(w1-w0)*clamp(v,0,1); both values must lie inside the loaded font axis limits; remeasure if metrics change.",
+      "mix_guidance": "Mix with a matte on a wrapper; do not approximate missing variable-font support by uncontrolled horizontal scaling.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "font.wght"
+      ]
+    },
+    {
+      "id": "F027",
+      "slug": "variable-width",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "variable_wdth_font",
+        "engine_axis_support"
+      ],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Variable width",
+      "description": "Animate a supported width axis and reflow from measured font metrics, rather than squeezing a rendered bitmap.",
+      "movement_equation": "wdth=d0+(d1-d0)*clamp(v,0,1); recompute wrap/kerning or pin a justified no-wrap layout; final width is d1.",
+      "mix_guidance": "Use with editorial layout transitions, keeping the reading hold after all reflow has finished.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "font.wdth"
+      ]
+    },
+    {
+      "id": "F028",
+      "slug": "blur-focus",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Blur focus",
+      "description": "Reduce a temporary blur until the final shaped text is sharp; account for blur margins in clipping.",
+      "movement_equation": "sigma=0.12*(1-clamp(v,0,1)) em; sigma(1)=0; opacity can rise separately without overshooting one.",
+      "mix_guidance": "Mix with a small translation; supply a reduced version without blur for information-dense text.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.blur_px"
+      ]
+    },
+    {
+      "id": "F029",
+      "slug": "echo-decay",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Echo decay",
+      "description": "Create delayed decorative copies behind the original and fade them away so only one text instance survives.",
+      "movement_equation": "Copy j has offset j*0.08 em and alpha=(0.3/j)*(1-s)^2, j=1..3; original remains at q.",
+      "mix_guidance": "Combine with a quick arrival; remove duplicate geometry after alpha reaches zero to avoid later overlap.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.echo_opacity"
+      ]
+    },
+    {
+      "id": "F030",
+      "slug": "chromatic-register",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "channel_compositor"
+      ],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Chromatic register",
+      "description": "Temporarily offset colored copies and bring all channels back into exact registration.",
+      "movement_equation": "Red and blue offsets are opposite vectors of length 0.04*(1-s)^2 em; their extra contribution becomes zero at hold.",
+      "mix_guidance": "Mix with a short scan accent, while keeping the effect brief and offering a clean static fallback.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.channel_offset_px"
+      ]
+    },
+    {
+      "id": "F031",
+      "slug": "pixel-resolve",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "pixel_shader"
+      ],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Pixel resolve",
+      "description": "Reduce mosaic cell size until the exact rasterized text is visible, then bypass the mosaic filter.",
+      "movement_equation": "Cell size interpolates from max(2,0.16*font_px) to 1 px, quantized to integers; filter disabled at s=1.",
+      "mix_guidance": "Pair with a restrained opacity reveal; do not replace characters with invented symbols or numbers.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.pixel_size_px"
+      ]
+    },
+    {
+      "id": "F032",
+      "slug": "seeded-jitter-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Seeded jitter settle",
+      "description": "Apply a deterministic, smoothly sampled displacement with a decaying envelope; avoid fresh random values on every render.",
+      "movement_equation": "offset=0.12*(1-s)^2*noise(seed,i,s) em; noise is continuous and reproducible; force offset zero at s=1.",
+      "mix_guidance": "Change noise frequency or traversal while retaining the seed and final pose for reproducibility.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.jitter_em"
+      ]
+    },
+    {
+      "id": "F033",
+      "slug": "displacement-settle",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "displacement_field"
+      ],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Displacement settle",
+      "description": "Distort the rendered text or its mesh using a declared field, then remove distortion completely.",
+      "movement_equation": "Displacement amplitude=0.10*(1-s)^2 em; field coordinates and sampling rate must be recorded; final amplitude zero.",
+      "mix_guidance": "Mix with a matte reveal; preserve the original unmodified text geometry for the final state.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.displacement_em"
+      ]
+    },
+    {
+      "id": "F034",
+      "slug": "scan-glitch-burst",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "scan_shader"
+      ],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Scan glitch burst",
+      "description": "Use one short scan-band displacement burst and return to a clean frame before the reading interval.",
+      "movement_equation": "Burst envelope=sin(pi*s)^2 inside the declared burst window only; maximum band displacement=0.08 em; no persistent corruption.",
+      "mix_guidance": "Use on expressive titles with a clean alternate; inspect flashing and avoid repeated full-screen luminance jumps.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.scan_strength"
+      ]
+    },
+    {
+      "id": "F035",
+      "slug": "rolling-window-reveal",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Rolling window reveal",
+      "description": "Slide each exact unit through a clipped vertical window until it rests on the final baseline. Never roll through fabricated prices or letters.",
+      "movement_equation": "dy=1.0*(1-clamp(v,0,1)) em; clip bounds include diacritics; final dy=0 and mask may be bypassed.",
+      "mix_guidance": "Mix with word-level timing; keep full numeric phrases and units together.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.y_em"
+      ]
+    },
+    {
+      "id": "F036",
+      "slug": "typewriter-cluster",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A01"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Typewriter cluster",
+      "description": "Reveal complete declared units one at a time. Character-level behavior requires grapheme boundaries, not raw code-point slicing.",
+      "movement_equation": "For activation time a_i, visibility_i=step(t-a_i); preserve complete clusters and all whitespace; an optional cursor is a separate layer.",
+      "mix_guidance": "Sync boundaries to transcript markers, and keep negation/qualifiers visible with the statement they modify.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "opacity"
+      ]
+    },
+    {
+      "id": "F037",
+      "slug": "token-punch",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Token punch",
+      "description": "Accent an already visible unit by briefly enlarging it and restoring its ordinary scale.",
+      "movement_equation": "Scale keys: (s=0,1),(.25,1.12),(1,1); pivot at baseline center. Do not restart text alpha for an emphasis-only action.",
+      "mix_guidance": "Combine with stable captions; emphasize only editorially selected words rather than every token.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.scale"
+      ]
+    },
+    {
+      "id": "F038",
+      "slug": "shape-morph-match",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "matched_outline_topology"
+      ],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Matched outline morph",
+      "description": "Interpolate corresponding vector points from an authored source outline into the exact final glyph outlines.",
+      "movement_equation": "p_k(s)=(1-s)*source_k+s*target_k; supply matching point counts, contour orientation and counter correspondence.",
+      "mix_guidance": "Add a hold after shape restoration; do not claim arbitrary unrelated letter shapes have valid topology automatically.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.morph"
+      ]
+    },
+    {
+      "id": "F039",
+      "slug": "trail-collapse",
+      "dimension": "2d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "A02"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Trail collapse",
+      "description": "Move several offset copies into registration with the original, then remove all copies except the original.",
+      "movement_equation": "Copy j offset=j*0.10*(1-s) em; copy alpha falls to zero during the final 20 percent; final original offset zero.",
+      "mix_guidance": "Mix with a short rotation; clean duplicate layers to prevent darker overlapped text at hold.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.trail_spread_em"
+      ]
+    },
+    {
+      "id": "F040",
+      "slug": "depth-card-settle",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Depth card settle",
+      "description": "Move flat text planes toward their final depth while maintaining their front-facing readable surfaces.",
+      "movement_equation": "z=q.z+1.0*(1-v) wu; depth of each glyph plane is zero; adjust projection for stable final framing.",
+      "mix_guidance": "Mix with a planar matte; a depth transform on a plane remains 2.5D, not extruded typography.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.z_em"
+      ]
+    },
+    {
+      "id": "F041",
+      "slug": "hinge-rise",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Hinge rise",
+      "description": "Rotate a flat text card upward around its bottom edge and stop facing the camera.",
+      "movement_equation": "rotation_x=-75*(1-v) degrees about the bottom edge; final normal faces the viewing direction; avoid exact edge-on visibility.",
+      "mix_guidance": "Mix with a receiver shadow if using a real plane mesh; keep the final baseline fixed after hinge completion.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_x_deg"
+      ]
+    },
+    {
+      "id": "F042",
+      "slug": "coverflow-align",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Coverflow align",
+      "description": "Arrange flat units with alternating shallow yaw, then align all fronts to the reading plane.",
+      "movement_equation": "yaw_i=sign(i-center)*35*(1-v) degrees; z offsets diminish to the common final plane; no solid glyph sides exist.",
+      "mix_guidance": "Mix a small depth stagger, while preventing overlapping planes from obscuring adjacent words.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_y_deg"
+      ]
+    },
+    {
+      "id": "F043",
+      "slug": "shallow-orbit-settle",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Shallow orbit settle",
+      "description": "Move a flat unit through a shallow arc in 3D and return both position and orientation to its target.",
+      "movement_equation": "offset=(0.5*sin(pi*s),0,0.5*(1-s)) wu; local yaw=20*(1-s) degrees; final offset and yaw zero.",
+      "mix_guidance": "Change the orbital plane or radius; keep the camera fixed unless a separate shot-level action is specified.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F044",
+      "slug": "card-flip-reveal",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Card flip reveal",
+      "description": "Rotate a flat card from an almost edge-on yaw to front view, revealing only the readable face.",
+      "movement_equation": "yaw=85*(1-clamp(v,0,1)) degrees; hide backface or use a declared back material; alpha low while projected width is tiny.",
+      "mix_guidance": "Pair with an opacity envelope; do not show mirrored reverse-side text as readable content.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_y_deg"
+      ]
+    },
+    {
+      "id": "F045",
+      "slug": "layer-parallax-resolve",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Layer parallax resolve",
+      "description": "Separate decorative text planes in depth so camera-relative movement produces parallax, then converge to one readable layer.",
+      "movement_equation": "Three planes use z offsets (-.3,0,.3) wu and bounded lateral offsets; copies fade out before final reading.",
+      "mix_guidance": "Combine with one shared camera truck; preserve the actual text on the surviving master plane.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.layer_separation_em"
+      ]
+    },
+    {
+      "id": "F046",
+      "slug": "dolly-title-plane",
+      "dimension": "2.5d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Dolly title plane",
+      "description": "Move one camera toward a flat title plane, ending at a framing computed from actual text bounds.",
+      "movement_equation": "Camera distance goes from d_fit+2 wu to d_fit; one camera serves the shot. Unit traversal controls reveal/accent, not duplicated cameras.",
+      "mix_guidance": "Mix with small per-unit fades; fit the camera after shaping and keep the title within the near/far range.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "camera.distance_em"
+      ]
+    },
+    {
+      "id": "F047",
+      "slug": "curved-panel-unfold",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "deformable_plane"
+      ],
+      "technical_basis": [
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Curved panel unfold",
+      "description": "Flatten a curved text-bearing surface until its final state is a plane. The text is a surface texture or mapped outline.",
+      "movement_equation": "Bend angle=45*(1-s) degrees with an explicit surface radius and UV map; final bend zero; no glyph extrusion.",
+      "mix_guidance": "Mix with a slow reveal; measure texture stretching and retain an undistorted final surface.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.curvature"
+      ]
+    },
+    {
+      "id": "F048",
+      "slug": "plane-shadow-lift",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "shadow_receiver",
+        "mesh_plane"
+      ],
+      "technical_basis": [
+        "D04",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Plane shadow lift",
+      "description": "Lift a real text-bearing plane away from a receiving surface so its projected shadow changes coherently.",
+      "movement_equation": "Plane height=0.25*clamp(v,0,1) wu; final height remains declared; a shadow-casting mesh and light/receiver are required.",
+      "mix_guidance": "Mix with a soft planar arrival; do not substitute a Sprite and claim it casts the same shadow.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.z_em"
+      ]
+    },
+    {
+      "id": "F049",
+      "slug": "world-label-anchor",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "world_anchor"
+      ],
+      "technical_basis": [
+        "D03",
+        "D04"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "World label anchor",
+      "description": "Attach a flat billboard label to a world point and update a leader while clamping its projected readable size.",
+      "movement_equation": "Project the supplied world anchor through the camera; maintain screen size within authored bounds; leader follows the projected point.",
+      "mix_guidance": "Combine with object tracking or semantic highlights; keep label text out of the tracked object's occlusion zone.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "anchor.track_progress"
+      ]
+    },
+    {
+      "id": "F050",
+      "slug": "accordion-panels",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Accordion panels",
+      "description": "Open linked flat panels from alternating folds into a continuous front-facing reading plane.",
+      "movement_equation": "Hinge angle_i=(-1)^i*60*(1-s) degrees; evaluate parent transforms in chain order; final angles zero.",
+      "mix_guidance": "Stagger neighboring hinges with overlap, while checking text continuity at the panel seams.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_y_deg"
+      ]
+    },
+    {
+      "id": "F051",
+      "slug": "venetian-slats",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "text_plane_slices"
+      ],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Venetian slats",
+      "description": "Rotate narrow flat text strips into registration to reconstruct a single readable planar image.",
+      "movement_equation": "Each strip rotates around its own long axis from 75 to 0 degrees; preserve its unique UV interval; final strips have no visible gaps.",
+      "mix_guidance": "Mix with alternating traversal; use enough padding or overscan to prevent exposed seams through accents.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_x_deg"
+      ]
+    },
+    {
+      "id": "F052",
+      "slug": "cylindrical-billboard-array",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Cylindrical card array",
+      "description": "Place flat labels on a cylindrical arc and move them to a common reading layout.",
+      "movement_equation": "Initial p_i=(r*sin(theta_i),y_i,r*cos(theta_i)); interpolate toward q_i; interpolate local normals to front-facing at hold.",
+      "mix_guidance": "Change cylinder radius or arc span; keep each card planar and stop it before reading.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.cylinder_mix"
+      ]
+    },
+    {
+      "id": "F053",
+      "slug": "spherical-card-resolve",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Spherical card resolve",
+      "description": "Distribute flat labels over a sphere and bring them into the final readable plane.",
+      "movement_equation": "Initial positions use supplied latitude/longitude; interpolate to q_i with collision-aware paths; final orientation faces the camera.",
+      "mix_guidance": "Mix with a fixed wide camera; avoid hiding labels on the far hemisphere during essential reading.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.sphere_mix"
+      ]
+    },
+    {
+      "id": "F054",
+      "slug": "depth-stagger-lanes",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Depth stagger lanes",
+      "description": "Assign flat units to explicit depth lanes, then merge them onto one final depth plane.",
+      "movement_equation": "z_i=q.z+lane_i*0.25*(1-s) wu; lane_i supplied or seeded; no permanent depth differences during reading.",
+      "mix_guidance": "Mix with simple translation; retain enough spacing to prevent crossings from hiding units.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.z_em"
+      ]
+    },
+    {
+      "id": "F055",
+      "slug": "oblique-plane-return",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Oblique plane return",
+      "description": "Remove a compound pitch and yaw from a flat text card while it moves to its final anchor.",
+      "movement_equation": "rotation_x=20*(1-v), rotation_y=-25*(1-v) degrees; final orientation and offset zero.",
+      "mix_guidance": "Mix with a matte or restrained light change; explicitly declare rotation order in the engine adapter.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_x_deg"
+      ]
+    },
+    {
+      "id": "F056",
+      "slug": "plane-ribbon-unroll",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "ribbon_mesh_uv"
+      ],
+      "technical_basis": [
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Plane ribbon unroll",
+      "description": "Unroll a text-bearing ribbon surface while retaining a stable UV-to-text mapping.",
+      "movement_equation": "Unrolled arc length grows from a declared initial fraction to full length; curvature decays to zero; final surface is planar.",
+      "mix_guidance": "Combine with a follow camera only as one shared rig; prevent texture compression from becoming the final reading state.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.unroll_progress"
+      ]
+    },
+    {
+      "id": "F057",
+      "slug": "page-curl-flatten",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "deformable_plane"
+      ],
+      "technical_basis": [
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Page curl flatten",
+      "description": "Release a curled sheet-like text surface into a flat front view without mirrored readable text on its back.",
+      "movement_equation": "Curl angle and radius follow declared keys, ending at angle zero; use sufficient subdivisions and a non-text back material.",
+      "mix_guidance": "Mix with a quiet shadow change; keep glyph content in the front texture and avoid clipping at the curl.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.curvature"
+      ]
+    },
+    {
+      "id": "F058",
+      "slug": "card-fan-close",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Card fan close",
+      "description": "Open a fan of flat cards and close them into their intended final reading order.",
+      "movement_equation": "yaw_i=(i-center)*8*(1-s) degrees; lateral offsets converge to q_i; final cards do not cover one another.",
+      "mix_guidance": "Mix with staggered visibility; original text sequence must remain independent of fan draw order.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_z_deg"
+      ]
+    },
+    {
+      "id": "F059",
+      "slug": "layer-focus-rack",
+      "dimension": "2.5d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "dof_renderer"
+      ],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Layer focus rack",
+      "description": "Shift actual depth of field between text planes, ending with all essential text sharp or one declared focal label.",
+      "movement_equation": "Animate focus distance between measured plane depths; aperture/blur model is explicit; final circle of confusion must preserve letter readability.",
+      "mix_guidance": "Mix with a depth reveal; a camera focus property alone does not implement a blur pass.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.blur_px"
+      ]
+    },
+    {
+      "id": "F060",
+      "slug": "camera-truck-parallax",
+      "dimension": "2.5d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Camera truck parallax",
+      "description": "Translate one camera sideways in front of flat layers at different depths, then stop at the final composition.",
+      "movement_equation": "Camera x moves from -0.6 to 0 wu relative to the fitted camera rig; target/framing compensate as declared; one shot-level camera.",
+      "mix_guidance": "Mix per-unit fades; separate camera motion from local unit transforms to avoid double movement.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "camera.x_em"
+      ]
+    },
+    {
+      "id": "F061",
+      "slug": "camera-crane-plane",
+      "dimension": "2.5d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Camera crane plane",
+      "description": "Raise one camera to reveal a flat title above an occluder and end at its readable framing.",
+      "movement_equation": "Camera y moves from y_fit-0.7 to y_fit wu; aim at the title target; verify no near-plane intersection or crop.",
+      "mix_guidance": "Combine with a stationary title plane; timing should let the title settle before the reading hold.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "camera.y_em"
+      ]
+    },
+    {
+      "id": "F062",
+      "slug": "camera-roll-settle",
+      "dimension": "2.5d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Camera roll settle",
+      "description": "Remove a small camera roll while the flat title remains spatially stable.",
+      "movement_equation": "Roll goes from -8 to 0 degrees around the viewing axis; the image must fit the rotated frustum throughout.",
+      "mix_guidance": "Mix with a short opacity reveal; keep roll small for content-heavy scenes and zero in the final read pose.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "camera.roll_deg"
+      ]
+    },
+    {
+      "id": "F063",
+      "slug": "orthographic-card-stack",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Orthographic card stack",
+      "description": "Show separated flat cards through an orthographic camera, then fade decorative layers into one final master plane.",
+      "movement_equation": "Layer z_i=i*0.04 wu; orthographic scale fits measured bounds; duplicate alpha goes to zero; avoid coincident surviving planes.",
+      "mix_guidance": "Combine with tracking; an orthographic camera creates no perspective size change with depth.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.layer_separation_em"
+      ]
+    },
+    {
+      "id": "F064",
+      "slug": "floor-plane-rise",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Floor plane rise",
+      "description": "Rotate a text-bearing plane from a floor-like orientation to a front-facing title around its bottom hinge.",
+      "movement_equation": "rotation_x=-80*(1-s) degrees; bottom edge is the pivot; declare floor receiver and shadow only if actually present.",
+      "mix_guidance": "Mix with a small vertical lift; protect ascenders and accents as projected height changes.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_x_deg"
+      ]
+    },
+    {
+      "id": "F065",
+      "slug": "corner-fold-release",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "deformable_plane"
+      ],
+      "technical_basis": [
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Corner fold release",
+      "description": "Unfold one corner of a subdivided text-bearing plane while the rest remains anchored.",
+      "movement_equation": "A localized bend field affects the selected corner; angle goes from 45 to 0 degrees; attenuation becomes zero outside the corner region.",
+      "mix_guidance": "Combine with a static master plane or mask, preserving UV continuity and final geometry.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.fold_mix"
+      ]
+    },
+    {
+      "id": "F066",
+      "slug": "plane-orbit-label",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "world_anchor"
+      ],
+      "technical_basis": [
+        "D03",
+        "D04"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Plane orbit label",
+      "description": "Orbit one flat label around an object before locking it into an anchored callout position.",
+      "movement_equation": "p(s)=object_center+radius*[cos(theta(s)),0,sin(theta(s))], then blend to supplied label anchor; final leader endpoint remains fixed.",
+      "mix_guidance": "Mix with world label rules; preserve occlusion testing and keep the final label front-facing.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F067",
+      "slug": "depth-occlusion-peek",
+      "dimension": "2.5d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "occluder_geometry"
+      ],
+      "technical_basis": [
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Depth occlusion peek",
+      "description": "Reveal a flat label from behind a genuine depth occluder and move it into a clear reading zone.",
+      "movement_equation": "Move the plane from a supplied hidden start to q with explicit depth testing; final bounds must clear the occluder silhouette.",
+      "mix_guidance": "Mix with a short matte only if it is separately identified; do not call a 2D mask a depth interaction.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.x_em"
+      ]
+    },
+    {
+      "id": "F068",
+      "slug": "projected-grid-align",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "text_plane_tiles"
+      ],
+      "technical_basis": [
+        "D03",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Projected grid align",
+      "description": "Move perspective tiles carrying distinct UV regions until they reconstruct one flat, undistorted text image.",
+      "movement_equation": "Tile transforms interpolate from declared offsets to their grid rest transforms; final UV coverage is contiguous with no duplicate regions.",
+      "mix_guidance": "Combine with a diagonal traversal; control texture seams and keep the final text at native adequate resolution.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.grid_mix"
+      ]
+    },
+    {
+      "id": "F069",
+      "slug": "multi-plane-book-open",
+      "dimension": "2.5d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "paired_panels"
+      ],
+      "technical_basis": [
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Multi-plane book open",
+      "description": "Open two flat text panels like a book, then arrange both so their content can be read without mirrored faces.",
+      "movement_equation": "Left/right hinge yaw starts at +/-65 degrees and reaches zero; panel positions finish in separate nonoverlapping reading regions.",
+      "mix_guidance": "Mix with paired semantic groups; do not force a full paragraph into one tiny panel.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_y_deg"
+      ]
+    },
+    {
+      "id": "F070",
+      "slug": "extrusion-grow",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D01",
+        "D05",
+        "D07"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Extrusion grow",
+      "description": "Give shaped glyphs actual side surfaces by growing extrusion depth while the front face remains registered to the final text outline.",
+      "movement_equation": "depth=0.005+(0.16-0.005)*clamp(v,0,1) em; bevel starts at 0.015 em only if topology permits; front-face z stays fixed.",
+      "mix_guidance": "Mix with a front matte or light sweep; side geometry must exist in the resulting engine scene.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.depth_em"
+      ]
+    },
+    {
+      "id": "F071",
+      "slug": "bevel-pulse",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D01",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Bevel pulse",
+      "description": "Pulse the bevel width on already extruded glyphs and restore a safe final bevel without closing counters.",
+      "movement_equation": "bevel=b0+0.008*sin(pi*s)^2 em; cap against minimum stroke/counter clearance; final bevel=b0.",
+      "mix_guidance": "Combine with a controlled light sweep; do not use material glare as a substitute for geometry.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.bevel_em"
+      ]
+    },
+    {
+      "id": "F072",
+      "slug": "solid-tumble-settle",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D01",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid tumble settle",
+      "description": "Rotate volumetric glyphs through a short compound tumble and settle upright in the final layout.",
+      "movement_equation": "Euler example (x,y,z)=(25,-35,12)*(1-v) degrees; declare rotation order or use quaternion interpolation; geometry depth remains positive.",
+      "mix_guidance": "Mix with a bounded translation; keep backface exposure brief and final normals legible.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_y_deg"
+      ]
+    },
+    {
+      "id": "F073",
+      "slug": "spline-solid-assemble",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "bezier_path"
+      ],
+      "technical_basis": [
+        "D09",
+        "D12"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Spline solid assemble",
+      "description": "Move extruded glyphs along an authored 3D spline and align tangent-following orientation before restoring the reading pose.",
+      "movement_equation": "Sample spline position/tangent by normalized arc length s; end point=q_i; final orientation explicitly matches baseline, not an arbitrary tangent.",
+      "mix_guidance": "Mix with staggered depth growth; provide the actual spline and stable normal/up-vector convention.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "path.progress"
+      ]
+    },
+    {
+      "id": "F074",
+      "slug": "helix-unwind",
+      "dimension": "3d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Helix unwind",
+      "description": "Unwind volumetric letters from a helix into the measured final text arrangement.",
+      "movement_equation": "Initial p_i=(r*cos(theta_i),pitch*theta_i,r*sin(theta_i)); blend to q_i using s; remove twist at hold.",
+      "mix_guidance": "Change pitch and turn count or use two helices; retain a clear final front-face reading layout.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.helix_mix"
+      ]
+    },
+    {
+      "id": "F075",
+      "slug": "solid-radial-fan",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D06",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid radial fan",
+      "description": "Bring extruded glyphs from a radial fan into a straight or declared final layout.",
+      "movement_equation": "Initial positions/rotations follow an arc; p_i=lerp(arc_i,q_i,s); orientation interpolates to the readable target.",
+      "mix_guidance": "Combine with a small scale accent, preserving glyph volume and avoiding intersection during closure.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_z_deg"
+      ]
+    },
+    {
+      "id": "F076",
+      "slug": "depth-wave-decay",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Depth wave decay",
+      "description": "Move volumetric glyphs along Z in a traveling wave while retaining real side geometry.",
+      "movement_equation": "dz=0.8*sin(2*pi*s+0.6*i)*(1-s) wu; all depth offsets are zero at s=1; extrusion itself stays positive.",
+      "mix_guidance": "Mix with word-level activation, then stop both camera and wave for reading.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.z_em"
+      ]
+    },
+    {
+      "id": "F077",
+      "slug": "domino-stand",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D06",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Domino stand",
+      "description": "Stand volumetric letters upright around their bottom pivots in a delayed chain. This default uses keys, not a physics claim.",
+      "movement_equation": "rotation_x=-75*(1-s) degrees about each glyph's base; target baseline positions remain fixed.",
+      "mix_guidance": "Add a short contact accent between stages; use a real simulation only if collisions and cache are actually created.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "transform.rotation_x_deg"
+      ]
+    },
+    {
+      "id": "F078",
+      "slug": "solid-spring-landing",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid spring landing",
+      "description": "Land extruded glyphs using a damped transform response and settle in the measured final pose.",
+      "movement_equation": "dy=-1.2*exp(-6*s)*cos(8*s) wu with final dy forced zero; optional scale remains bounded; no soft-body solve implied.",
+      "mix_guidance": "Mix with a bevel-light accent; avoid compounding two independent spring envelopes.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "intrinsic_response": "spring_already_in_family; temporal_profile_sets_duration_without_double_spring",
+      "output_channels": [
+        "transform.y_em"
+      ]
+    },
+    {
+      "id": "F079",
+      "slug": "solid-scatter-converge",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid scatter converge",
+      "description": "Collect volumetric glyphs from seeded spatial offsets and rotations into their exact final text layout.",
+      "movement_equation": "offset_i=seeded_vector(seed,i)*1.5*(1-s) wu; quaternion rotation approaches the final orientation; keep all paths outside near clipping.",
+      "mix_guidance": "Change distribution topology or add collision-aware paths; preserve original text indices.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.scatter_mix"
+      ]
+    },
+    {
+      "id": "F080",
+      "slug": "fracture-reassemble",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "fracture_mesh_rig"
+      ],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Fracture reassemble",
+      "description": "Reassemble mapped fragments into the exact unbroken glyph mesh, then replace or weld them cleanly.",
+      "movement_equation": "Fragment transforms interpolate from supplied exploded transforms to identity; every fragment has a target correspondence; final gaps and overlaps removed.",
+      "mix_guidance": "Mix with an initial reveal or a solid hold; generating meaningful fracture topology is an explicit rig requirement.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.fracture_mix"
+      ]
+    },
+    {
+      "id": "F081",
+      "slug": "pointcloud-to-solid",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "surface_samples",
+        "particle_rig"
+      ],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Point cloud to solid",
+      "description": "Move samples toward the target glyph surface and transition to the complete solid mesh before reading.",
+      "movement_equation": "Point positions follow supplied source-to-surface mappings; point contribution fades as target mesh alpha rises; target mesh alpha=1 at hold.",
+      "mix_guidance": "Change sample distribution or attraction path; the final readable result must not depend on sparse points.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.assembly_progress"
+      ]
+    },
+    {
+      "id": "F082",
+      "slug": "surface-conform-release",
+      "dimension": "3d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "target_surface",
+        "surface_bind_rig"
+      ],
+      "technical_basis": [
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Surface conform release",
+      "description": "Release volumetric text from an authored binding surface into an independent readable pose.",
+      "movement_equation": "Use a supplied surface correspondence and bind deformation; blend bind weight from 1 to 0 while positions approach q_i.",
+      "mix_guidance": "Combine with a camera truck; declare the target surface and avoid making unsupported automatic binding claims.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.surface_bind_mix"
+      ]
+    },
+    {
+      "id": "F083",
+      "slug": "twist-relief-unwind",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "subdivided_glyph_mesh"
+      ],
+      "technical_basis": [
+        "D07",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Twist relief unwind",
+      "description": "Unwind a twist through the extrusion depth while preserving the final glyph outline and volume.",
+      "movement_equation": "Angle(z)=25*(z/depth)*(1-s) degrees; sufficient subdivisions required; final twist zero; recompute normals.",
+      "mix_guidance": "Mix with extrusion growth only after defining their evaluation order and preventing self-intersection.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.twist_deg"
+      ]
+    },
+    {
+      "id": "F084",
+      "slug": "volume-slice-reveal",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "volume_clip_rig"
+      ],
+      "technical_basis": [
+        "D01",
+        "D05",
+        "D08"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Volume slice reveal",
+      "description": "Reveal actual glyph volume using a clipping plane or boolean surface moving through the 3D mesh.",
+      "movement_equation": "Cutting plane offset traverses the measured mesh bounds; cap open slices if needed; remove the cut at hold so full volume remains.",
+      "mix_guidance": "Mix with a side light; distinguish this operation from a screen-space alpha matte.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.clip_progress"
+      ]
+    },
+    {
+      "id": "F085",
+      "slug": "light-sweep-relief",
+      "dimension": "3d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Light sweep relief",
+      "description": "Move one light across stationary extruded text so real bevels and side faces catch changing illumination.",
+      "movement_equation": "Key light x travels from -4 to 4 wu while aimed at the title; fill remains sufficient; final light pose is explicitly held.",
+      "mix_guidance": "Mix with a quiet extrusion entrance; a shader highlight on a flat plane is a different 2D/2.5D treatment.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "light.azimuth_deg"
+      ]
+    },
+    {
+      "id": "F086",
+      "slug": "orbit-solid-title",
+      "dimension": "3d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D01",
+        "D03",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Orbit solid title",
+      "description": "Orbit one camera a short distance around volumetric text and finish at its front-readable hero framing.",
+      "movement_equation": "Camera azimuth goes from -15 to 0 degrees on a fitted radius; aim at measured title center; no camera-per-character duplication.",
+      "mix_guidance": "Mix local visibility stagger with the shared shot rig; preserve crop and counter visibility throughout.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "camera.azimuth_deg"
+      ]
+    },
+    {
+      "id": "F087",
+      "slug": "counter-portal-push",
+      "dimension": "3d",
+      "scope": "shot",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "verified_counter_portal",
+        "portal_readable_exit_plate"
+      ],
+      "technical_basis": [
+        "D01",
+        "D03"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "single_shot_rig; traversal controls unit opacity/accent only",
+      "exit": "After the complete read hold, follow the authored counter-portal camera path and cut to the supplied next-scene plate.",
+      "title": "Counter portal push",
+      "description": "Hold a readable volumetric title first, then send one camera through a verified open letter counter as an exit to a supplied next scene.",
+      "movement_equation": "Portal path is an authored collision-free camera spline; transit belongs to EXIT after reading, not generic entrance; next-scene plate required.",
+      "mix_guidance": "Mix with a destination scene or match cut; if no suitable counter/path/exit plate exists, reject or choose an explicit different recipe.",
+      "read_pose": "Hold the complete readable volumetric title with the camera parked before the portal entrance. Start the transit only after the full reading interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "exit",
+      "output_channels": [
+        "camera.portal_progress"
+      ]
+    },
+    {
+      "id": "F088",
+      "slug": "solid-depth-stack-collapse",
+      "dimension": "3d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D01",
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid depth stack collapse",
+      "description": "Collapse decorative copies of extruded text in depth and remove them so one solid title survives.",
+      "movement_equation": "Copy j z-offset=j*0.12*(1-s) wu; copies fade out before coinciding; master geometry stays intact.",
+      "mix_guidance": "Combine with a light sweep or word reveal; avoid z-fighting and dark overlapping surfaces.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "effect.layer_separation_em"
+      ]
+    },
+    {
+      "id": "F089",
+      "slug": "rigid-letter-drop",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "rigid_body_cache",
+        "colliders"
+      ],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Rigid letter drop",
+      "description": "Drop volumetric letters with actual colliders, solve contacts, bake the result and lock a readable final pose.",
+      "movement_equation": "Simulation uses declared mass/gravity/colliders; cache must be generated; after the solve, blend to the authored read pose if necessary.",
+      "mix_guidance": "Mix with an editorial hold; without a simulation cache this recipe remains conditional rather than pretending keys are physics.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "simulation.progress"
+      ]
+    },
+    {
+      "id": "F090",
+      "slug": "solid-bend-straighten",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "subdivided_glyph_mesh"
+      ],
+      "technical_basis": [
+        "D07",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid bend straighten",
+      "description": "Straighten a bent volumetric text mesh while restoring exact target glyph geometry.",
+      "movement_equation": "Bend angle=25*(1-s) degrees around a declared axis/center; use adequate subdivisions and a rest mesh; final bend zero.",
+      "mix_guidance": "Mix with a small camera move; evaluate deformation before final normals and avoid collapsed counters.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.bend_deg"
+      ]
+    },
+    {
+      "id": "F091",
+      "slug": "taper-volume-restore",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "subdivided_glyph_mesh"
+      ],
+      "technical_basis": [
+        "D07",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Taper volume restore",
+      "description": "Restore the side-volume taper of extruded glyphs without changing the final front-face text outline.",
+      "movement_equation": "Cross-section scale along depth interpolates from an authored taper to 1; front face remains fixed; no negative scale.",
+      "mix_guidance": "Combine with controlled lighting; restrict taper so thin strokes and counters remain valid.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.taper"
+      ]
+    },
+    {
+      "id": "F092",
+      "slug": "solid-lattice-settle",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "lattice_rig"
+      ],
+      "technical_basis": [
+        "D07",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid lattice settle",
+      "description": "Remove a bounded lattice deformation from volumetric letters and restore their exact rest mesh.",
+      "movement_equation": "Control-point displacement=authored_field*(1-s)^2; freeze nonmoving boundary controls where needed; all displacements zero at hold.",
+      "mix_guidance": "Mix with a reveal matte; record lattice topology and bind settings for reproducibility.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.lattice_mix"
+      ]
+    },
+    {
+      "id": "F093",
+      "slug": "voxel-volume-build",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "voxelization_rig"
+      ],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Voxel volume build",
+      "description": "Assemble discrete cells into a glyph volume and finish by displaying the accurate solid glyph mesh.",
+      "movement_equation": "Voxel targets come from the supplied glyph volume; occupancy/reveal rises to complete coverage; final transition removes voxel stair stepping.",
+      "mix_guidance": "Mix with spatial traversal or attraction fields; preserve thin glyph parts when choosing voxel resolution.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.assembly_progress"
+      ]
+    },
+    {
+      "id": "F094",
+      "slug": "wireframe-solid-resolve",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "wireframe_shader"
+      ],
+      "technical_basis": [
+        "D01",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Wireframe solid resolve",
+      "description": "Move from a visible volumetric wire representation to a fully surfaced, readable solid glyph.",
+      "movement_equation": "Wire alpha decreases as surface alpha increases; keep real mesh depth; final surface alpha one and wire at declared residual or zero.",
+      "mix_guidance": "Mix with a light sweep; do not leave essential text readable only as a sparse wire cage.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "material.surface_mix"
+      ]
+    },
+    {
+      "id": "F095",
+      "slug": "emboss-surface-emerge",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "shadow_receiver"
+      ],
+      "technical_basis": [
+        "D01",
+        "D05"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Emboss surface emerge",
+      "description": "Raise real glyph relief from a receiving surface with coherent side geometry and contact shading.",
+      "movement_equation": "Relief depth grows from epsilon to 0.16 em relative to receiver; boolean/union or embedded mesh relation is declared.",
+      "mix_guidance": "Mix with a grazing light; verify receiver intersections and preserve the complete final glyph silhouette.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.depth_em"
+      ]
+    },
+    {
+      "id": "F096",
+      "slug": "engravure-cut-reveal",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "boolean_receiver_rig"
+      ],
+      "technical_basis": [
+        "D05",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Engravure cut reveal",
+      "description": "Reveal recessed letter volume cut into a receiver so light and shadow expose the engraved shape.",
+      "movement_equation": "Boolean cutter depth increases from epsilon to declared recess depth; receiver topology and normals must remain valid; text is a cavity, not floating fill.",
+      "mix_guidance": "Combine with a slow light move; add a readable alternate if the recess alone has insufficient contrast.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.cut_progress"
+      ]
+    },
+    {
+      "id": "F097",
+      "slug": "shell-volume-open",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [
+        "shell_mesh_rig"
+      ],
+      "technical_basis": [
+        "D01",
+        "D10"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Shell volume open",
+      "description": "Separate mapped shell pieces of a volumetric glyph and close them back into a clean final solid.",
+      "movement_equation": "Shell transforms interpolate from supplied offsets to identity; correspondence and final weld/removal of coincident internal faces required.",
+      "mix_guidance": "Mix with a reveal or short hold accent; keep topology repair as an explicit implementation step.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "geometry.shell_mix"
+      ]
+    },
+    {
+      "id": "F098",
+      "slug": "solid-spiral-tunnel",
+      "dimension": "3d",
+      "scope": "group",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D03",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "group_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Solid spiral tunnel",
+      "description": "Arrange volumetric glyphs along a spiral tunnel and move them into a final readable title plane.",
+      "movement_equation": "Initial p_i=(r_i*cos(theta_i),r_i*sin(theta_i),z_i); blend to q_i while reducing rotation; keep camera fixed or define one shared rig.",
+      "mix_guidance": "Change tunnel depth or winding, then validate ordering and clipping instead of assuming every string fits.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.tunnel_mix"
+      ]
+    },
+    {
+      "id": "F099",
+      "slug": "solid-magnetic-assembly",
+      "dimension": "3d",
+      "scope": "unit",
+      "channels": [
+        {
+          "path": "rig.progress",
+          "start": 0,
+          "hold": 1,
+          "interpolation": "selected temporal response; feed into the stated movement equation"
+        }
+      ],
+      "requirements": [],
+      "technical_basis": [
+        "D08",
+        "D09"
+      ],
+      "design_inference": "Original synthesized operator, name, equation and parameterization. Sources document primitives, not this preset.",
+      "traversal_adapter": "unit_delay",
+      "exit": "Fade the complete unit from opacity 1 to 0 over the selected exit duration; preserve its text, baseline and geometry until hidden.",
+      "title": "Magnetic solid assembly",
+      "description": "Attract volumetric glyphs from supplied anchors into the final text layout using a deterministic field or authored keys.",
+      "movement_equation": "p_i=q_i+(start_i-q_i)*(1-s)^2; optional curved field is explicitly specified; final rotation and position match rest.",
+      "mix_guidance": "Mix with inter-unit collision-aware paths; call it a magnetic metaphor unless an actual simulation was performed.",
+      "read_pose": "Exact shaped text at its measured target; stable geometry, intended color, no residual entrance offsets. Essential content remains readable throughout the read interval.",
+      "sample_semantics": "rig.progress is the selected temporal response v, not an interpolated transform or baked mesh trajectory. Evaluate movement_equation to obtain the actual channel values; use clamped s where specified.",
+      "action_phase": "enter",
+      "output_channels": [
+        "layout.attract_mix"
+      ]
+    }
+  ],
+  "groupings": [
+    {
+      "id": "G00",
+      "slug": "grapheme",
+      "method": "explicit_grapheme_boundaries",
+      "description": "Keep each extended grapheme cluster intact, including its combining marks and joined sequences. Supply UAX29/Intl.Segmenter boundaries; the standard-library resolver does not claim a complete Unicode segmenter."
+    },
+    {
+      "id": "G01",
+      "slug": "word",
+      "method": "orthographic_tokens",
+      "description": "Group whitespace-delimited orthographic tokens while retaining all spaces and punctuation. These tokens are not guaranteed semantic words in every language."
+    },
+    {
+      "id": "G02",
+      "slug": "phrase",
+      "method": "explicit_boundaries",
+      "description": "Use editor-supplied phrase boundaries. Each phrase moves as a whole and every supplied substring must concatenate exactly to the source text."
+    },
+    {
+      "id": "G03",
+      "slug": "line",
+      "method": "explicit_measured_lines",
+      "description": "Use actual visual lines measured after loading the font and finalizing layout. Explicit source-preserving line boundaries are required; guessed wrapping is not accepted."
+    },
+    {
+      "id": "G04",
+      "slug": "sentence",
+      "method": "provisional_sentence",
+      "description": "Use provisional sentence boundaries with punctuation preserved. Verify abbreviations, decimal separators and quotations before implementation."
+    },
+    {
+      "id": "G05",
+      "slug": "paragraph",
+      "method": "paragraphs",
+      "description": "Use paragraphs separated by blank lines, preserving all blank-line delimiters in their original order."
+    },
+    {
+      "id": "G06",
+      "slug": "semantic",
+      "method": "explicit_boundaries",
+      "description": "Use explicitly tagged semantic spans, such as a claim plus qualifier, number plus unit, or an indivisible named entity."
+    },
+    {
+      "id": "G07",
+      "slug": "balanced",
+      "method": "balanced_chunks",
+      "description": "Make mechanical chunks of at most three consecutive orthographic tokens. These chunks aid pacing but are not inferred semantic phrases."
+    },
+    {
+      "id": "G08",
+      "slug": "block",
+      "method": "whole_text",
+      "description": "Treat the complete source text as one unit. All traversal orders collapse to the same activation order when there is only one unit."
+    },
+    {
+      "id": "G09",
+      "slug": "paired",
+      "method": "explicit_two_groups",
+      "description": "Use exactly two editor-supplied contrast groups with source-preserving boundaries. Do not invent a comparison missing from the content."
+    }
+  ],
+  "traversals": [
+    {
+      "id": "O00",
+      "slug": "reading",
+      "formula": "index",
+      "description": "Activate units in original source reading order; do not rearrange their source substrings or final layout."
+    },
+    {
+      "id": "O01",
+      "slug": "reverse",
+      "formula": "reverse_index",
+      "description": "Activate in reverse index order while keeping the original text and final reading arrangement unchanged."
+    },
+    {
+      "id": "O02",
+      "slug": "center-out",
+      "formula": "distance_to_center",
+      "description": "Activate nearest to the center of the ordinal unit sequence first, then outward; break ties by original index. This is ordinal, not geometric center."
+    },
+    {
+      "id": "O03",
+      "slug": "edges-in",
+      "formula": "negative_distance_to_center",
+      "description": "Activate from both ends of the ordinal sequence toward its center; break ties by original index."
+    },
+    {
+      "id": "O04",
+      "slug": "odd-even",
+      "formula": "odd_then_even",
+      "description": "Activate one-based odd positions first, then even positions; retain final text order."
+    },
+    {
+      "id": "O05",
+      "slug": "even-odd",
+      "formula": "even_then_odd",
+      "description": "Activate one-based even positions first, then odd positions; retain final text order."
+    },
+    {
+      "id": "O06",
+      "slug": "seeded",
+      "formula": "seeded_shuffle",
+      "description": "Activate using a reproducible permutation from the declared seed. Reuse the same seed for repeatable previews and renders."
+    },
+    {
+      "id": "O07",
+      "slug": "radial",
+      "formula": "distance_to_layout_center",
+      "description": "Activate by Euclidean distance of the final anchors from normalized canvas center, nearest first; resolve layout before ranking; tie by index."
+    },
+    {
+      "id": "O08",
+      "slug": "diagonal",
+      "formula": "layout_x_plus_y",
+      "description": "Activate by ascending final anchor x+y for a diagonal scan; resolve layout before ranking; tie by index."
+    },
+    {
+      "id": "O09",
+      "slug": "semantic-priority",
+      "formula": "explicit_priority",
+      "description": "Activate by supplied semantic-priority values, highest first; missing priorities remain an unresolved requirement rather than being guessed."
+    }
+  ],
+  "temporals": [
+    {
+      "id": "T00",
+      "slug": "ease-out",
+      "enter_seconds": 0.55,
+      "exit_seconds": 0.28,
+      "curve": "cubic_out",
+      "description": "Fast initial travel that decelerates to rest; curve v=1-(1-u)^3. Hold at the exact read pose, then fade out."
+    },
+    {
+      "id": "T01",
+      "slug": "ease-in-out",
+      "enter_seconds": 0.65,
+      "exit_seconds": 0.35,
+      "curve": "smoothstep",
+      "description": "Symmetric acceleration and deceleration; curve v=u*u*(3-2*u). Finish entrance before beginning the reading interval."
+    },
+    {
+      "id": "T02",
+      "slug": "anticipate",
+      "enter_seconds": 0.75,
+      "exit_seconds": 0.3,
+      "curve": "anticipation",
+      "description": "Reserve the first 20 percent for a small reverse anticipation, then approach rest with cubic deceleration. Clamp bounded alpha/mask channels."
+    },
+    {
+      "id": "T03",
+      "slug": "spring-settle",
+      "enter_seconds": 0.8,
+      "exit_seconds": 0.3,
+      "curve": "damped_spring",
+      "description": "Use damped progress v=1-exp(-6*u)*cos(8*u), forced to one at u=1. Apply overshoot only to channels that allow it; do not duplicate an intrinsic family spring."
+    },
+    {
+      "id": "T04",
+      "slug": "stepped",
+      "enter_seconds": 0.5,
+      "exit_seconds": 0.25,
+      "curve": "steps5",
+      "description": "Advance the operator through five discrete progress steps, v=floor(5*u)/5, with the final step exactly one. This is a spatial progression, not a flashing luminance instruction."
+    },
+    {
+      "id": "T05",
+      "slug": "two-beat",
+      "enter_seconds": 0.7,
+      "exit_seconds": 0.3,
+      "curve": "two_beat",
+      "description": "Reach 70 percent progress by u=.4, pause until u=.58, then complete the remaining 30 percent by u=1."
+    },
+    {
+      "id": "T06",
+      "slug": "slow-drift",
+      "enter_seconds": 1.1,
+      "exit_seconds": 0.45,
+      "curve": "sine_out",
+      "description": "Use a longer sine-out entrance, v=sin(pi*u/2), then stop all essential text motion for reading."
+    },
+    {
+      "id": "T07",
+      "slug": "impact-decay",
+      "enter_seconds": 0.6,
+      "exit_seconds": 0.25,
+      "curve": "impact_decay",
+      "description": "Combine cubic arrival with a small decaying ripple: v=1-(1-u)^3+.08*sin(4*pi*u)*(1-u), forced to one at the endpoint."
+    },
+    {
+      "id": "T08",
+      "slug": "linear-mechanical",
+      "enter_seconds": 0.6,
+      "exit_seconds": 0.3,
+      "curve": "linear",
+      "description": "Advance at constant normalized progress v=u and stop at the exact final pose; suitable for mechanical scans and process-like motion."
+    },
+    {
+      "id": "T09",
+      "slug": "hold-accent",
+      "enter_seconds": 0.55,
+      "exit_seconds": 0.3,
+      "curve": "cubic_out",
+      "description": "Enter with cubic deceleration. During the middle of the reading interval, apply one optional small scale accent, peak 1.04, then return to one; use a stable alternative for dense or critical content."
+    }
+  ],
+  "compositions": [
+    {
+      "id": "C00",
+      "slug": "center",
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "description": "Center the measured text block around canvas anchor (.5,.5). Keep the original reading order and derive actual widths and wraps from font metrics."
+    },
+    {
+      "id": "C01",
+      "slug": "editorial-left",
+      "anchor_normalized": [
+        0.12,
+        0.45
+      ],
+      "description": "Place a left-aligned editorial block at anchor (.12,.45). Respect a safe inset and reserve space for adjacent visuals."
+    },
+    {
+      "id": "C02",
+      "slug": "lower-third",
+      "anchor_normalized": [
+        0.12,
+        0.78
+      ],
+      "description": "Place a left-aligned lower-third block at anchor (.12,.78), with a contrast backing when needed and enough room for descenders and captions."
+    },
+    {
+      "id": "C03",
+      "slug": "upper-third",
+      "anchor_normalized": [
+        0.12,
+        0.22
+      ],
+      "description": "Place a left-aligned upper-third block at anchor (.12,.22), reserving the remaining frame for the subject or supporting content."
+    },
+    {
+      "id": "C04",
+      "slug": "stack",
+      "anchor_normalized": [
+        0.5,
+        0.3
+      ],
+      "description": "Stack units vertically, centered at x=.5 and distributed over y=.18 to .83. Measure the complete height and reflow if the stack does not fit."
+    },
+    {
+      "id": "C05",
+      "slug": "two-columns",
+      "anchor_normalized": [
+        0.26,
+        0.4
+      ],
+      "description": "Distribute consecutive units alternately between two columns centered at x=.25/.75; each subsequent row advances .12 normalized y. Fit or paginate before anchors leave the frame."
+    },
+    {
+      "id": "C06",
+      "slug": "split-compare",
+      "anchor_normalized": [
+        0.25,
+        0.5
+      ],
+      "description": "Use two labeled comparison regions centered at x=.25/.75. At least two semantic groups are required; typography must not imply unequal data scales."
+    },
+    {
+      "id": "C07",
+      "slug": "radial",
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "description": "Place short units around a radius .27 circle centered at (.5,.5), with first angle -pi/2 and successive angles 2*pi*i/N. Keep the final orientation readable."
+    },
+    {
+      "id": "C08",
+      "slug": "corner-callout",
+      "anchor_normalized": [
+        0.75,
+        0.25
+      ],
+      "description": "Place a callout around (.75,.25). If attached to an object, supply a measured screen/world anchor and a leader endpoint; do not fabricate tracking."
+    },
+    {
+      "id": "C09",
+      "slug": "diagonal",
+      "anchor_normalized": [
+        0.3,
+        0.3
+      ],
+      "description": "Place unit i at (.2+.6*i/max(N-1,1), .25+.5*i/max(N-1,1)). Use only short text and verify the diagonal reading hierarchy."
+    }
+  ],
+  "status_semantics": {
+    "indexed": "Recipe address exists.",
+    "described_only": "Specification generated, not engine project or rendered video.",
+    "conditional": "Input/assets/layout requirements unresolved.",
+    "rejected": "Engine or input incompatible.",
+    "rendered": "Only if actual renderer output was produced and inspected.",
+    "reviewed": "Only if named visual/behavioral tests were actually performed."
+  },
+  "language": "en",
+  "skill_name": "motion-text-custom"
+}

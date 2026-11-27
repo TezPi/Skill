@@ -1,0 +1,30 @@
+---
+title: Depth
+nav: 1
+---
+
+Visualizes the scene's depth buffer as grayscale - useful for debugging, or as an input for further custom effects.
+
+```jsx
+import { Depth } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
+
+return (
+  <Depth
+    blendFunction={BlendFunction.SRC} // the blend function of this effect
+    inverted={false} // whether the depth should be inverted
+  />
+)
+```
+
+## Example
+
+[![Depth demo](https://pmndrs.github.io/examples/depth/thumbnail.webp)](https://pmndrs.github.io/examples/depth)
+
+## Props
+
+| Name          | Type          | Default           | Description                           |
+| ------------- | ------------- | ----------------- | ------------------------------------- |
+| blendFunction | BlendFunction | BlendFunction.SRC | The blend function of this effect.    |
+| inverted      | Boolean       | false             | Whether the depth should be inverted. |
+| opacity       | Number        | 1                 | The opacity of this effect.           |
