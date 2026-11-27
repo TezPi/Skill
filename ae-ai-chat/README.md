@@ -40,43 +40,25 @@ rm -rf skills && cp -r <plugin>/skills ./skills && npm test
 
 Yêu cầu: After Effects 2022 trở lên, Node 18+, API key từ console.anthropic.com.
 
+**Windows:** bấm đúp `install-windows.bat`. File tự build, bật chế độ extension chưa ký cho mọi bản CEP (CSXS 9–14, kèm log), tạo link vào `%APPDATA%\Adobe\CEP\extensions` (không cần admin) rồi kiểm tra lại.
+
+**macOS** (Terminal, trong thư mục `ae-ai-chat`):
+
 ```bash
-npm install
+npm install && npm run build
 ```
 
 ```bash
-npm run build
-```
-
-Bật chế độ chạy extension chưa ký (một lần). macOS:
-
-```bash
-defaults write com.adobe.CSXS.11 PlayerDebugMode 1 && defaults write com.adobe.CSXS.12 PlayerDebugMode 1
-```
-
-Windows:
-
-```bash
-reg add HKCU\Software\Adobe\CSXS.11 /v PlayerDebugMode /t REG_SZ /d 1 /f && reg add HKCU\Software\Adobe\CSXS.12 /v PlayerDebugMode /t REG_SZ /d 1 /f
-```
-
-Link thư mục vào AE. macOS:
-
-```bash
-ln -s "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/ae-ai-chat
-```
-
-Windows (cmd, chạy trong thư mục `ae-ai-chat`; junction `/J` không cần quyền admin):
-
-```bash
-mkdir "%APPDATA%\Adobe\CEP\extensions"
+for v in 9 10 11 12 13 14; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done
 ```
 
 ```bash
-mklink /J "%APPDATA%\Adobe\CEP\extensions\ae-ai-chat" "%CD%"
+mkdir -p ~/Library/Application\ Support/Adobe/CEP/extensions && ln -sfn "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/ae-ai-chat
 ```
 
-Khởi động lại AE → **Window › Extensions › AI Chat** → ⚙ dán API key.
+Thoát hẳn AE rồi mở lại → **Window › Extensions › AI Chat** → ⚙ dán API key.
+
+Menu **Extensions** bị xám = AE không nạp được extension nào. Trên Windows, gửi các file `CEP*.log` mới nhất trong `%TEMP%` để xem lý do.
 
 ## Dùng
 

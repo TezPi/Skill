@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- CSXS 11 = AE 2022+ (Chromium 88+). Older CEP runtimes lack the web APIs the SDK needs. -->
-<ExtensionManifest Version="11.0" ExtensionBundleId="com.aeaichat" ExtensionBundleVersion="0.1.0" ExtensionBundleName="AI Chat">
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.aeaichat" ExtensionBundleVersion="0.1.0" ExtensionBundleName="AI Chat">
   <ExtensionList>
     <Extension Id="com.aeaichat.panel" Version="0.1.0" />
   </ExtensionList>
